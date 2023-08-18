@@ -7,6 +7,11 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Veh
 public interface PortOperations {
     // Calculate distance to another port
     double calculateDistanceTo(Port anotherPort);
+
+    boolean addVehicle(Vehicle vehicle);
+
+    boolean removeVehicle(Vehicle vehicle);
+
     // Check if port is available for landing for a specific vehicle (e.g., truck)
     boolean hasLandingAbility();
 

@@ -27,8 +27,9 @@ public class Container {
         return containerType;
     }
     public boolean isLoaded() {
-        return false;
+        return this.isLoaded;
     }
+
 
     public void setLoaded(boolean isLoaded) {
         this.isLoaded = isLoaded;
@@ -41,6 +42,16 @@ public class Container {
         this.port = port;
     }
 
+    @Override
+    public String toString() {
+        return "Container{" +
+                "ID='" + ID + '\'' +
+                ", weight=" + weight +
+                ", containerType=" + containerType +
+                ", isLoaded=" + isLoaded +
+                ", port=" + port +
+                '}';
+    }
 
     public void printPortName() {
         if (this.port != null) {

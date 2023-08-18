@@ -64,10 +64,19 @@ public class Port implements PortOperations {
         return traffic;
     }
 
+    public void setContainers(List<Container> containers) {
+        this.containers = containers;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
     //Override the interfaces
     @Override
     public double calculateDistanceTo(Port anotherPort) {
         final int R = 6371; //Earth's radius in km
+
         double latDistance = Math.toRadians(Math.abs(anotherPort.latitude - this.latitude));
         double lonDistance = Math.toRadians(Math.abs(anotherPort.longitude - this.longitude));
 
@@ -87,7 +96,8 @@ public class Port implements PortOperations {
     public boolean addContainer(Container container) {
         //Check if the port can add more container
         if (canAddContainer(container)) {
-            System.out.println("Add container successfully");
+            System.out.println("The " + container.getID() + " container is unloaded on " + container.getPort().name);
+            System.out.println(container.getPort().name + " has added container " + container.getID() +" successfully");
             container.setPort(this);
             containers.add(container); //If true, add container to port containers list
             return true; //add container.
@@ -101,6 +111,28 @@ public class Port implements PortOperations {
         System.out.println("Container remove successfully");
         return containers.remove(container);
 
+    }
+
+    @Override
+    public boolean addVehicle(Vehicle vehicle) {
+        vehicles.add(vehicle);
+        return true;
+    }
+    @Override
+    public boolean removeVehicle(Vehicle vehicle) {
+        vehicles.remove(vehicle);
+        return true;
+    }
+    @Override
+    public String toString() {
+        return "Port{" +
+                "ID='" + ID + '\'' +
+                ", name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", storingCapacity=" + storingCapacity +
+                ", landingAbility=" + landingAbility +
+                '}';
     }
 
     public Port(String ID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility, List<Container> containers, List<Vehicle> vehicles, List<Trip> traffic) {
@@ -145,9 +177,8 @@ public class Port implements PortOperations {
             System.out.println(this.name + " is not have any vehicle");
 
         }
-
         for (Vehicle vehicle : vehicles) {
-                System.out.println("Vehicle ID: " + vehicle.getID() + "Container: " + vehicle.getContainers());
+                System.out.println("Vehicle ID: " + vehicle.getID());
 
         }
     }

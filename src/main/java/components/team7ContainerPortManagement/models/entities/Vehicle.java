@@ -60,13 +60,34 @@ public abstract class Vehicle implements VehicleOperations {
     public abstract boolean canLoadContainer(Container container);
 
 
+//    public boolean loadContainer(Container container) {
+//        if(canLoadContainer(container) && !container.isLoaded() && container.getPort() == this.currentPort || container.getPort() == null) {
+//            containers.add(container);
+//            container.setLoaded(true);
+//            container.setPort(this.currentPort);
+//            System.out.println(container.getID() + ", Type: " + container.getContainerType() + " has been added");
+//            return true;
+//        }
+//        System.out.println("The container Type: " + container.getContainerType() + " is currently onload, please unload first");
+//        return false;
+//    }
     public boolean loadContainer(Container container) {
-        if(canLoadContainer(container) && !container.isLoaded()) {
+        if (this.carryingCapacity < container.getWeight()) {
+            System.out.println("The container weight is higher than vehicle capacity, so it can not load");
+            return false;
+        }
+        if(canLoadContainer(container) && !container.isLoaded() && container.getPort() == this.currentPort || container.getPort() == null) {
             containers.add(container);
+            container.setLoaded(true);
+            container.setPort(this.currentPort);
             System.out.println(container.getID() + ", Type: " + container.getContainerType() + " has been added");
             return true;
+        } else if(container.getPort() != this.currentPort || container.getPort() != null) {
+            System.out.println("This container is on the " + container.getPort().getName() + " so it can not load on this vehicle");
+            return false;
         }
-        System.out.println("The container Type: " + container.getContainerType() + " can not be added");
+
+        System.out.println("The container Type: " + container.getContainerType() + " is currently onload, please unload first");
         return false;
     }
 
@@ -76,25 +97,30 @@ public abstract class Vehicle implements VehicleOperations {
     public boolean unloadContainer(Container container) {
         if (containers.contains(container)) {
             // Unload the container from this vehicle
+            currentPort.addContainer(container);
             containers.remove(container);
             container.setLoaded(false);
+
             return true;
         } else {
             // The container is not loaded onto this vehicle
-            System.out.println("Container is not loaded onto this vehicle.");
+            System.out.println("Container is not be loaded in this vehicle.");
             return false;
         }
 
     }
 
+
     @Override
     public boolean canMoveTo(Port destination) {
         if (currentPort == null || destination == null) {
             // The vehicle is currently sailing, so it cannot move to another port
+            System.out.println("The current port or destination are null, so this vehicle can not move to");
             return false;
         }
         if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
             // One or both of the ports do not have landing ability, so a truck cannot move between them
+            System.out.println("The " + destination.getName() + " is not have landing ability yet for truck! ");
             return false;
         }
         if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
@@ -115,6 +141,7 @@ public abstract class Vehicle implements VehicleOperations {
     @Override
     public void moveTo(Port destination) {
         double fuelRequired = 0;
+
         double distance = currentPort.calculateDistanceTo(destination);
 
         if (canMoveTo(destination)) {
@@ -130,9 +157,15 @@ public abstract class Vehicle implements VehicleOperations {
             this.currentPort = destination;
 //            System.out.println("fuel require "+fuelRequired);
             // Complete the trip
+            for (Container container : containers) {
+                container.setPort(currentPort);
+            }
+            System.out.println("Vehicle move to " + destination.getName() + " successfully");
+
+            destination.addVehicle(this);
             trip.complete();
         } else {
-            System.out.println("Error: " + currentFuel);
+//            System.out.println("Error: " + currentFuel);
         }
     }
 
@@ -152,8 +185,16 @@ public abstract class Vehicle implements VehicleOperations {
         }
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "ID='" + ID + '\'' +
+                ", name='" + name + '\'' +
+                ", currentFuel=" + currentFuel +
+                ", carryingCapacity=" + carryingCapacity +
+                ", fuelCapacity=" + fuelCapacity +
+                '}';
+    }
 
     public abstract double getFuelConsumptionPerKm(Container container);
 }

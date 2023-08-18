@@ -18,7 +18,11 @@ public class Ship extends Vehicle{
 
     @Override
     public boolean canMoveTo(Port destination) {
-        return false;
+        if (!currentPort.hasLandingAbility() && !destination.hasLandingAbility()) {
+            // One or both of the ports do not have landing ability, so a truck cannot move between them
+            return false;
+        }
+        return true;
     }
 
 

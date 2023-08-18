@@ -1,11 +1,14 @@
 package src.main.java.components.team7ContainerPortManagement;
 
+import com.sun.security.jgss.GSSUtil;
 import src.main.java.components.team7ContainerPortManagement.models.entities.*;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.Truck;
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
+
+import java.sql.Ref;
 
 public class Main {
 
@@ -65,24 +68,45 @@ public class Main {
 //        System.out.println(port1.calculateTotalContainerWeight());
 
 
-        Port port1 = new Port("p-1", "Port 1", 52.5200, 13.4050, 1000, true);
-        Port port2 = new Port("p-2", "Port 2", 48.8566, 2.3522, 800, true);
+        Port startPort = new Port("p-1", "Start Port", 52.5200, 13.4050, 1000, true);
+        Port port2 = new Port("p-2", "Port 2", 48.8566, 32.3522, 800, true);
+        Port port4= new Port("p-2", "Port 4", 89.8566, 22.3522, 800, true);
+        Port port5 = new Port("p-2", "Port 5", 148.8566, 72.3522, 800000000, false);
+
 
         // Create vehicles
-        Truck basicTruck1 = new BasicTruck("1", "Basic 1", 50000, 500, 100000, port1);
-        Truck tankerTruck1 = new TankerTruck("2", "Tanker 1", 50000, 500, 100000, port1);
-        Truck reeferTruck1 = new ReeferTrucks("3", "Reefer 1", 50000, 500, 100000, port1);
-        Ship ship1 = new Ship("1","Ship 1",30000,500000,2000000,port1);
+        Truck basicTruck1 = new BasicTruck("1", "Basic 1", 50000, 500, 100000, startPort);
+        Truck tankerTruck1 = new TankerTruck("2", "Tanker 1", 50000, 500, 100000, startPort);
+        Truck reeferTruck1 = new ReeferTrucks("3", "Reefer 1", 50000, 500, 100000, startPort);
+        Truck reeferTruck2 = new ReeferTrucks("4", "Reefer 2", 5000000, 500, 100000000, startPort);
+        Ship ship1 = new Ship("1","Ship 1",1000,500,2000,startPort);
         // create container
-        Container RefContainer = new Container("12",200, ContainerType.REFRIGERATED);
+        Container RefContainer = new Container("12",2000, ContainerType.REFRIGERATED);
         Container openTopContainer = new Container("99", 1800.0,ContainerType.OPEN_TOP);
         Container liquidContainer = new Container("72", 900,ContainerType.LIQUID);
         //Add container to vehicle
-//        basicTruck1.loadContainer(openTopContainer);
-//        tankerTruck1.loadContainer(liquidContainer);
-        reeferTruck1.loadContainer(RefContainer);
+        ship1.loadContainer(RefContainer);
 
-        RefContainer.printPortName();
+
+
+// Container phai cung port moi duoc add len container cung port done
+
+
+//        ship1.moveTo(port4);
+//        reeferTruck1.moveTo(port4);
+//        basicTruck1.moveTo(port4);
+//        port4.showAllVehicleInPort();
+//        ship1.unloadContainer(liquidContainer);
+//        port4.showAllContainer();
+
+
+//        System.out.println(RefContainer.getPort());
+//        port2.showAllVehicleInPort();
+//        port1.showAllVehicleInPort();
+
+//        System.out.println(RefContainer.getPort());
+//        reeferTruck1.moveTo(port2);
+//        System.out.println(RefContainer.getPort());
 //        ship1.loadContainer(openTopContainer);
 //        System.out.println(port1.getContainers());
 //        // Print initial states
