@@ -14,7 +14,7 @@ public class Port implements PortOperations {
     private boolean landingAbility;
     private List<Container> containers = new ArrayList<>();
     private List<Vehicle> vehicles = new ArrayList<>();
-    private List<Trip> traffic = new ArrayList<>();
+    private List<Trip> trips = new ArrayList<>();
 
 
     public Port(String ID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility) {
@@ -61,7 +61,7 @@ public class Port implements PortOperations {
     }
 
     public List<Trip> getTraffic() {
-        return traffic;
+        return trips;
     }
 
     public void setContainers(List<Container> containers) {
@@ -144,7 +144,7 @@ public class Port implements PortOperations {
         this.landingAbility = landingAbility;
         this.containers = containers;
         this.vehicles = vehicles;
-        this.traffic = traffic;
+        this.trips = traffic;
     }
 
     @Override
@@ -182,6 +182,12 @@ public class Port implements PortOperations {
 
         }
     }
+    public void addTrip(Trip trip) {
+        this.trips.add(trip);
+    }
 
+    public List<Trip> getTrips() {
+        return this.trips;
+    }
 
 }

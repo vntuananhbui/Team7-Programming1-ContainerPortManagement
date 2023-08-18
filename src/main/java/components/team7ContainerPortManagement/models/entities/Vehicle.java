@@ -12,17 +12,20 @@ public abstract class Vehicle implements VehicleOperations {
     protected double carryingCapacity;
     protected double fuelCapacity;
     protected Port currentPort;
+    protected  double fuelConsumtion;
     protected List<Container> containers;
 
 
 
-    public Vehicle(String ID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, Port currentPort) {
+
+    public Vehicle(String ID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
         this.ID = ID;
         this.name = name;
         this.currentFuel = currentFuel;
         this.carryingCapacity = carryingCapacity;
         this.fuelCapacity = fuelCapacity;
         this.currentPort = currentPort;
+        this.fuelConsumtion = fuelConsumtion;
         this.containers = new ArrayList<>();
 
     }
@@ -71,15 +74,24 @@ public abstract class Vehicle implements VehicleOperations {
 //        System.out.println("The container Type: " + container.getContainerType() + " is currently onload, please unload first");
 //        return false;
 //    }
+
     public boolean loadContainer(Container container) {
-        if (this.carryingCapacity < container.getWeight()) {
-            System.out.println("The container weight is higher than vehicle capacity, so it can not load");
+        //Calculate total weight
+        double totalWeight = container.getWeight();
+        for (Container container1 : containers) {
+            totalWeight +=  container1.getWeight();
+        }
+        System.out.println("Total weight: "+ totalWeight);
+        //Condition
+
+        if (this.carryingCapacity < totalWeight) {
+            System.out.println("The total container weight is higher than vehicle capacity, so it can not load");
             return false;
         }
         if(canLoadContainer(container) && !container.isLoaded() && container.getPort() == this.currentPort || container.getPort() == null) {
-            containers.add(container);
-            container.setLoaded(true);
-            container.setPort(this.currentPort);
+            containers.add(container); //add container to vehicle container list
+            container.setLoaded(true); //set container is loaded so it can not be load to another vehicle
+            container.setPort(this.currentPort); //set port of container
             System.out.println(container.getID() + ", Type: " + container.getContainerType() + " has been added");
             return true;
         } else if(container.getPort() != this.currentPort || container.getPort() != null) {
@@ -99,7 +111,7 @@ public abstract class Vehicle implements VehicleOperations {
             // Unload the container from this vehicle
             currentPort.addContainer(container);
             containers.remove(container);
-            container.setLoaded(false);
+            container.setLoaded(false); //container setload is false so it can load to another vehicle
 
             return true;
         } else {
@@ -132,9 +144,9 @@ public abstract class Vehicle implements VehicleOperations {
 
             fuelRequired += getFuelConsumptionPerKm(container) * distance;
         }
-        System.out.println(distance);
-        System.out.println("Fuel required "+fuelRequired);
-        System.out.println("current fuel: " + currentFuel);
+//        System.out.println("Distance: " +distance);
+//        System.out.println("Fuel required "+fuelRequired);
+//        System.out.println("current fuel: " + currentFuel);
         return fuelRequired <= currentFuel;
     }
 
@@ -144,15 +156,26 @@ public abstract class Vehicle implements VehicleOperations {
 
         double distance = currentPort.calculateDistanceTo(destination);
 
-        if (canMoveTo(destination)) {
+        for (Container container : this.containers) {
+            fuelRequired += getFuelConsumptionPerKm(container) * distance;
+
+        }
+        System.out.println("Distance: " + distance);
+        //Check if container is empty so use the consumption of vehicle if container is loaded it use container consumption
+        if (this.containers.isEmpty()) {
+            fuelRequired = this.fuelConsumtion * distance;
+        } else {
+            for (Container container : this.containers) {
+                fuelRequired += getFuelConsumptionPerKm(container) * distance;
+            }
+        }
+        System.out.println("Fuel Required: " +fuelRequired);
+        if (canMoveTo(destination) && fuelRequired <= this.currentFuel) {
             // Start a new trip
             Trip trip = new Trip(this, this.currentPort, destination);
             trip.start();
-            for (Container container : this.containers) {
-
-                fuelRequired += getFuelConsumptionPerKm(container) * distance;
-
-            }
+            this.currentPort.addTrip(trip);
+            this.currentFuel -= fuelRequired;
             // Move the vehicle to the destination port
             this.currentPort = destination;
 //            System.out.println("fuel require "+fuelRequired);
@@ -163,15 +186,16 @@ public abstract class Vehicle implements VehicleOperations {
             System.out.println("Vehicle move to " + destination.getName() + " successfully");
 
             destination.addVehicle(this);
+            destination.addTrip(trip);
             trip.complete();
         } else {
-//            System.out.println("Error: " + currentFuel);
+            System.out.println("Current fuel : " + currentFuel + " is not enough to move to destination , require are: " + fuelRequired);
         }
     }
 
     @Override
     public void refuel(double amount) {
-        this.currentFuel += amount;
+        this.currentFuel += Math.min(amount, this.fuelCapacity - this.currentFuel);
     }
     public void showLoadedContainers() {
         if(containers.isEmpty()) {

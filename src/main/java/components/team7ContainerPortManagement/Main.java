@@ -75,21 +75,37 @@ public class Main {
 
 
         // Create vehicles
-        Truck basicTruck1 = new BasicTruck("1", "Basic 1", 50000, 500, 100000, startPort);
-        Truck tankerTruck1 = new TankerTruck("2", "Tanker 1", 50000, 500, 100000, startPort);
-        Truck reeferTruck1 = new ReeferTrucks("3", "Reefer 1", 50000, 500, 100000, startPort);
-        Truck reeferTruck2 = new ReeferTrucks("4", "Reefer 2", 5000000, 500, 100000000, startPort);
-        Ship ship1 = new Ship("1","Ship 1",1000,500,2000,startPort);
+        Truck basicTruck1 = new BasicTruck("1", "Basic 1", 50000, 500, 100000,3.5, startPort);
+        Truck tankerTruck1 = new TankerTruck("2", "Tanker 1", 50000, 500, 100000,3.5, startPort);
+        Truck reeferTruck1 = new ReeferTrucks("3", "Reefer 1", 50000, 500, 100000,3.5, startPort);
+        Truck reeferTruck2 = new ReeferTrucks("4", "Reefer 2", 5000000, 500, 100000000,3.5, startPort);
+        Ship ship1 = new Ship("1","Ship 1",500000,2000,2000000,3.5,startPort);
+
         // create container
-        Container RefContainer = new Container("12",2000, ContainerType.REFRIGERATED);
+        Container RefContainer = new Container("12",200, ContainerType.REFRIGERATED);
         Container openTopContainer = new Container("99", 1800.0,ContainerType.OPEN_TOP);
         Container liquidContainer = new Container("72", 900,ContainerType.LIQUID);
         //Add container to vehicle
+//        ship1.loadContainer(RefContainer);
+        System.out.println("Current Fuel: " + ship1.getCurrentFuel());
         ship1.loadContainer(RefContainer);
+        ship1.loadContainer(openTopContainer);
+        ship1.moveTo(port5);
+//        System.out.println(ship1.getContainers());
+//
+        System.out.println("Current Fuel: " + ship1.getCurrentFuel());
+        ship1.refuel(2000000);
+        System.out.println("Current Fuel: " + ship1.getCurrentFuel());
 
+        System.out.println(port5.getTrips());
 
-
+// Container weight > vehicle weight to load done
 // Container phai cung port moi duoc add len container cung port done
+        //Vehicle moveTo port (truck (both of port are true is required), ship (only 1 port is true is required)) done
+        //moveTo require curent fuel > requireFuel
+
+        //set container fuel consumtion, neu vehicle k co container se su dung, neu co container se su dung cua container!!!!!
+
 
 
 //        ship1.moveTo(port4);

@@ -8,8 +8,8 @@ import src.main.java.components.team7ContainerPortManagement.models.enums.Contai
 
 public class BasicTruck extends Truck {
 
-    public BasicTruck(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, Port currentPort) {
-        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity, currentPort);
+    public BasicTruck(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
+        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
     }
 
 
