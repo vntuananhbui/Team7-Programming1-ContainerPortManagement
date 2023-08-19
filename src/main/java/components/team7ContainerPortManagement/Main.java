@@ -68,10 +68,10 @@ public class Main {
 //        System.out.println(port1.calculateTotalContainerWeight());
 
 
-        Port startPort = new Port("p-1", "Start Port", 52.5200, 13.4050, 1000, true);
-        Port port2 = new Port("p-2", "Port 2", 48.8566, 32.3522, 800, true);
-        Port port4= new Port("p-2", "Port 4", 89.8566, 22.3522, 800, true);
-        Port port5 = new Port("p-2", "Port 5", 148.8566, 72.3522, 800000000, false);
+        Port startPort = new Port("p-start", "Start Port", 52.5200, 13.4050, 1000, true);
+        Port port2 = new Port("2", "Port 2", 48.8566, 32.3522, 800000, true);
+        Port port4= new Port("4", "Port 4", 89.8566, 22.3522, 800, true);
+        Port port5 = new Port("5", "Port 5", 148.8566, 72.3522, 800000000, false);
 
 
         // Create vehicles
@@ -87,17 +87,15 @@ public class Main {
         Container liquidContainer = new Container("72", 900,ContainerType.LIQUID);
         //Add container to vehicle
 //        ship1.loadContainer(RefContainer);
-        System.out.println("Current Fuel: " + ship1.getCurrentFuel());
         ship1.loadContainer(RefContainer);
-        ship1.loadContainer(openTopContainer);
-        ship1.moveTo(port5);
-//        System.out.println(ship1.getContainers());
-//
-        System.out.println("Current Fuel: " + ship1.getCurrentFuel());
-        ship1.refuel(2000000);
-        System.out.println("Current Fuel: " + ship1.getCurrentFuel());
+        ship1.moveTo(port4);
+        ship1.unloadContainer(RefContainer);
+        System.out.println(port4.getTrips());
+        ship1.moveTo(port2);
+        System.out.println(port2.getTrips());
 
-        System.out.println(port5.getTrips());
+
+
 
 // Container weight > vehicle weight to load done
 // Container phai cung port moi duoc add len container cung port done

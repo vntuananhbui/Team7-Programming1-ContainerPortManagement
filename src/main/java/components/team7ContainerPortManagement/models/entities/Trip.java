@@ -2,6 +2,7 @@ package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.enums.TripStatus;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,24 @@ public class Trip {
 
     public void complete() {
         this.arrivalDate = LocalDateTime.now();
+//        this.status = TripStatus.COMPLETED;
+        if (status != TripStatus.IN_PROGRESS) {
+            System.out.println("This trip is not start yet!");
+        }
+        Duration tripDuration;
+        switch(departurePort.getID()) {
+            case "p-1": tripDuration = Duration.ofDays(2); break;
+            case "p-2": tripDuration = Duration.ofDays(4); break;
+            case "p-3": tripDuration = Duration.ofDays(6); break;
+            case "p-4": tripDuration = Duration.ofDays(8); break;
+            case "p-5": tripDuration = Duration.ofDays(10); break;
+            default: tripDuration = Duration.ofDays(1); break;
+        }
+
+        this.arrivalDate = arrivalDate.plus(tripDuration);
         this.status = TripStatus.COMPLETED;
+
+
     }
 
     public static void displayTrips() {
@@ -80,13 +98,13 @@ public class Trip {
     @Override
     public String toString() {
 
-        return "Trip{" +
-                "vehicle=" + vehicle + "\n" +
+        return "\n" +"Trip{" +
+                "vehicle=" + vehicle.getName() + "\n" +
                 ", departureDate=" + departureDate +"\n" +
                 ", arrivalDate=" + arrivalDate +"\n" +
-                ", departurePort=" + departurePort +"\n" +
-                ", arrivalPort=" + arrivalPort +"\n" +
-                ", status=" + status +
+                ", departurePort=" + departurePort.getName() +"\n" +
+                ", arrivalPort=" + arrivalPort.getName() +"\n" +
+                ", status=" + status.name() +
                 '}';
     }
 }

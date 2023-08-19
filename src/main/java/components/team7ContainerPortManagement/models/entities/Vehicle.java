@@ -112,7 +112,6 @@ public abstract class Vehicle implements VehicleOperations {
             currentPort.addContainer(container);
             containers.remove(container);
             container.setLoaded(false); //container setload is false so it can load to another vehicle
-
             return true;
         } else {
             // The container is not loaded onto this vehicle
@@ -187,7 +186,9 @@ public abstract class Vehicle implements VehicleOperations {
 
             destination.addVehicle(this);
             destination.addTrip(trip);
+
             trip.complete();
+
         } else {
             System.out.println("Current fuel : " + currentFuel + " is not enough to move to destination , require are: " + fuelRequired);
         }
