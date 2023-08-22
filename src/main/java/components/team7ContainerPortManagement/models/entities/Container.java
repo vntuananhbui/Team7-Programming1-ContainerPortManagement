@@ -2,6 +2,13 @@ package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Container {
     private final String ID;
     private final double weight;
@@ -9,12 +16,12 @@ public class Container {
     private boolean isLoaded;
     private Port port;  // Add this line
     // Constructors, getters, setters and other methods here...
-    public Container(String ID, double weight, ContainerType containerType) {
-        this.ID = "c-" + ID;
+    public Container(String ID, double weight, ContainerType containerType, Port port) {
+        this.ID = ID;
         this.weight = weight;
         this.containerType = containerType;
         this.isLoaded = false; // Initialize isLoaded to false
-
+        this.port = port;
     }
     public String getID() {
         return ID;
@@ -23,6 +30,31 @@ public class Container {
     public double getWeight() {
         return weight;
     }
+    public double getWeightFromFile(String containerID) throws IOException {
+        String filePath = "src/main/java/components/team7ContainerPortManagement/models/utils/container.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("ID='" + containerID + "'")) {
+                    String weightPattern = "weight=([\\d.]+)";
+                    Pattern pattern = Pattern.compile(weightPattern);
+                    Matcher matcher = pattern.matcher(line);
+
+                    if (matcher.find()) {
+                        String weightStr = matcher.group(1);
+                        return Double.parseDouble(weightStr);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Container file not found.");
+            e.printStackTrace();
+        }
+
+        return 0.0; // Default value if weight is not found
+    }
+
     public ContainerType getContainerType() {
         return containerType;
     }

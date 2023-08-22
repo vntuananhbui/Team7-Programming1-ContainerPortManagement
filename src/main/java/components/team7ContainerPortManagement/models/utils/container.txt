@@ -1,0 +1,4 @@
+Container{ID='1212', weight=1212.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-TTu7', name='12w'', latitude=1212.000000, longitude=212.000000, storingCapacity=1212, landingAbility=true}}
+Container{ID='qwe12', weight=1212.0, containerType=OPEN_TOP, isLoaded=true, port=Port{ID='p-TTu7', name='12w'', latitude=1212.000000, longitude=212.000000, storingCapacity=1212, landingAbility=true}}
+Container{ID='123d', weight=1221.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-TTu7', name='12w'', latitude=1212.000000, longitude=212.000000, storingCapacity=1212, landingAbility=true}}
+Container{ID='TK89', weight=1212.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='{ID='p-WT8'', name='watek'', latitude=12214.000000, longitude=2124.000000, storingCapacity=1234232, landingAbility=true}}

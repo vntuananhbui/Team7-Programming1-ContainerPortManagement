@@ -1,9 +1,19 @@
 package src.main.java.components.team7ContainerPortManagement.models.entities;
 
+import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
 import src.main.java.components.team7ContainerPortManagement.models.interfaces.VehicleOperations;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.getPortByID;
+import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.updateContainerLoadFile;
 
 public abstract class Vehicle implements VehicleOperations {
     protected String ID;
@@ -17,6 +27,66 @@ public abstract class Vehicle implements VehicleOperations {
 
 
 
+    public static List<Vehicle> loadShipDataFromFile(String filePath) throws IOException {
+        List<Vehicle> ship = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("Vehicle{")) {
+                    String vehicleID = extractValue(line, "ID=sh-'");
+                    String vehicleName = extractValue(line, "name='");
+                    double currentFuel = Double.parseDouble(extractValue(line, "currentFuel="));
+                    double carryingCapacity = Double.parseDouble(extractValue(line, "carryingCapacity="));
+                    double fuelCapacity = Double.parseDouble(extractValue(line, "fuelCapacity="));
+                    double fuelConsumtion = Double.parseDouble(extractValue(line, "fuelConsumtion="));
+                    String portID = extractValue(line, "currentPort={ID=");
+
+                    Port currentPort = getPortByID(portID); // Implement this method to get the port by ID
+
+                    ship.add(new Ship(vehicleID, vehicleName, currentFuel, carryingCapacity, fuelCapacity, fuelConsumtion, currentPort));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Vehicle file not found.");
+            e.printStackTrace();
+        }
+
+        return ship;
+    }
+    public List<BasicTruck> loadBasicTruckDataFromFile(String filePath) throws IOException {
+        List<BasicTruck> basicTruck = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("Vehicle{")) {
+                    String vehicleID = extractValue(line, "ID=btr'");
+                    String vehicleName = extractValue(line, "name='");
+                    double currentFuel = Double.parseDouble(extractValue(line, "currentFuel="));
+                    double carryingCapacity = Double.parseDouble(extractValue(line, "carryingCapacity="));
+                    double fuelCapacity = Double.parseDouble(extractValue(line, "fuelCapacity="));
+                    double fuelConsumtion = Double.parseDouble(extractValue(line, "fuelConsumtion="));
+                    String portID = extractValue(line, "currentPort=");
+
+                    Port currentPort = getPortByID(portID); // Implement this method to get the port by ID
+
+                    basicTruck.add(new BasicTruck(vehicleID, vehicleName, currentFuel, carryingCapacity, fuelCapacity, fuelConsumtion, currentPort));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Vehicle file not found.");
+            e.printStackTrace();
+        }
+
+        return basicTruck;
+    }
+
+    public static String extractValue(String line, String attribute) {
+        int startIndex = line.indexOf(attribute) + attribute.length();
+        int endIndex = line.indexOf("'", startIndex);
+        return line.substring(startIndex, endIndex);
+    }
 
     public Vehicle(String ID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
         this.ID = ID;
@@ -26,7 +96,6 @@ public abstract class Vehicle implements VehicleOperations {
         this.fuelCapacity = fuelCapacity;
         this.currentPort = currentPort;
         this.fuelConsumtion = fuelConsumtion;
-        this.containers = new ArrayList<>();
 
     }
 
@@ -75,33 +144,93 @@ public abstract class Vehicle implements VehicleOperations {
 //        return false;
 //    }
 
-    public boolean loadContainer(Container container) {
-        //Calculate total weight
-        double totalWeight = container.getWeight();
-        for (Container container1 : containers) {
-            totalWeight +=  container1.getWeight();
-        }
-        System.out.println("Total weight: "+ totalWeight);
-        //Condition
+//    public boolean loadContainer(Container container) {
+//        //Calculate total weight
+//        double totalWeight = container.getWeight();
+//        for (Container container1 : containers) {
+//            totalWeight +=  container1.getWeight();
+//        }
+//        System.out.println("Total weight: "+ totalWeight);
+//        //Condition
+//
+//        if (this.carryingCapacity < totalWeight) {
+//            System.out.println("The total container weight is higher than vehicle capacity, so it can not load");
+//            return false;
+//        }
+//        if(canLoadContainer(container) && !container.isLoaded() && container.getPort() == this.currentPort || container.getPort() == null) {
+//            containers.add(container); //add container to vehicle container list
+//            container.setLoaded(true); //set container is loaded so it can not be load to another vehicle
+//            container.setPort(this.currentPort); //set port of container
+//            System.out.println(container.getID() + ", Type: " + container.getContainerType() + " has been added");
+//            return true;
+//        } else if(container.getPort() != this.currentPort || container.getPort() != null) {
+//            System.out.println("This container is on the " + container.getPort().getName() + " so it can not load on this vehicle");
+//            return false;
+//        }
+//
+//        System.out.println("The container Type: " + container.getContainerType() + " is currently onload, please unload first");
+//        return false;
+//    }
+public boolean loadContainer(Container container) {
+    // Calculate total weight
+    double totalWeight = container.getWeight();
+    for (Container container1 : containers) {
+        totalWeight += container1.getWeight();
+    }
+    System.out.println("Total weight: " + totalWeight);
 
-        if (this.carryingCapacity < totalWeight) {
-            System.out.println("The total container weight is higher than vehicle capacity, so it can not load");
-            return false;
-        }
-        if(canLoadContainer(container) && !container.isLoaded() && container.getPort() == this.currentPort || container.getPort() == null) {
-            containers.add(container); //add container to vehicle container list
-            container.setLoaded(true); //set container is loaded so it can not be load to another vehicle
-            container.setPort(this.currentPort); //set port of container
-            System.out.println(container.getID() + ", Type: " + container.getContainerType() + " has been added");
-            return true;
-        } else if(container.getPort() != this.currentPort || container.getPort() != null) {
-            System.out.println("This container is on the " + container.getPort().getName() + " so it can not load on this vehicle");
-            return false;
-        }
-
-        System.out.println("The container Type: " + container.getContainerType() + " is currently onload, please unload first");
+    // Condition
+    if (this.carryingCapacity < totalWeight) {
+        System.out.println("The total container weight is higher than vehicle capacity, so it cannot be loaded");
         return false;
     }
+
+    if (canLoadContainer(container) && !container.isLoaded() && (container.getPort() == this.currentPort || container.getPort() == null)) {
+        containers.add(container); // Add container to vehicle container list
+        container.setLoaded(true); // Set container is loaded so it cannot be loaded to another vehicle
+        container.setPort(this.currentPort); // Set port of container
+        System.out.println(container.getID() + ", Type: " + container.getContainerType() + " has been added");
+
+        // Update the vehicle.txt file
+        try {
+            updateVehicleFile(this);
+        } catch (IOException e) {
+            System.out.println("Error updating vehicle file: " + e.getMessage());
+        }
+
+        // Update the vehicle_containerload.txt file
+        try {
+            updateContainerLoadFile(this);
+        } catch (IOException e) {
+            System.out.println("Error updating vehicle_containerload file: " + e.getMessage());
+        }
+
+        return true;
+    } else if (container.getPort() != null && !container.getPort().equals(this.currentPort)) {
+        System.out.println("This container is on port " + container.getPort().getName() + " so it cannot be loaded on this vehicle");
+        return false;
+    }
+
+    System.out.println("The container Type: " + container.getContainerType() + " is currently loaded, please unload first");
+    return false;
+}
+
+
+    public void updateVehicleFile(Vehicle vehicle) throws IOException {
+        String filePath = "src/main/java/components/team7ContainerPortManagement/models/utils/vehicle.txt";
+        List<String> lines = new ArrayList<>(Files.readAllLines(Paths.get(filePath)));
+
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            if (line.contains("ID='" + vehicle.getID() + "'")) {
+                lines.set(i, vehicle.toString()); // Update the line with the new vehicle data
+                break;
+            }
+        }
+
+        Files.write(Paths.get(filePath), lines);
+    }
+
 
 
 
@@ -210,15 +339,31 @@ public abstract class Vehicle implements VehicleOperations {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Vehicle{" +
-                "ID='" + ID + '\'' +
-                ", name='" + name + '\'' +
-                ", currentFuel=" + currentFuel +
-                ", carryingCapacity=" + carryingCapacity +
-                ", fuelCapacity=" + fuelCapacity +
-                '}';
+//    @Override
+//    public String toString() {
+//        return "Vehicle{" +
+//                "ID='" + ID + '\'' +
+//                ", name='" + name + '\'' +
+//                ", currentFuel=" + currentFuel +
+//                ", carryingCapacity=" + carryingCapacity +
+//                ", fuelCapacity=" + fuelCapacity +
+//                '}';
+//    }
+@Override
+public String toString() {
+    return "Vehicle{ID='" + ID + "', name='" + name + "', currentFuel=" + currentFuel
+            + ", carryingCapacity=" + carryingCapacity + ", fuelCapacity=" + fuelCapacity
+            + ", currentPort=" + (currentPort != null ? currentPort.getID() : "null") + "}";
+}
+    public void setCurrentPort(Port newPort) {
+        if (currentPort != null) {
+            currentPort.removeVehicle(this); // Remove the vehicle from the current port's list
+        }
+        currentPort = newPort;
+        if (currentPort != null) {
+            currentPort.addVehicle(this); // Add the vehicle to the new port's list
+            this.currentPort = currentPort;
+        }
     }
 
     public abstract double getFuelConsumptionPerKm(Container container);

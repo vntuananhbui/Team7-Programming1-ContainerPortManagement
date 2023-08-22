@@ -8,9 +8,18 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Veh
 public abstract class Truck extends Vehicle {
 
     public Truck(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
-        super("tr-" + numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
+        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
     }
-
+    public void setCurrentPort(Port newPort) {
+        if (currentPort != null) {
+            currentPort.removeVehicle(this); // Remove the vehicle from the current port's list
+        }
+        currentPort = newPort;
+        if (currentPort != null) {
+            currentPort.addVehicle(this); // Add the vehicle to the new port's list
+            this.currentPort = currentPort;
+        }
+    }
 
     public double getFuelConsumptionPerKm(Container container) {
         switch (container.getContainerType()) {

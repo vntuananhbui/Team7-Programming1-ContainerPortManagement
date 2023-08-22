@@ -1,10 +1,17 @@
 package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 
+import java.io.IOException;
+import java.util.List;
+
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getVehiclesByPortID;
+
 public class Ship extends Vehicle{
     public Ship(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
-        super("sh-" + numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
+        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
+        setCurrentPort(currentPort);
     }
+
 
     @Override
     public boolean canLoadContainer(Container container) {
@@ -45,4 +52,12 @@ public class Ship extends Vehicle{
                 throw new IllegalArgumentException("Invalid container type");
         }
     }
+
+
+
+
+    public void addContainer(Container container) {
+        containers.add(container);
+    }
+
 }
