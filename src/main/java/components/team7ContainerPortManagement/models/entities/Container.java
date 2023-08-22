@@ -5,6 +5,11 @@ import src.main.java.components.team7ContainerPortManagement.models.enums.Contai
 public class Container {
     private final String ID;
     private final double weight;
+
+    public void setContainerType(ContainerType containerType) {
+        this.containerType = containerType;
+    }
+
     private ContainerType containerType;  // Use the enum instead of String
     private boolean isLoaded;
     private Port port;  // Add this line

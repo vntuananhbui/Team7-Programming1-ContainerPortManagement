@@ -9,6 +9,35 @@ public class Port implements PortOperations {
     private String ID;
     private String name;
     private double latitude;
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setStoringCapacity(int storingCapacity) {
+        this.storingCapacity = storingCapacity;
+    }
+
+    public void setLandingAbility(boolean landingAbility) {
+        this.landingAbility = landingAbility;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
+
     private double longitude;
     private int storingCapacity;
     private boolean landingAbility;

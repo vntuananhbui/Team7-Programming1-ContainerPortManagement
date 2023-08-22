@@ -1,14 +1,16 @@
 package src.main.java.components.team7ContainerPortManagement;
 
-import com.sun.security.jgss.GSSUtil;
+import src.main.java.components.team7ContainerPortManagement.controllers.AdminController;
+import src.main.java.components.team7ContainerPortManagement.controllers.PortManagerController;
+import src.main.java.components.team7ContainerPortManagement.controllers.User;
 import src.main.java.components.team7ContainerPortManagement.models.entities.*;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.Truck;
-import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
+import src.main.java.components.team7ContainerPortManagement.views.AdminView;
+import src.main.java.components.team7ContainerPortManagement.views.PortManagerView;
 
-import java.sql.Ref;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -67,32 +69,108 @@ public class Main {
 //        port1.removeContainer(RefContainer);
 //        System.out.println(port1.calculateTotalContainerWeight());
 
-
-        Port startPort = new Port("p-start", "Start Port", 52.5200, 13.4050, 1000, true);
-        Port port2 = new Port("2", "Port 2", 48.8566, 32.3522, 800000, true);
-        Port port4= new Port("4", "Port 4", 89.8566, 22.3522, 800, true);
-        Port port5 = new Port("5", "Port 5", 148.8566, 72.3522, 800000000, false);
-
-
-        // Create vehicles
-        Truck basicTruck1 = new BasicTruck("1", "Basic 1", 50000, 500, 100000,3.5, startPort);
-        Truck tankerTruck1 = new TankerTruck("2", "Tanker 1", 50000, 500, 100000,3.5, startPort);
-        Truck reeferTruck1 = new ReeferTrucks("3", "Reefer 1", 50000, 500, 100000,3.5, startPort);
-        Truck reeferTruck2 = new ReeferTrucks("4", "Reefer 2", 5000000, 500, 100000000,3.5, startPort);
-        Ship ship1 = new Ship("1","Ship 1",500000,2000,2000000,3.5,startPort);
-
-        // create container
-        Container RefContainer = new Container("12",200, ContainerType.REFRIGERATED);
-        Container openTopContainer = new Container("99", 1800.0,ContainerType.OPEN_TOP);
-        Container liquidContainer = new Container("72", 900,ContainerType.LIQUID);
-        //Add container to vehicle
+//
+//        Port startPort = new Port("p-start", "Start Port", 52.5200, 13.4050, 1000, true);
+//        Port port2 = new Port("2", "Port 2", 48.8566, 32.3522, 800000, true);
+//        Port port4= new Port("4", "Port 4", 89.8566, 22.3522, 800, true);
+//        Port port5 = new Port("5", "Port 5", 148.8566, 72.3522, 800000000, false);
+//
+//
+//        // Create vehicles
+//        Truck basicTruck1 = new BasicTruck("1", "Basic 1", 50000, 500, 100000,3.5, startPort);
+//        Truck tankerTruck1 = new TankerTruck("2", "Tanker 1", 50000, 500, 100000,3.5, startPort);
+//        Truck reeferTruck1 = new ReeferTrucks("3", "Reefer 1", 50000, 500, 100000,3.5, startPort);
+//        Truck reeferTruck2 = new ReeferTrucks("4", "Reefer 2", 5000000, 500, 100000000,3.5, startPort);
+//        Ship ship1 = new Ship("1","Ship 1",500000,2000,2000000,3.5,startPort);
+//
+//        // create container
+//        Container RefContainer = new Container("12",200, ContainerType.REFRIGERATED);
+//        Container openTopContainer = new Container("99", 1800.0,ContainerType.OPEN_TOP);
+//        Container liquidContainer = new Container("72", 900,ContainerType.LIQUID);
+//        //Add container to vehicle
+////        ship1.loadContainer(RefContainer);
 //        ship1.loadContainer(RefContainer);
-        ship1.loadContainer(RefContainer);
-        ship1.moveTo(port4);
-        ship1.unloadContainer(RefContainer);
-        System.out.println(port4.getTrips());
-        ship1.moveTo(port2);
-        System.out.println(port2.getTrips());
+//        ship1.moveTo(port4);
+//        ship1.unloadContainer(RefContainer);
+//        System.out.println(port4.getTrips());
+//        ship1.moveTo(port2);
+//        System.out.println(port2.getTrips());
+
+
+        AdminController admin = new AdminController();
+        PortManagerController portManager1 = new PortManagerController();
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = User.readUserCredentialFromFile("src/main/java/resources/data/user.txt");
+        } catch (IOException e) {
+            System.out.println("Error reading credentials file: " + e.getMessage());
+        }
+
+        Scanner scanner = new Scanner(System.in);
+
+        while(true) {
+            System.out.println("Welcome to the Authentication System!");
+            System.out.println("Select an option:");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Stop system");
+
+            int option = scanner.nextInt();
+
+            scanner.nextLine(); // Consume newline
+
+            if (option == 1) {
+                System.out.print("Enter a new username: ");
+                String newUsername = scanner.nextLine();
+
+                String newPassword = ""; // Declare outside the loop
+
+
+                while (true) {
+                    System.out.print("Enter a new password \n" +
+                            "Password must contain at least one digit [0-9].\n" +
+                            "Password must contain at least one lowercase character [a-z].\n" +
+                            "Password must contain at least one uppercase character [A-Z].\n" +
+                            "Password must contain at least one special character [!@#$%^&*].\n" +
+                            "Password must contain a length of at least 8 characters and a maximum of 20 characters): ");
+
+                    newPassword = scanner.nextLine();
+
+                    if (User.isValidPassword(newPassword)) {
+                        System.out.println("Password is valid!");
+                        break;  // break the loop if password is valid
+                    } else {
+                        System.out.println("INVALID PASSWORD! PlEASE fOLLOW THE REQUIREMENTS.");
+                        System.out.println();
+                    }
+                }
+
+                System.out.println("\nEnter type of user (admin or port manager): ");
+                String userType = scanner.nextLine();
+                User.registerUser(userList, newUsername, newPassword,userType);
+
+            } else if (option == 2) {
+                System.out.print("Enter your username: ");
+                String username = scanner.nextLine();
+                System.out.print("Enter your password: ");
+                String password = scanner.nextLine();
+
+
+                if (admin.checkAdminCredentials(username,password)) {
+                    System.out.println("Login successful admin!");
+                    AdminView.main(new String[]{});
+                } else if (portManager1.checkPortManagerCredentials(username,password)) {
+                    System.out.println("Login successful port manager");
+                    PortManagerView.main(new String[]{});
+                } else {
+                    System.out.println("Login failed");
+                }
+
+            } else {
+                System.out.println("Stop system");
+                break;
+            }
+        }
 
 
 

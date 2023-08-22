@@ -9,6 +9,39 @@ public abstract class Vehicle implements VehicleOperations {
     protected String ID;
     protected String name;
     protected double currentFuel;
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCurrentFuel(double currentFuel) {
+        this.currentFuel = currentFuel;
+    }
+
+    public void setCarryingCapacity(double carryingCapacity) {
+        this.carryingCapacity = carryingCapacity;
+    }
+
+    public void setFuelCapacity(double fuelCapacity) {
+        this.fuelCapacity = fuelCapacity;
+    }
+
+    public void setCurrentPort(Port currentPort) {
+        this.currentPort = currentPort;
+    }
+
+    public void setFuelConsumtion(double fuelConsumtion) {
+        this.fuelConsumtion = fuelConsumtion;
+    }
+
+    public void setContainers(List<Container> containers) {
+        this.containers = containers;
+    }
+
     protected double carryingCapacity;
     protected double fuelCapacity;
     protected Port currentPort;
