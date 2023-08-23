@@ -6,8 +6,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.readContainersFromFile;
+import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.writeContainersToFile;
 
 public class Container {
     private final String ID;
@@ -16,13 +20,22 @@ public class Container {
     private boolean isLoaded;
     private Port port;  // Add this line
     // Constructors, getters, setters and other methods here...
-    public Container(String ID, double weight, ContainerType containerType, Port port) {
+    public Container(String ID, double weight, ContainerType containerType,Port port) {
         this.ID = ID;
         this.weight = weight;
         this.containerType = containerType;
         this.isLoaded = false; // Initialize isLoaded to false
         this.port = port;
     }
+
+    public Container(String ID, double weight, ContainerType containerType, boolean isLoaded, Port port) {
+        this.ID = ID;
+        this.weight = weight;
+        this.containerType = containerType;
+        this.isLoaded = isLoaded;
+        this.port = port;
+    }
+
     public String getID() {
         return ID;
     }
@@ -114,6 +127,26 @@ public class Container {
 //        }
 //        return rate * weight;
 //    }
+public void updateStatusContainer(boolean isLoaded) throws IOException {
+    setLoaded(isLoaded);
+
+    // Assuming you have a method to update the container data in the file
+    updateContainerInFile();
+}
+
+    private void updateContainerInFile() throws IOException {
+        // Assuming you have methods to read, update, and write the container data to the file
+        List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
+
+        for (int i = 0; i < containers.size(); i++) {
+            if (containers.get(i).getID().equals(this.getID())) {
+                containers.set(i, this);
+                break;
+            }
+        }
+
+        writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
+    }
 
 
 

@@ -1,3 +1,4 @@
-Vehicle{ID='sh-3ww2', name='1212', currentFuel=1212.0, carryingCapacity=1212.0, fuelCapacity=1212.0, currentPort=p-uui8}
-Vehicle{ID='sh-1212ww', name='1w1', currentFuel=1212.0, carryingCapacity=1212.0, fuelCapacity=1212.0, currentPort=p-TTu7}
-Vehicle{ID='sh-UHJK98', name='1ki', currentFuel=1212.0, carryingCapacity=1221.0, fuelCapacity=1212.0, currentPort={ID='p-WT8'}
+Vehicle{ID='sh-3ww2', name='1212', currentFuel=1212.0, carryingCapacity=1212.0, fuelCapacity=1212.0, currentPort=null}
+Vehicle{ID='sh-1212ww', name='1w1', currentFuel=1212.0, carryingCapacity=1212.0, fuelCapacity=1212.0, currentPort=null}
+Vehicle{ID='sh-UHJK98', name='1ki', currentFuel=1212.0, carryingCapacity=1221.0, fuelCapacity=1212.0, currentPort=null}
+Vehicle{ID='sh-TU87', name='122', currentFuel=1212.0, carryingCapacity=2212.0, fuelCapacity=1212.0, currentPort=p-WT8}

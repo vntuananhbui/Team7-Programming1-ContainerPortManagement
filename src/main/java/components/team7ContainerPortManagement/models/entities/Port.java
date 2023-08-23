@@ -70,13 +70,10 @@ public class Port implements PortOperations {
     }
 
     public String getID() {
-//        int startIndex = ID.indexOf("'") + 1;
-//        int endIndex = ID.lastIndexOf("'");
-//        if (startIndex != -1 && endIndex != -1) {
-//            return ID.substring(startIndex, endIndex);
-//        }
-//        return null; // Return null or handle the case where extraction fails
-        return ID;
+        int startIndex = ID.indexOf("'") + 1;
+        int endIndex = ID.lastIndexOf("'");
+        return ID.substring(startIndex, endIndex);
+//        return ID;
     }
 
     public String getName() {
@@ -346,10 +343,34 @@ private static String extractPortID(String portLine) {
 //        return null; // Ship with the specified ID not found
 //    }
 
-    public List<Container> getContainerInPort() {
+//    public List<Container> getContainerInPort() {
+//
+//        return new ArrayList<>(containers);
+//    }
+public static List<String> getContainerIDInPort(Port port) throws IOException {
+    List<String> containerIDs = new ArrayList<>();
 
-        return new ArrayList<>(containers);
+    // Path to the port_containers file
+    String filePath = "src/main/java/components/team7ContainerPortManagement/models/utils/port_containers.txt";
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.contains("Port :" + port.getID())) {
+                String containerSegment = line.split("Container: ")[1];
+                containerSegment = containerSegment.replace("}", "").trim();
+                String[] containers = containerSegment.split(", ");
+                Collections.addAll(containerIDs, containers);
+                break;
+            }
+        }
+    } catch (FileNotFoundException e) {
+        System.out.println("Port containers file not found.");
+        e.printStackTrace();
     }
+
+    return containerIDs;
+}
     public static List<String> getContainersInPort(Port port) throws IOException {
         List<String> containerInfo = new ArrayList<>();
 

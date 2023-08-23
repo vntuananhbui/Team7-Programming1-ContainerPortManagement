@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.extractValue;
-import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.getPortByID;
 import static src.main.java.components.team7ContainerPortManagement.views.Ports.portControl.getPortByOrderNumber;
+import static src.main.java.components.team7ContainerPortManagement.views.inputPort.getPortByID;
 
 public class shipControl {
     public static void createShip(Port selectedPort) throws IOException {
@@ -121,6 +121,48 @@ public class shipControl {
         return new Ship(vehicleID, vehicleName, currentFuel, carryingCapacity, fuelCapacity, fuelConsumtion, currentPort);
     }
 
+    public static Ship getShipByLine(String line) throws IOException {
+        // Parse the line to extract the fields
+        // Assuming the line format is: Vehicle{ID='sh-3ww2', name='1212', currentFuel=1212.0, carryingCapacity=1212.0, fuelCapacity=1212.0, currentPort=p-uui8}
+        String[] parts = line.split(", ");
+        String id = parts[0].split("'")[1];
+        String name = parts[1].split("'")[1];
+        double currentFuel = Double.parseDouble(parts[2].split("=")[1]);
+        double carryingCapacity = Double.parseDouble(parts[3].split("=")[1]);
+        double fuelCapacity = Double.parseDouble(parts[4].split("=")[1]);
+        String currentPortID = parts[5].split("=")[1].substring(0, parts[5].split("=")[1].length() - 1);
+//        System.out.println(currentPortID);
+        Port currentPort = getPortByOrderNumber(id, "src/main/java/components/team7ContainerPortManagement/models/utils/port.txt");
+        // Create a new Vehicle object
+        Ship ship = new Ship(id,name,currentFuel,carryingCapacity,fuelCapacity,3.5,currentPort);
+        ship.setID(id);
+        ship.setName(name);
+        ship.setCurrentFuel(currentFuel);
+        ship.setCarryingCapacity(carryingCapacity);
+        ship.setFuelCapacity(fuelCapacity);
+        // Assuming you have a method to get a Port object by its ID
+        ship.setCurrentPort(getPortByID(currentPortID));
 
+        return ship;
+    }
+    public static void writeShipToFile(List<Ship> ships, String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Vehicle ship : ships) {
+                writer.write(ship.toString());
+                writer.newLine();
+            }
+        }
+    }
 
+    public static List<Ship> readShipFromFile(String fileName) throws IOException {
+        List<Ship> ships = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Ship ship = getShipByLine(line);
+                ships.add(ship);
+            }
+        }
+        return ships;
+    }
 }

@@ -8,12 +8,11 @@ import src.main.java.components.team7ContainerPortManagement.models.enums.Contai
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+
 
 import static src.main.java.components.team7ContainerPortManagement.views.InputManager.readPortsFromFile;
+import static src.main.java.components.team7ContainerPortManagement.views.inputPort.getPortByID;
 
 public class InputContainer {
     //    private final String ID;
@@ -27,7 +26,7 @@ public class InputContainer {
 
         // Collect input values
         System.out.println("Enter container ID:");
-        String containerID = scanner.next();
+        String containerID = "c-" + scanner.next();
         scanner.nextLine();
 
         System.out.println("Enter container weight:");
@@ -46,7 +45,7 @@ public class InputContainer {
         ContainerType selectedType = containerTypes[typeNumber - 1];
 
         // Create an instance of Container using the input values and current port
-        Container newContainer = new Container(containerID, weight, selectedType, currentPort);
+        Container newContainer = new Container(containerID, weight, selectedType,currentPort);
         currentPort.addContainer(newContainer);
         // Write the input values to the file
         containerWriter.write(newContainer.toString() + "\n");
@@ -125,6 +124,7 @@ public class InputContainer {
         }
         return null; // Container line not found
     }
+
     public static String getContainerLineByContainerID(String containerNumber, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -206,26 +206,88 @@ public class InputContainer {
         Port port = null;
         if (!parts[4].equals("port=null")) {
             String portID = parts[4].substring(parts[4].indexOf("'") + 1, parts[4].lastIndexOf("'"));
-            // You might need to implement a method to get a Port object by its ID
-            // For example: Port port = getPortByID(portID);
-            // Here, I'll assume you have a method getPortByID that retrieves a Port by its ID
-
             port = getPortByID(portID);
         }
 
-        return new Container(containerID, weight, containerType, port);
+        return new Container(containerID, weight, containerType, isLoaded,port);
     }
-    public static Port getPortByID(String portID) throws IOException {
-        // You might need to implement a method to retrieve a Port by its ID
-        // This is just a placeholder implementation
-        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/port.txt");
-        for (Port port : availablePorts) {
-            if (port.getID().equals(portID)) {
-                return port;
+    public static Container getContainerByLine(String line) throws IOException {
+        // Parse the line to extract the fields
+        // Assuming the line format is: Container{ID='1212', weight=1212.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-TTu7', name='12w'', latitude=1212.000000, longitude=212.000000, storingCapacity=1212, landingAbility=true}}
+        String[] parts = line.split(", ");
+        String id = parts[0].split("'")[1];
+        double weight = Double.parseDouble(parts[1].split("=")[1]);
+        String containerType = parts[2].split("=")[1];
+        boolean isLoaded = Boolean.parseBoolean(parts[3].split("=")[1]);
+        // Debugging: print the line and the parts array
+//        System.out.println("Debugging: line = " + line);
+//        System.out.println("Debugging: parts = " + Arrays.toString(parts));
+
+        String portID = parts[4].split("'")[1];
+
+        // Create a new Container object
+        Container container = new Container(id, weight, ContainerType.valueOf(containerType),getPortByID(portID));
+        container.setLoaded(isLoaded);
+
+        return container;
+    }
+    public static void writeContainersToFile(List<Container> containers, String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Container container : containers) {
+                writer.write(container.toString());
+                writer.newLine();
             }
         }
-        return null; // Return null if port with the given ID is not found
     }
+
+    public static List<Container> readContainersFromFile(String fileName) throws IOException {
+        List<Container> containers = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Container container = getContainerByLine(line);
+                containers.add(container);
+            }
+        }
+        return containers;
+    }
+    public static Map<String, List<String>> readVehicleContainerMapFromFile(String fileName) throws IOException {
+//        Map<String, List<String>> map = new HashMap<>();
+//        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                String[] parts = line.split(": ");
+//                String key = parts[0].substring(1);
+//                String[] values = parts[1].substring(0, parts[1].length() - 1).split(", ");
+//                map.put(key, Arrays.asList(values));
+//            }
+//        }
+//        return map;
+        Map<String, List<String>> map = new HashMap<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(": ");
+                String key = parts[0].substring(1);
+                String[] values = parts[1].substring(0, parts[1].length() - 1).split(", ");
+                map.put(key, new ArrayList<>(Arrays.asList(values)));
+            }
+        }
+        return map;
+    }
+    public static void writeVehicleContainerMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                writer.write("{" + entry.getKey() + ": " + String.join(", ", entry.getValue()) + "}");
+                writer.newLine();
+            }
+        }
+    }
+
+
 
 
 }
+
+
+

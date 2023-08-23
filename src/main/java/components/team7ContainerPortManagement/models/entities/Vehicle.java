@@ -12,8 +12,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.getPortByID;
+import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.getContainerByLine;
 import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.updateContainerLoadFile;
+import static src.main.java.components.team7ContainerPortManagement.views.inputPort.getPortByID;
 
 public abstract class Vehicle implements VehicleOperations {
     protected String ID;
@@ -24,6 +25,8 @@ public abstract class Vehicle implements VehicleOperations {
     protected Port currentPort;
     protected  double fuelConsumtion;
     protected List<Container> containers;
+    protected double currentLoad;
+    private List<Container> loadedContainers;
 
 
 
@@ -172,47 +175,25 @@ public abstract class Vehicle implements VehicleOperations {
 //        return false;
 //    }
 public boolean loadContainer(Container container) {
-    // Calculate total weight
-    double totalWeight = container.getWeight();
-    for (Container container1 : containers) {
-        totalWeight += container1.getWeight();
+    if (container.isLoaded()) {
+        System.out.println("This container is already loaded onto another vehicle.");
+        return false;
     }
-    System.out.println("Total weight: " + totalWeight);
-
-    // Condition
-    if (this.carryingCapacity < totalWeight) {
-        System.out.println("The total container weight is higher than vehicle capacity, so it cannot be loaded");
+    if (this.currentLoad + container.getWeight() > this.carryingCapacity) {
+        System.out.println("Loading this container would exceed the vehicle's carrying capacity.");
         return false;
     }
 
-    if (canLoadContainer(container) && !container.isLoaded() && (container.getPort() == this.currentPort || container.getPort() == null)) {
-        containers.add(container); // Add container to vehicle container list
-        container.setLoaded(true); // Set container is loaded so it cannot be loaded to another vehicle
-        container.setPort(this.currentPort); // Set port of container
-        System.out.println(container.getID() + ", Type: " + container.getContainerType() + " has been added");
 
-        // Update the vehicle.txt file
-        try {
-            updateVehicleFile(this);
-        } catch (IOException e) {
-            System.out.println("Error updating vehicle file: " + e.getMessage());
-        }
-
-        // Update the vehicle_containerload.txt file
-        try {
-            updateContainerLoadFile(this);
-        } catch (IOException e) {
-            System.out.println("Error updating vehicle_containerload file: " + e.getMessage());
-        }
-
-        return true;
-    } else if (container.getPort() != null && !container.getPort().equals(this.currentPort)) {
-        System.out.println("This container is on port " + container.getPort().getName() + " so it cannot be loaded on this vehicle");
+    if (!this.currentPort.getID().equals(container.getPort().getID())) {
+        System.out.println("ship port: " +this.currentPort.getID());
+        System.out.println("Container port"+container.getPort().getID());
+        System.out.println("The container and the vehicle are not in the same port.");
         return false;
     }
-
-    System.out.println("The container Type: " + container.getContainerType() + " is currently loaded, please unload first");
-    return false;
+    container.setLoaded(true);
+    this.currentLoad += container.getWeight();
+    return true;
 }
 
 
@@ -234,19 +215,24 @@ public boolean loadContainer(Container container) {
 
 
 
-    @Override
+//    @Override
+//    public boolean unloadContainer(Container container) {
+//        if (containers.contains(container)) {
+//            // Unload the container from this vehicle
+//            currentPort.addContainer(container);
+//            containers.remove(container);
+//            container.setLoaded(false); //container setload is false so it can load to another vehicle
+//            return true;
+//        } else {
+//            // The container is not loaded onto this vehicle
+//            System.out.println("Container is not be loaded in this vehicle.");
+//            return false;
+//        }
+//
+//    }
     public boolean unloadContainer(Container container) {
-        if (containers.contains(container)) {
-            // Unload the container from this vehicle
-            currentPort.addContainer(container);
-            containers.remove(container);
-            container.setLoaded(false); //container setload is false so it can load to another vehicle
-            return true;
-        } else {
-            // The container is not loaded onto this vehicle
-            System.out.println("Container is not be loaded in this vehicle.");
-            return false;
-        }
+
+        return true;
 
     }
 
@@ -367,4 +353,35 @@ public String toString() {
     }
 
     public abstract double getFuelConsumptionPerKm(Container container);
+
+
+
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCurrentFuel(double currentFuel) {
+        this.currentFuel = currentFuel;
+    }
+
+    public void setCarryingCapacity(double carryingCapacity) {
+        this.carryingCapacity = carryingCapacity;
+    }
+
+    public void setFuelCapacity(double fuelCapacity) {
+        this.fuelCapacity = fuelCapacity;
+    }
+
+    public void setFuelConsumtion(double fuelConsumtion) {
+        this.fuelConsumtion = fuelConsumtion;
+    }
+
+    public void setContainers(List<Container> containers) {
+        this.containers = containers;
+    }
 }

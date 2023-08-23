@@ -1,10 +1,13 @@
 package src.main.java.components.team7ContainerPortManagement.views;
 
+import java.util.List;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
+
+import static src.main.java.components.team7ContainerPortManagement.views.InputManager.readPortsFromFile;
 
 public class inputPort {
     public static void main(String[] args) {
@@ -45,5 +48,16 @@ public class inputPort {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+    public static Port getPortByID(String portID) throws IOException {
+        // You might need to implement a method to retrieve a Port by its ID
+        // This is just a placeholder implementation
+        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/port.txt");
+        for (Port port : availablePorts) {
+            if (port.getID().equals(portID)) {
+                return port;
+            }
+        }
+        return null; // Return null if port with the given ID is not found
     }
 }

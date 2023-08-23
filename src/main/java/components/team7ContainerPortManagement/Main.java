@@ -1,8 +1,9 @@
 package src.main.java.components.team7ContainerPortManagement;
 
-import src.main.java.components.team7ContainerPortManagement.models.entities.*;
+import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
+import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
+import src.main.java.components.team7ContainerPortManagement.models.entities.Ship;
 import src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer;
-//import src.main.java.components.team7ContainerPortManagement.views.InputControl;
 import src.main.java.components.team7ContainerPortManagement.views.InputManager;
 import src.main.java.components.team7ContainerPortManagement.views.Ports.portControl;
 import src.main.java.components.team7ContainerPortManagement.views.Vehicle.ReeferTruckControl;
@@ -11,15 +12,15 @@ import src.main.java.components.team7ContainerPortManagement.views.Vehicle.basic
 import src.main.java.components.team7ContainerPortManagement.views.Vehicle.shipControl;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
-import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.*;
-import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.loadShipDataFromFile;
-import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.getContainerLineByContainerNumber;
-import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.parseContainerLine;
-import static src.main.java.components.team7ContainerPortManagement.views.InputManager.*;
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getContainerIDInPort;
+import static src.main.java.components.team7ContainerPortManagement.views.Containers.InputContainer.*;
+import static src.main.java.components.team7ContainerPortManagement.views.InputManager.readPortsFromFile;
 import static src.main.java.components.team7ContainerPortManagement.views.Vehicle.shipControl.*;
-import static src.main.java.components.team7ContainerPortManagement.views.Ports.portControl.*;
 
 
 public class Main {
@@ -132,67 +133,68 @@ public class Main {
     }
 
     public static void portManagerMenu() throws IOException {
-            Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-            // Load available ports from port.txt and display them here
-            List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/port.txt");
-            portControl.displayAllPorts();
-            System.out.print("Choose a port by order number: ");
-            int selectedPortOrderNumber = scanner.nextInt();
+        // Load available ports from port.txt and display them here
+        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/port.txt");
+        portControl.displayAllPorts();
+        System.out.print("Choose a port by order number: ");
+        int selectedPortOrderNumber = scanner.nextInt();
 // Get the selected port object
-            Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
+        Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
 
 
-            while (true) {
-                System.out.println("\nPort Manager Menu:");
-                System.out.println("1. Create Container");
-                System.out.println("2. Ship Controller");
-                System.out.println("3. Truck Controller");
-                System.out.println("4. Calculate Total Container Weight");
-                System.out.println("5. Change port");
-                System.out.println("6. Port Vehicles");
-                System.out.println("7. Load container");
-                System.out.println("8. Test");
-                System.out.println("0. Back to Main Menu");
-                System.out.print("Choose an option: ");
-                int choice = scanner.nextInt();
+        while (true) {
+            System.out.println("\nPort Manager Menu:");
+            System.out.println("1. Create Container");
+            System.out.println("2. Ship Controller");
+            System.out.println("3. Truck Controller");
+            System.out.println("4. Calculate Total Container Weight");
+            System.out.println("5. Change port");
+            System.out.println("6. Port Vehicles");
+            System.out.println("7. Load container");
+            System.out.println("8. Test");
+            System.out.println("0. Back to Main Menu");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
 
-                switch (choice) {
-                    case 1:
-                        // Call the function to create a container
-                        InputContainer.createContainer(selectedPort);
-                        break;
-                    case 2:
-                        // Call the function to create a ship
-                        ShipMenu(selectedPort);
-                        break;
-                    case 3:
+            switch (choice) {
+                case 1:
+                    // Call the function to create a container
+                    InputContainer.createContainer(selectedPort);
+                    break;
+                case 2:
+                    // Call the function to create a ship
+                    ShipMenu(selectedPort);
+                    break;
+                case 3:
 
-                        TruckMenuManage(selectedPort);
-                    case 4:
-                        // Call the method to calculate total container weight for the selected port
-                        // selectedPort.calculateTotalContainerWeight();
-                        break;
-                    case 5:
-                        portManagerMenu();
-                        break;
-                    case 6:
+                    TruckMenuManage(selectedPort);
+                case 4:
+                    // Call the method to calculate total container weight for the selected port
+                    // selectedPort.calculateTotalContainerWeight();
+                    break;
+                case 5:
+                    portManagerMenu();
+                    break;
+                case 6:
 //                    System.out.println(selectedPort.getID());
 
 
-                        break;
+                    break;
 
-                    case 7:
-                        return;
-                    case 8:
+                case 7:
+                    return;
+                case 8:
 
-                        System.out.println(selectedPort.getName());
-                        System.out.println(selectedPort.getLatitude());
-                    default:
-                        System.out.println("Invalid choice. Please select a valid option.");
-                        }
-                }
+                    System.out.println(selectedPort.getName());
+                    System.out.println(selectedPort.getLatitude());
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
             }
+        }
+    }
+
     public static void TruckMenuManage(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
@@ -223,6 +225,7 @@ public class Main {
             }
         }
     }
+
     public static void ShipMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -240,6 +243,11 @@ public class Main {
                 case 3:
                     loadContainerMenu(selectedPort);
                     break;
+                case 4:
+                    unloadContainerMenu(selectedPort);
+                    break;
+                case 5:
+                    return;
             }
 
         }
@@ -258,45 +266,137 @@ public class Main {
         int selectedShipOrderNumber = scanner.nextInt();
         String selectedShipNumber = availableShipIDs.get(selectedShipOrderNumber - 1);
         String shipLine = getShipLineByShipNumber(selectedShipNumber, "src/main/java/components/team7ContainerPortManagement/models/utils/vehicle.txt");
-        System.out.println(shipLine);
+//        System.out.println("Ship line: " + shipLine);
 
-//        List<Vehicle> ships = loadShipDataFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/vehicle.txt");
-//        Ship selectedShip = (Ship) ships.get(0);
-//        Ship selectedShip = createShipFromShipLine(shipLine);
+//        System.out.println(getShipByLine(shipLine));
+        Ship selectedShip = getShipByLine(shipLine);
+//        System.out.println("Ship :" + selectedShip);
+        //container select
+        List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
+        System.out.println("Available container in port: " + selectedPort.getID() + ":");
+        for (int i = 0; i < availableContainerIDs.size(); i++) {
+            String containerID = availableContainerIDs.get(i);
+            Container container = getContainerByID(containerID);
+//            System.out.println(container.isLoaded());
+//            if (container.isLoaded() == false) {
+//                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "| Is Loaded: " + container.isLoaded());
+//                System.out.println("Choose a container by order number: ");
+//            } else {
+//                System.out.println("No container available!");
+//                return;
+//            }
+            String status;
+            if (!container.isLoaded()) {
+                status = "Available";
+            } else {
+                status = "Unavailable!";
+            }
+            System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "| Is Loaded: " + status);
+        }
+        int selectedContainerOrderNumber = scanner.nextInt();
+        String selectedContainerNumber = availableContainerIDs.get(selectedContainerOrderNumber - 1);
+//        System.out.println("Container Number: " + selectedContainerNumber);
+        System.out.println();
+        String containerLine = getContainerLineByContainerNumber(selectedContainerNumber, "src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
+//        System.out.println("Container Line" + containerLine);
+
+//        System.out.println("Get container: " + getContainerByLine(containerLine));
+
+        Container selectedContainer = getContainerByLine(containerLine);
+
+        //Load function
+        // Try to load the container onto the vehicle
+
+        if (selectedShip.loadContainer(selectedContainer)) {
+            System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedShip.getID());
+
+            // Update the container's isLoaded status and port
+            selectedContainer.setLoaded(true);
+            selectedContainer.setPort(selectedShip.getCurrentPort());
+            selectedContainer.updateStatusContainer(true);
+
+            // Update the vehicleContainerMap
+            Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/vehicle_containerload.txt");
+            vehicleContainerMap.computeIfAbsent(selectedShip.getID(), k -> new ArrayList<>()).add(selectedContainer.getID());
+            List<Ship> Ship = readShipFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/vehicle.txt");
+            List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
+            // Write the updated data back to the files
+            writeShipToFile(Ship, "src/main/java/components/team7ContainerPortManagement/models/utils/vehicle.txt");
+            writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
+            writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/models/utils/vehicle_containerload.txt");
+        } else {
+            System.out.println("Failed to load container.");
+        }
+
+
+        // Define other methods (e.g., readPortsFromFile, displayAvailablePorts) here
+    }
+    public static void unloadContainerMenu(Port selectedPort) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        List<String> availableShipIDs = selectedPort.getShipsInPort();
+
+        System.out.println("Available ships in port " + selectedPort.getName() + ":");
+        for (int i = 0; i < availableShipIDs.size(); i++) {
+            System.out.println((i + 1) + ": " + availableShipIDs.get(i));
+        }
+
+        System.out.print("Choose a ship by order number: ");
+        int selectedShipOrderNumber = scanner.nextInt();
+        String selectedShipNumber = availableShipIDs.get(selectedShipOrderNumber - 1);
+        String shipLine = getShipLineByShipNumber(selectedShipNumber, "src/main/java/components/team7ContainerPortManagement/models/utils/vehicle.txt");
+        System.out.println("Ship line: " + shipLine);
+
+//        System.out.println(getShipByLine(shipLine));
+        Ship selectedShip = getShipByLine(shipLine);
+        System.out.println("Ship :" + selectedShip);
+
         //container select
 
-        List<String> availableContainerIDs = getContainersInPort(selectedPort);
-        System.out.println("Available container in port: " + selectedPort.getName() + ":");
+        List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
+        System.out.println("Available container in port: " + selectedPort.getID() + ":");
         for (int i = 0; i < availableContainerIDs.size(); i++) {
-            System.out.println((i + 1) + ": " + availableContainerIDs.get(i));
+            String containerID = availableContainerIDs.get(i);
+            Container container = getContainerByID(containerID);
+//            System.out.println(container.isLoaded());
+            String status;
+            if (container.isLoaded()) {
+                status = "Available";
+            } else {
+                status = "Unavailable!";
+            }
+            System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "| Is Loaded: " + status);
         }
         System.out.println("Choose a container by order number: ");
         int selectedContainerOrderNumber = scanner.nextInt();
-        String selectedContainerNumber = availableContainerIDs.get(selectedContainerOrderNumber -1);
-        String containerLine = getContainerLineByContainerNumber(selectedContainerNumber,"src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
-        System.out.println(containerLine);
-//        Container selectedContainer = parseContainerLine(containerLine);
-//        Container selectedContainer = parseContainerLine(containerLine);
+        String selectedContainerNumber = availableContainerIDs.get(selectedContainerOrderNumber - 1);
+        System.out.println();
+        String containerLine = getContainerLineByContainerNumber(selectedContainerNumber, "src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
 
-//        if (selectedShipOrderNumber >= 1 && selectedShipOrderNumber <= availableShipIDs.size()) {
-//            String selectedShipID = availableShipIDs.get(selectedShipOrderNumber - 1);
-//            System.out.println("Selected ship ID: " + selectedShipID);
-//
-//            // Now you can fetch the Ship object using the selectedShipID and display containers
-//            Ship selectedShip = getShipByID(selectedShipID); // Implement this method to get the Ship object
-//            List<Container> containersInPort = selectedPort.getContainerInPort();
-//            System.out.println("Containers in port " + selectedPort.getName() + ":");
-//            for (Container container : containersInPort) {
-//                System.out.println("Container ID: " + container.getID());
-//            }
-//        } else {
-//            System.out.println("Invalid ship order number.");
-//        }
+        Container selectedContainer = getContainerByLine(containerLine);
+
+        //Unload function
+        if (selectedShip.unloadContainer(selectedContainer)) {
+            System.out.println("Successfully unloaded container " + selectedContainer.getID() + " onto vehicle " + selectedShip.getID());
+
+            // Update the container's isLoaded status and port
+            selectedContainer.setLoaded(false);
+            selectedContainer.updateStatusContainer(false);
+
+            // Update the vehicleContainerMap
+            Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/vehicle_containerload.txt");
+            vehicleContainerMap.get(selectedShip.getID()).remove(selectedContainer.getID());
+            List<Ship> Ship = readShipFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/vehicle.txt");
+            List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
+            // Write the updated data back to the files
+            writeShipToFile(Ship, "src/main/java/components/team7ContainerPortManagement/models/utils/vehicle.txt");
+            writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/models/utils/container.txt");
+            writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/models/utils/vehicle_containerload.txt");
+        } else {
+            System.out.println("Failed to unload container.");
+        }
     }
 
-
-    // Define other methods (e.g., readPortsFromFile, displayAvailablePorts) here
-    }
+}
 
 
 //=============
