@@ -60,69 +60,65 @@ InteliJ
 
 
 ```
-PortManagementSystem/
-│
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   ├── com/
-│   │   │   │   ├── yourpackage/
-│   │   │   │   │   ├── controllers/  (Handlers for the application logic)
-│   │   │   │   │   │   ├── AdminController.java
-│   │   │   │   │   │   ├── PortManagerController.java
-│   │   │   │   │   │   ├── ... (other controllers)
-│   │   │   │   │   │
-│   │   │   │   │   ├── models/  (All the data-related classes)
-│   │   │   │   │   │   ├── enums/
-│   │   │   │   │   │   │   ├── ContainerType.java
-│   │   │   │   │   │   │   ├── TruckType.java
-│   │   │   │   │   │   │   ├── ... (other enums)
-│   │   │   │   │   │   │
-│   │   │   │   │   │   ├── interfaces/
-│   │   │   │   │   │   │   ├── VehicleOperations.java
-│   │   │   │   │   │   │   ├── PortOperations.java
-│   │   │   │   │   │   │   ├── ... (other interfaces)
-│   │   │   │   │   │   │
-│   │   │   │   │   │   ├── entities/
-│   │   │   │   │   │   │   ├── Vehicle.java
-│   │   │   │   │   │   │   ├── Truck.java
-│   │   │   │   │   │   │   ├── Ship.java
-│   │   │   │   │   │   │   ├── Port.java
-│   │   │   │   │   │   │   ├── Container.java
-│   │   │   │   │   │   │   ├── Trip.java
-│   │   │   │   │   │   │   ├── ... (other entity classes)
-│   │   │   │   │   │   │
-│   │   │   │   │   │   ├── utils/  (Utility classes, for things like file handling)
-│   │   │   │   │   │       ├── FileReaderUtil.java
-│   │   │   │   │   │       ├── FileWriterUtil.java
-│   │   │   │   │   │       ├── ... (other utility classes)
-│   │   │   │   │   │
-│   │   │   │   │   ├── views/  (For your user interface, if applicable)
-│   │   │   │   │       ├── AdminView.java
-│   │   │   │   │       ├── PortManagerView.java
-│   │   │   │   │       ├── ... (other views)
-│   │   │   │   │
-│   │   │   │   ├── Main.java  (Main class to run your application)
-│   │   │   │
-│   │   │   ├── resources/  (Non-Java files, like data files)
-│   │   │       ├── data/
-│   │   │           ├── vehicles.txt
-│   │   │           ├── ports.txt
-│   │   │           ├── containers.txt
-│   │   │           ├── trips.txt
-│   │   │           ├── ... (other data files)
-│   │   │
-│   │   └── test/  (For your unit tests, if you're writing any)
-│   │       ├── java/
-│   │       │   ├── com/
-│   │       │   │   ├── yourpackage/
-│   │       │   │       ├── models/
-│   │       │   │       ├── controllers/
-│   │       │   │       ├── ... (corresponding package structure for tests)
-│   │       │
-│   │       └── resources/  (Test-specific resources)
-│
-└── README.md  (Project description, instructions, etc.)
+.
+└── Team7-Programming1-ContainerPortManagement/
+    └── src/
+        └── main/
+            └── java/
+                └── components/
+                    └── team7ContainerPortManagement/
+                        ├── Controller/
+                        │   ├── Operation/
+                        │   │   └── vehicleOperation.java
+                        │   ├── VehicleController/
+                        │   │   ├── basictruckContainer.java
+                        │   │   ├── reefertruckContainer.java
+                        │   │   ├── shipController.java
+                        │   │   └── tankertruckController.java
+                        │   ├── containerController.java
+                        │   └── portController.java
+                        └── models/
+                            ├── entities/
+                            │   ├── Trucks/
+                            │   │   ├── BaicTruck.java
+                            │   │   ├── ReeferTrucks.java
+                            │   │   ├── TankerTruck.java
+                            │   │   └── Truck.java
+                            │   ├── Container.java
+                            │   ├── Port.java
+                            │   ├── Ship.java
+                            │   ├── Trip.java
+                            │   └── Vehicle.java
+                            ├── enums/
+                            │   ├── ContainerType.java
+                            │   └── TripStatus.java
+                            ├── interfaces/
+                            │   ├── PortOperation.java
+                            │   └── VehicleOperations.java
+                            └── resource/
+                                └── data/
+                                    ├── containerData/
+                                    │   └── container.txt
+                                    ├── portData/
+                                    │   ├── port.txt
+                                    │   ├── port_container.txt
+                                    │   └── port_vehicles.txt
+                                    ├── vehicleData/
+                                    │   ├── vehicle.txt
+                                    │   └── vehicle_containerLoad.txt
+                                    └── utils/
+                                        ├── ContainerFileUtils/
+                                        │   ├── containerReadFile.java
+                                        │   └── containerWriteFile.java
+                                        ├── PortFileUtils/
+                                        │   ├── portReadFile.java
+                                        │   └── portWriteFile.java
+                                        ├── ShipFileUtils/
+                                        │   ├── shipReadFile.java
+                                        │   └── shipWriteFile.java
+                                        ├── view/
+                                        │   └── mainmenu.java
+                                        └── Main.java
 
 ```
 ## License
