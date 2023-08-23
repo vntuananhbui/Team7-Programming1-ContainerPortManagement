@@ -1,0 +1,1 @@
+Vehicle{ID='sh-Pink', name='Pink Ship', currentFuel=2000.0, carryingCapacity=2000.0, fuelCapacity=2000.0, currentPort=p-TIM}

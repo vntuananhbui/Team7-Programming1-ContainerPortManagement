@@ -2,19 +2,33 @@ package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
 
+import java.io.IOException;
+import java.util.List;
+
+import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
+import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.writeContainersToFile;
+
 public class Container {
     private final String ID;
     private final double weight;
     private ContainerType containerType;  // Use the enum instead of String
     private boolean isLoaded;
-    private Port port;  // Add this line
-    // Constructors, getters, setters and other methods here...
-    public Container(String ID, double weight, ContainerType containerType) {
-        this.ID = "c-" + ID;
+    private Port port;
+
+    //Use to check container onload or not
+    public Container(String ID, double weight, ContainerType containerType, boolean isLoaded, Port port) {
+        this.ID = ID;
+        this.weight = weight;
+        this.containerType = containerType;
+        this.isLoaded = isLoaded(); // Initialize isLoaded to false
+        this.port = port;
+    }
+    public Container(String ID, double weight, ContainerType containerType,Port port) {
+        this.ID = ID;
         this.weight = weight;
         this.containerType = containerType;
         this.isLoaded = false; // Initialize isLoaded to false
-
+        this.port = port;
     }
     public String getID() {
         return ID;
@@ -53,35 +67,27 @@ public class Container {
                 '}';
     }
 
-    public void printPortName() {
-        if (this.port != null) {
-            System.out.println("Container belongs to port: " + this.port.getName());
-        } else {
-            System.out.println("Container does not belong to any port");
+//Special method
+public void updateStatusContainer(boolean isLoaded) throws IOException {
+    setLoaded(isLoaded);
+
+    // Assuming you have a method to update the container data in the file
+    updateContainerInFile();
+}
+
+    private void updateContainerInFile() throws IOException {
+        // Assuming you have methods to read, update, and write the container data to the file
+        List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
+
+        for (int i = 0; i < containers.size(); i++) {
+            if (containers.get(i).getID().equals(this.getID())) {
+                containers.set(i, this);
+                break;
+            }
         }
+
+        writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
     }
-//    public double fuelConsumption(boolean isShip) {
-//        double rate = 0;
-//        switch (containerType) {
-//            case DRY_STORAGE:
-//                //If Ship => 1st value, else second value
-//                rate = isShip ? 3.5 : 4.6;
-//                break;
-//            case OPEN_TOP:
-//                rate = isShip ? 2.8 : 3.2;
-//                break;
-//            case OPEN_SIDE:
-//                rate = isShip ? 2.7 : 3.2;
-//                break;
-//            case REFRIGERATED:
-//                rate = isShip ? 4.5 : 5.4;
-//                break;
-//            case LIQUID:
-//                rate = isShip ? 4.8 : 5.3;
-//                break;
-//        }
-//        return rate * weight;
-//    }
 
 
 
