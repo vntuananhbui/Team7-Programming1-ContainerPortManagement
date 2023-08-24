@@ -1,1 +1,1 @@
-{Port :p-TNK, Vehicles: sh-SHKI}
+{Port :p-port6, Vehicles: sh-ship1, sh-ship-2}

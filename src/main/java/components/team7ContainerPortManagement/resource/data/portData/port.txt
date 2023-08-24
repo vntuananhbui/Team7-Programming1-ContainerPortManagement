@@ -1,1 +1,1 @@
-Port{ID='p-TNK', name='tnk', latitude=2310.000000, longitude=1230.000000, storingCapacity=2100, landingAbility=true}
+Port{ID='p-port6', name='2', latitude=2012.000000, longitude=12.000000, storingCapacity=2000, landingAbility=true}

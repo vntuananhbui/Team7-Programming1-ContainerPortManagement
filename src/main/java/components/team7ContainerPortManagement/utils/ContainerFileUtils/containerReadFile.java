@@ -111,6 +111,9 @@ public class containerReadFile {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                if (line.isEmpty()) {
+                    continue; // Skip empty lines
+                }
                 String[] parts = line.split(": ");
                 String key = parts[0].substring(1);
                 String[] values = parts[1].substring(0, parts[1].length() - 1).split(", ");
@@ -138,6 +141,8 @@ public class containerReadFile {
 
         return "Container not found";
     }
+
+
     public static String extractAttributeValue(String line, String attributeName) {
         String pattern = attributeName + "=";
         int startIndex = line.indexOf(pattern) + pattern.length();
@@ -147,6 +152,47 @@ public class containerReadFile {
         }
         return line.substring(startIndex, endIndex).trim();
     }
+
+//    public static double getTotalContainerWeightInVehicle(String vehicleID) throws IOException {
+//        String vehicleContainerLoadFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt";
+//        String containerFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt";
+//
+//        Map<String, Double> containerWeights = new HashMap<>();
+//
+//        try (BufferedReader reader = new BufferedReader(new FileReader(containerFilePath))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                String containerID = extractAttributeValue(line, "ID");
+//                double containerWeight = Double.parseDouble(extractAttributeValue(line, "weight"));
+//                containerWeights.put(containerID, containerWeight);
+//            }
+//        } catch (IOException e) {
+//            System.out.println("Error reading container file: " + e.getMessage());
+//            throw e;
+//        }
+//
+//        try (BufferedReader reader = new BufferedReader(new FileReader(vehicleContainerLoadFilePath))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                if (line.contains("{" + vehicleID + ":")) {
+//                    String[] containerIDs = line.split(":")[1].trim().replaceAll("[{}]", "").split(", ");
+//                    if (containerIDs.length == 0) {
+//                        return 0.0; // No containers loaded in the vehicle
+//                    }
+//                    double totalWeight = 0.0;
+//                    for (String containerID : containerIDs) {
+//                        totalWeight += containerWeights.get(containerID);
+//                    }
+//                    return totalWeight;
+//                }
+//            }
+//        } catch (IOException e) {
+//            System.out.println("Error reading vehicle container load file: " + e.getMessage());
+//            throw e;
+//        }
+//
+//        return 0.0; // Vehicle ID not found
+//    }
 
 
 }

@@ -76,6 +76,7 @@ public abstract class Vehicle implements VehicleOperations {
 //    }
 
     public boolean loadContainer(Container container) {
+
         if (container.isLoaded()) {
             System.out.println("This container is already loaded onto another vehicle.");
             return false;

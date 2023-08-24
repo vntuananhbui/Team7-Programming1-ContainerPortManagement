@@ -1,1 +1,1 @@
-{sh-SHKI: }
+{sh-ship1: c-con-3, c-Con-2}
