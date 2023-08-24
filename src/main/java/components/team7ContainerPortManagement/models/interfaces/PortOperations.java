@@ -12,6 +12,8 @@ public interface PortOperations {
 
     boolean removeVehicle(Vehicle vehicle);
 
+    String toStringAdd();
+
     // Check if port is available for landing for a specific vehicle (e.g., truck)
     boolean hasLandingAbility();
 

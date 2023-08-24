@@ -36,7 +36,7 @@ public class portController {
         Port newPort = new Port(portID, portName, latitude, longitude, capacity, landingAbility);
 
         // Write the input values to the file
-        portWriter.write(newPort.toString() + "\n");
+        portWriter.write(newPort.toStringAdd() + "\n");
 
         portWriter.close();
     }

@@ -40,6 +40,9 @@ public class Port implements PortOperations {
 //        return ID;
     }
 
+    public String writeID() {
+        return ID;
+    }
     public String getName() {
         return name;
     }
@@ -141,7 +144,12 @@ public class Port implements PortOperations {
         return String.format("Port{ID='%s', name='%s', latitude=%f, longitude=%f, storingCapacity=%d, landingAbility=%b}",
                 getID(), getName(), getLatitude(), getLongitude(), getStoringCapacity(), isLandingAbility());
     }
-
+    @Override
+    public String toStringAdd() {
+//        String vehicleInfo = vehicles.stream().map(Vehicle::getID).collect(Collectors.joining(","));
+        return String.format("Port{ID='%s', name='%s', latitude=%f, longitude=%f, storingCapacity=%d, landingAbility=%b}",
+                writeID(), getName(), getLatitude(), getLongitude(), getStoringCapacity(), isLandingAbility());
+    }
     public Port(String ID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility, List<Container> containers, List<Vehicle> vehicles, List<Trip> traffic) {
         this.ID = ID;
         this.name = name;

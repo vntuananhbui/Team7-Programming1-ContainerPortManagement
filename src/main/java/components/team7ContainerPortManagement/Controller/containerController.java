@@ -39,8 +39,8 @@ public class containerController {
         Container newContainer = new Container(containerID, weight, selectedType,currentPort);
         currentPort.addContainer(newContainer);
         // Write the input values to the file
-        containerWriter.write(newContainer.toString() + "\n");
-        writeContainerToPort(currentPort, newContainer);
+        containerWriter.write(newContainer + "\n");
+        writeContainerToPort(currentPort, newContainer); //write to port_containers.txt
         containerWriter.close();
     }
 }

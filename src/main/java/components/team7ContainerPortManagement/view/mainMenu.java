@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.Operation.vehicleOperation.loadContainerShipMenu;
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.Operation.vehicleOperation.unloadContainerShipMenu;
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.vehicleOperation.loadContainerShipMenu;
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.vehicleOperation.unloadContainerShipMenu;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class mainMenu {

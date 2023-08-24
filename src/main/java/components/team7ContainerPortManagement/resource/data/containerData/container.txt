@@ -1,2 +1,1 @@
-Container{ID='c-TOP', weight=2000.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-TIM', name='TIM'', latitude=2201.000000, longitude=213.000000, storingCapacity=10000, landingAbility=true}}
-Container{ID='c-TUI', weight=2000.0, containerType=LIQUID, isLoaded=true, port=Port{ID='p-TIM', name='TIM'', latitude=2201.000000, longitude=213.000000, storingCapacity=10000, landingAbility=true}}
+Container{ID='c-CKI', weight=200.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-TNK', name='tnk'', latitude=2310.000000, longitude=230.000000, storingCapacity=2100, landingAbility=true}}
