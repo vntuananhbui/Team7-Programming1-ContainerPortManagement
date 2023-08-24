@@ -120,5 +120,33 @@ public class containerReadFile {
         return map;
     }
 
+    public static String getStatusContainerbyID(String containerID) throws IOException {
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Container{ID='" + containerID + "'")) {
+                    String isLoadedValue = extractAttributeValue(line, "isLoaded");
+                    return "isLoaded=" + isLoadedValue;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading container file: " + e.getMessage());
+            throw e;
+        }
+
+        return "Container not found";
+    }
+    public static String extractAttributeValue(String line, String attributeName) {
+        String pattern = attributeName + "=";
+        int startIndex = line.indexOf(pattern) + pattern.length();
+        int endIndex = line.indexOf(",", startIndex);
+        if (endIndex == -1) {
+            endIndex = line.indexOf("}", startIndex);
+        }
+        return line.substring(startIndex, endIndex).trim();
+    }
+
 
 }

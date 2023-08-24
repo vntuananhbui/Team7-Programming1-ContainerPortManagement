@@ -107,13 +107,16 @@ public abstract class Vehicle implements VehicleOperations {
 //            currentPort.addContainer(container);
 //            containers.remove(container);
 //            container.setLoaded(false); //container setload is false so it can load to another vehicle
-            return true;
 //        } else {
 //            // The container is not loaded onto this vehicle
 //            System.out.println("Container is not be loaded in this vehicle.");
 //            return false;
 //        }
-
+        if(!container.isLoaded()) {
+            System.out.println("This container is not currently load on this vehicle");
+            return false;
+        }
+        return true;
     }
 
 

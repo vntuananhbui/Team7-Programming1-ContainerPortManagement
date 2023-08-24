@@ -1,1 +1,1 @@
-Vehicle{ID='sh-SHKI', name='21', currentFuel=122.0, carryingCapacity=122.0, fuelCapacity=122.0, currentPort=p-TNK}
+Vehicle{ID='sh-SHKI', name='21', currentFuel=122.0, carryingCapacity=2002.0, fuelCapacity=122.0, currentPort=p-TNK}

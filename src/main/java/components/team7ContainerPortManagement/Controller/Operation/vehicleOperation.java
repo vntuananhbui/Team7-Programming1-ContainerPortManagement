@@ -45,21 +45,14 @@ public class vehicleOperation {
         for (int i = 0; i < availableContainerIDs.size(); i++) {
             String containerID = availableContainerIDs.get(i);
             Container container = getContainerByID(containerID);
-//            System.out.println(container.isLoaded());
-//            if (container.isLoaded() == false) {
-//                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "| Is Loaded: " + container.isLoaded());
-//                System.out.println("Choose a container by order number: ");
-//            } else {
-//                System.out.println("No container available!");
-//                return;
-//            }
             String status;
-            if (!container.isLoaded()) {
+            if (getStatusContainerbyID(containerID).equals("isLoaded=false")) {
                 status = "Available";
             } else {
-                status = "Unavailable!";
+                status = "Unavailable";
             }
-            System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "| Is Loaded: " + status);
+
+            System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "| Can load? : "+ status);
         }
         int selectedContainerOrderNumber = scanner.nextInt();
         String selectedContainerNumber = availableContainerIDs.get(selectedContainerOrderNumber - 1);
@@ -127,14 +120,14 @@ public class vehicleOperation {
         for (int i = 0; i < availableContainerIDs.size(); i++) {
             String containerID = availableContainerIDs.get(i);
             Container container = getContainerByID(containerID);
-//            System.out.println(container.isLoaded());
             String status;
-            if (container.isLoaded()) {
+            if (getStatusContainerbyID(containerID).equals("isLoaded=true")) {
                 status = "Available";
             } else {
-                status = "Unavailable!";
+                status = "Unavailable";
             }
-            System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "| Is Loaded: " + status);
+
+            System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "| Can unload? : "+ status);
         }
         System.out.println("Choose a container by order number: ");
         int selectedContainerOrderNumber = scanner.nextInt();
@@ -153,14 +146,14 @@ public class vehicleOperation {
             selectedContainer.updateStatusContainer(false);
 
             // Update the vehicleContainerMap
-            Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/vehicle_containerload.txt");
+            Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
             vehicleContainerMap.get(selectedShip.getID()).remove(selectedContainer.getID());
             List<Ship> Ship = readShipFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             // Write the updated data back to the files
             writeShipToFile(Ship, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
-            writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/vehicle_containerLoad.txt");
+            writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         } else {
             System.out.println("Failed to unload container.");
         }
