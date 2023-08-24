@@ -12,8 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.vehicleOperation.loadContainerShipMenu;
-import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.vehicleOperation.unloadContainerShipMenu;
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.loadAndunloadContainer.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class mainMenu {
@@ -145,24 +144,23 @@ public class mainMenu {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\nCreate Truck Menu:");
-            System.out.println("1. Create Basic Truck");
-            System.out.println("2. Create Tanker Truck");
-            System.out.println("3. Create Reefer Truck");
+            System.out.println("\nTruck Menu:");
+            System.out.println("1. Basic Truck Menu");
+            System.out.println("2. Tanker Truck Menu");
+            System.out.println("3. Reefer Truck Menu");
             System.out.println("4. Return to Port Manager Menu");
             System.out.print("Choose an option: ");
             int choiceTruck = scanner.nextInt();
 
             switch (choiceTruck) {
                 case 1:
-                    // Call the function to create a basic truck
-                    basictruckController.createBasicTruck(selectedPort);
+                    BasicTruckMenu(selectedPort);
                     break;
                 case 2:
-                    tankertruckController.createTankerTruck(selectedPort);
+                    TankerTruckMenu(selectedPort);
                     break;
                 case 3:
-                    reefertruckController.createReeferTruck(selectedPort);
+                    ReeferTruckMenu(selectedPort);
                     break;
                 case 4:
                     return;
@@ -213,10 +211,62 @@ public class mainMenu {
                     basictruckController.createBasicTruck(selectedPort);
                     break;
                 case 3:
-                    loadContainerShipMenu(selectedPort);
+                    loadContainerBasicTruckMenu(selectedPort);
                     break;
                 case 4:
-                    unloadContainerShipMenu(selectedPort);
+                    unloadContainerBasicTruckMenu(selectedPort);
+                    break;
+                case 5:
+                    return;
+            }
+
+        }
+    }
+    public static void TankerTruckMenu(Port selectedPort) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("1. Create Tanker Truck");
+            System.out.println("2. Remove Tanker Truck");
+            System.out.println("3. Load Container on Tanker Truck");
+            System.out.println("4. Unload Container on Tanker Truck");
+            System.out.println("5. Return");
+            System.out.print("Choose an option: ");
+            int choiceShip = scanner.nextInt();
+            switch (choiceShip) {
+                case 1:
+                    tankertruckController.createTankerTruck(selectedPort);
+                    break;
+                case 3:
+                    loadContainerTankerTruckMenu(selectedPort);
+                    break;
+                case 4:
+                    unloadContainerTankerTruckMenu(selectedPort);
+                    break;
+                case 5:
+                    return;
+            }
+
+        }
+    }
+    public static void ReeferTruckMenu(Port selectedPort) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("1. Create Reefer Truck");
+            System.out.println("2. Remove Reefer Truck");
+            System.out.println("3. Load Container on Reefer Truck");
+            System.out.println("4. Unload Container on Reefer Truck");
+            System.out.println("5. Return");
+            System.out.print("Choose an option: ");
+            int choiceShip = scanner.nextInt();
+            switch (choiceShip) {
+                case 1:
+                    reefertruckController.createReeferTruck(selectedPort);
+                    break;
+                case 3:
+                    loadContainerReeferTruckMenu(selectedPort);
+                    break;
+                case 4:
+                    unloadContainerReeferTruckMenu(selectedPort);
                     break;
                 case 5:
                     return;

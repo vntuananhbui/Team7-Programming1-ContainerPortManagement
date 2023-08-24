@@ -8,7 +8,7 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Veh
 public abstract class Truck extends Vehicle {
 
     public Truck(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
-        super("tr-" + numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
+        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
     }
 
 

@@ -217,6 +217,45 @@ public class Port implements PortOperations {
 
         return shipIDs;
     }
+    public List<String> getBasicTrucksInPort() throws IOException {
+        List<String> basictruckIDs = new ArrayList<>();
+
+        List<String> vehicleIDs = getVehiclesByPortID(this.getID());
+
+        for (String vehicleID : vehicleIDs) {
+            if (vehicleID.startsWith("btr-")) {
+                basictruckIDs.add(vehicleID);
+            }
+        }
+
+        return basictruckIDs;
+    }
+    public List<String> getTankerTrucksInPort() throws IOException {
+        List<String> tankertruckIDs = new ArrayList<>();
+
+        List<String> vehicleIDs = getVehiclesByPortID(this.getID());
+
+        for (String vehicleID : vehicleIDs) {
+            if (vehicleID.startsWith("ttr-")) {
+                tankertruckIDs.add(vehicleID);
+            }
+        }
+
+        return tankertruckIDs;
+    }
+    public List<String> getReeferTrucksInPort() throws IOException {
+        List<String> reeferIDs = new ArrayList<>();
+
+        List<String> vehicleIDs = getVehiclesByPortID(this.getID());
+
+        for (String vehicleID : vehicleIDs) {
+            if (vehicleID.startsWith("rtr-")) {
+                reeferIDs.add(vehicleID);
+            }
+        }
+
+        return reeferIDs;
+    }
     public static List<String> getContainerIDInPort(Port port) throws IOException {
         List<String> containerIDs = new ArrayList<>();
 

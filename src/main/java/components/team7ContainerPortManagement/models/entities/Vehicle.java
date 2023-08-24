@@ -1,5 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.models.entities;
 
+import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
 import src.main.java.components.team7ContainerPortManagement.models.interfaces.VehicleOperations;
 
 import java.util.ArrayList;
@@ -76,6 +77,7 @@ public abstract class Vehicle implements VehicleOperations {
 //    }
 
     public boolean loadContainer(Container container) {
+
 
         if (container.isLoaded()) {
             System.out.println("This container is already loaded onto another vehicle.");
