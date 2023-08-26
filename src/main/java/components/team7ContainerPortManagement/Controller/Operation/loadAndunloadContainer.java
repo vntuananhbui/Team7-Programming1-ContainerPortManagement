@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.Math.round;
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.getReeferTruckByLine;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.getReeferTruckLineByreefertruckID;
@@ -97,9 +98,9 @@ public class loadAndunloadContainer {
 
         //Calculate total weight
         double totalWeight = round(getShipTotalContainerWeight(selectedShip,selectedPort) + selectedContainer.getWeight());
+        double totalConweigthinPort = round(calculateTotalWeightContainerPort(selectedPort)) + selectedContainer.getWeight();
 
-
-        if (selectedShip.loadContainer(selectedContainer) && totalWeight < selectedShip.getCarryingCapacity()) {
+        if (selectedShip.loadContainer(selectedContainer) && totalWeight < selectedShip.getCarryingCapacity() && totalConweigthinPort < selectedPort.getStoringCapacity()) {
             System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedShip.getID());
 
             // Update the container's isLoaded status and port
@@ -119,7 +120,10 @@ public class loadAndunloadContainer {
         } else if (totalWeight > selectedShip.getCarryingCapacity()) {
             System.out.println("The total container weight in Ship is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedShip.getCarryingCapacity());
         }
-        else {
+         else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
+            System.out.println("The total container weight in Port is larger than it capacity");
+        }
+        else{
             System.out.println("Failed to load container.");
         }
 
@@ -189,7 +193,9 @@ public class loadAndunloadContainer {
         //Load function
 
         double totalWeight = round(getBasicTruckTotalContainerWeight(selectedBasicTruck,selectedPort) + selectedContainer.getWeight());
-        if (selectedBasicTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP) || selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE) || selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE))
+        double totalConweigthinPort = round(calculateTotalWeightContainerPort(selectedPort)) + selectedContainer.getWeight();
+
+        if (selectedBasicTruck.loadContainer(selectedContainer) && totalConweigthinPort <= selectedPort.getStoringCapacity() &&selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP) || selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE) || selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE))
         {
 
             System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedBasicTruck.getID());
@@ -213,8 +219,10 @@ public class loadAndunloadContainer {
 
         } else if (selectedContainer.getContainerType().equals(ContainerType.LIQUID)) {
             System.out.println("This Basic truck can not carry Liquid container!");
-        } else if (totalWeight < selectedBasicTruck.getCarryingCapacity()) {
+        } else if (totalWeight > selectedBasicTruck.getCarryingCapacity()) {
             System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedBasicTruck.getCarryingCapacity());
+        }else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
+            System.out.println("The total container weight in Port is larger than it capacity");
         }
         else {
             System.out.println("Fail to load! ");
@@ -287,7 +295,9 @@ public class loadAndunloadContainer {
         //Load function
 
         double totalWeight = round(getTankerTruckTotalContainerWeight(selectedTankerTruck,selectedPort) + selectedContainer.getWeight());
-        if (selectedTankerTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.LIQUID))
+        double totalConweigthinPort = round(calculateTotalWeightContainerPort(selectedPort)) + selectedContainer.getWeight();
+
+        if (selectedTankerTruck.loadContainer(selectedContainer) && totalConweigthinPort <= selectedPort.getStoringCapacity() && selectedContainer.getContainerType().equals(ContainerType.LIQUID))
         {
 
             System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedTankerTruck.getID());
@@ -317,8 +327,11 @@ public class loadAndunloadContainer {
         else if (selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)) {
             System.out.println("This Basic truck can not carry Dry Storage container!");
         }
-        else if (totalWeight < selectedTankerTruck.getCarryingCapacity()) {
+        else if (totalWeight > selectedTankerTruck.getCarryingCapacity()) {
             System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedTankerTruck.getCarryingCapacity());
+        }
+        else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
+            System.out.println("The total container weight in Port is larger than it capacity");
         }
         else {
             System.out.println("Fail to load! ");
@@ -390,7 +403,9 @@ public class loadAndunloadContainer {
         //Load function
 
         double totalWeight = round(getReeferTruckTotalContainerWeight(selectedReeferTruck,selectedPort) + selectedContainer.getWeight());
-        if (selectedReeferTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED))
+        double totalConweigthinPort = round(calculateTotalWeightContainerPort(selectedPort)) + selectedContainer.getWeight();
+
+        if (selectedReeferTruck.loadContainer(selectedContainer) && totalConweigthinPort <= selectedPort.getStoringCapacity()&& selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED))
         {
 
             System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedReeferTruck.getID());
@@ -422,8 +437,11 @@ public class loadAndunloadContainer {
         else if (selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)) {
             System.out.println("This Basic truck can not carry Dry Storage container!");
         }
-        else if (totalWeight < selectedReeferTruck.getCarryingCapacity()) {
+        else if (totalWeight > selectedReeferTruck.getCarryingCapacity()) {
             System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedReeferTruck.getCarryingCapacity());
+        }
+        else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
+            System.out.println("The total container weight in Port is larger than it capacity");
         }
         else {
             System.out.println("Fail to load! ");

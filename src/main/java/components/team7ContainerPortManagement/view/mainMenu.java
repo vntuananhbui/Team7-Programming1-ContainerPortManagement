@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.loadAndunloadContainer.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
@@ -125,7 +126,7 @@ public class mainMenu {
                     PortOperationsMenu(selectedPort);
                     break;
                 case 5:
-//                    calculatemenu(selectedPort);
+                    calculateTotalWeightContainerPort(selectedPort);
                 case 0:
                     portManagerMenu();
                     break;

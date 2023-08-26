@@ -373,4 +373,44 @@ public abstract class Vehicle implements VehicleOperations {
         }
         return null;
     }
+    public static Vehicle getVehicleByVehicleID(String vehicleID) throws IOException {
+        List<Vehicle> vehicles = readVehiclesFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getID().equals(vehicleID)) {
+                return vehicle;
+            }
+        }
+        return null; // Return null if no vehicle is found with the given ID
+    }
+    public static void updateFuel(String vehicleID, double newFuel) throws IOException {
+        List<String> lines = new ArrayList<>();
+
+        // Read the entire file
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Check if the line contains the vehicleID we want to update
+                if (line.contains("ID='" + vehicleID + "'")) {
+                    // Replace the currentFuel value
+                    line = replaceFuelValue(line, newFuel);
+                }
+                lines.add(line);
+                System.out.println("Update fuel complete!");
+            }
+        }
+
+        // Write the modified content back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt"))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+    }
+
+    private static String replaceFuelValue(String line, double newFuel) {
+        // Using regex to replace the currentFuel value. Assumes there's only one instance of "currentFuel=..." in the line.
+        return line.replaceAll("currentFuel=[0-9]+\\.?[0-9]*", "currentFuel=" + newFuel);
+    }
+
 }

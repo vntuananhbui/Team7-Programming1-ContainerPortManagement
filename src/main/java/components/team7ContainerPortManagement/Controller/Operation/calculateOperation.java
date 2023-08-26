@@ -15,6 +15,7 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.V
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.getTankerTruckByLine;
 import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getVehiclesByPortID;
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.getVehicleByVehicleID;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readAvailablePortsFromFile;
 
@@ -70,9 +71,9 @@ public class calculateOperation {
                 fuelConsumption = 3.5;
                 return fuelConsumption * distancePort;
             }
-            System.out.println("container in vehiclecontainermap: " + containerIDs);
+//            System.out.println("container in vehiclecontainermap: " + containerIDs);
 
-            System.out.println("All container " + containers);
+//            System.out.println("All container " + containers);
             System.out.println("Distance from: " + currentPort.getID() + " to " + selectedPort.getID() + " is: " + distancePort);
             double finalConsumption = getFinalShipConsumption(containerIDs);
 
@@ -89,9 +90,9 @@ public class calculateOperation {
                 fuelConsumption = 3.5;
                 return fuelConsumption * distancePort;
             }
-            System.out.println("container in vehiclecontainermap: " + containerIDs);
+//            System.out.println("container in vehiclecontainermap: " + containerIDs);
 
-            System.out.println("All container " + containers);
+//            System.out.println("All container " + containers);
             System.out.println("Distance from: " + currentPort.getID() + " to " + selectedPort.getID() + " is: " + distancePort);
 
             double finalConsumption = getFinalTruckConsumption(containerIDs);
@@ -103,5 +104,27 @@ public class calculateOperation {
         }
         return fuelConsumption;
     }
+
+    public static double calculateTotalWeightContainerPort(Port currentPort) throws IOException {
+        double totalWeightContainerInPort = 0;
+        List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
+        Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
+        System.out.println("Available vehicle in port: "+availableVehicleIDs);
+        for (String vehicle : availableVehicleIDs) {
+            Vehicle selectedVehicle = getVehicleByVehicleID(vehicle);
+            List<String> containerIDs = vehicleContainerMap.get(selectedVehicle.getID());
+            if (containerIDs == null || containerIDs.isEmpty()) {
+                totalWeightContainerInPort += 0;
+            } else {
+                for (String container : containerIDs) {
+                    Container ObjectContainerList = getContainerByID(container);
+                    totalWeightContainerInPort += ObjectContainerList.getWeight();
+                }
+            }
+        }
+        System.out.println("Total weight"+totalWeightContainerInPort);
+        return totalWeightContainerInPort;
+    }
+
 
     }

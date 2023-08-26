@@ -51,7 +51,7 @@ public class containerController {
         double finalConsumption = 0;
         for (String container : containerIDs) {
             Container ObjectContainerList = getContainerByID(container);
-            System.out.println("Object container: " + ObjectContainerList);
+//            System.out.println("Object container: " + ObjectContainerList);
             assert ObjectContainerList != null;
             ContainerType containerConsumption = ObjectContainerList.getContainerType();
             System.out.println(containerConsumption); //DRY_STORAGE
@@ -87,7 +87,7 @@ public class containerController {
         double finalConsumption = 0;
         for (String container : containerIDs) {
             Container ObjectContainerList = getContainerByID(container);
-            System.out.println("Object container: " + ObjectContainerList);
+//            System.out.println("Object container: " + ObjectContainerList);
             assert ObjectContainerList != null;
             ContainerType containerConsumption = ObjectContainerList.getContainerType();
             System.out.println(containerConsumption); //DRY_STORAGE

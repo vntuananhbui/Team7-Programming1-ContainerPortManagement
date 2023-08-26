@@ -67,7 +67,7 @@ public class moveTo {
             }
         }
         double fuelRequire = calculateFuelConsumption(currentPort,selectedPort,selectedVehicle.getID(),selectedVehicle);
-        if (selectedVehicle.canMoveTo(selectedPort) &&  fuelRequire <= selectedVehicle.getFuelCapacity()) {
+        if (selectedVehicle.canMoveTo(selectedPort) &&  fuelRequire <= selectedVehicle.getCurrentFuel()) {
 //        System.out.println("Vehicle current port: "+selectedVehicle.getCurrentPort());
 //        System.out.println("Destination port: " + selectedPort);
 //        selectedVehicle.setCurrentPort(selectedPort); //Change the file vehicle.txt
@@ -80,8 +80,9 @@ public class moveTo {
                 List<String> currentPortVehicles = new ArrayList<>(vehiclePortMap.get(currentPort.getID()));
                 List<String> currentPortContainers = containerPortMap.get(currentPort.getID());
                 List<String> selectedPortIDs = vehiclePortMap.get(selectedPort.getID());
+                List<String> currentContainerVehicle = vehicleContainerMap.get(selectedVehicle.getID());
             System.out.println("currentport container: " + currentPortContainers);
-            if (currentPortContainers != null) {
+            if (currentContainerVehicle != null) {
                 currentPortContainers = new ArrayList<>(currentPortContainers);
                 currentPortContainers.removeAll(containerIDs);
                 containerPortMap.computeIfAbsent(selectedPort.getID(), k -> new ArrayList<>()).addAll(containerIDs);
@@ -98,10 +99,17 @@ public class moveTo {
             System.out.println("currentport vehicle: " + currentPortVehicles);
                 System.out.println("selected vehicle: "+selectedVehicle.getID());
                 currentPortVehicles.remove(selectedVehicle.getID());
-                vehiclePortMap.put(currentPort.getID(),currentPortVehicles);
+            System.out.println("Map1 :" + vehiclePortMap);
+            System.out.println("After remove port vehicle: " + currentPortVehicles);
+            vehiclePortMap.put(currentPort.getID(),currentPortVehicles);
+            System.out.println("Map2 :" + vehiclePortMap);
+            System.out.println("After remove port vehicle: " + currentPortVehicles);
+
             if (selectedPortIDs == null) {
                 selectedPortIDs = new ArrayList<>();
-                vehiclePortMap.put(selectedPort.getID(), currentPortVehicles);
+                selectedPortIDs.add(selectedVehicle.getID());
+                vehiclePortMap.put(selectedPort.getID(), selectedPortIDs);
+                System.out.println("in if vehicleport : " + currentPortVehicles);
                 System.out.println("IF: Selected Port ID: "+selectedPortIDs);
             } else {
                 try {
@@ -113,6 +121,7 @@ public class moveTo {
                     vehiclePortMap.put(selectedPort.getID(), mutableList);
                 }
             }
+            double afterMoveFuel = selectedVehicle.getCurrentFuel() -fuelRequire;
 
             System.out.println("After map: " + vehiclePortMap);
             System.out.println();
@@ -121,22 +130,23 @@ public class moveTo {
             writePortContainerMapToFile(containerPortMap,"src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
 
             System.out.println("Fuel require: " + fuelRequire);
-            System.out.println("Current fuel: " + selectedVehicle.getFuelCapacity());
+            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
+            updateFuel(selectedVehicle.getID(),afterMoveFuel);
             }
 
 
 
 //
 
-     else if (fuelRequire > selectedVehicle.getFuelCapacity()){
-            System.out.println("Ship current Fuel not enought to move to " + selectedPort.getID());
+     else if (fuelRequire > selectedVehicle.getCurrentFuel()){
+            System.out.println("Fuel require is larger than current fuel");
             System.out.println("Fuel require: " + fuelRequire);
-            System.out.println("Current fuel: " + selectedVehicle.getFuelCapacity());
+            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
 
         } else {
         System.out.println("Fail to move");
             System.out.println("Fuel require: " + fuelRequire);
-            System.out.println("Current fuel: " + selectedVehicle.getFuelCapacity());
+            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
 
         }
 }
