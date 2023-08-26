@@ -3,6 +3,7 @@ package src.main.java.components.team7ContainerPortManagement.Controller.Operati
 import src.main.java.components.team7ContainerPortManagement.Controller.portController;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
+import src.main.java.components.team7ContainerPortManagement.models.entities.Trip;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
@@ -82,8 +83,13 @@ public class moveTo {
                 List<String> selectedPortIDs = vehiclePortMap.get(selectedPort.getID());
                 List<String> currentContainerVehicle = vehicleContainerMap.get(selectedVehicle.getID());
             System.out.println("currentport container: " + currentPortContainers);
+            System.out.println("current container vehicle: " + currentContainerVehicle);
             if (currentContainerVehicle != null) {
-                currentPortContainers = new ArrayList<>(currentPortContainers);
+                if (currentPortContainers != null) {
+                    currentPortContainers = new ArrayList<>(currentPortContainers);
+                } else {
+                    currentPortContainers = new ArrayList<>();
+                }
                 currentPortContainers.removeAll(containerIDs);
                 containerPortMap.computeIfAbsent(selectedPort.getID(), k -> new ArrayList<>()).addAll(containerIDs);
                 containerPortMap.put(currentPort.getID(), currentPortContainers);
@@ -125,6 +131,9 @@ public class moveTo {
 
             System.out.println("After map: " + vehiclePortMap);
             System.out.println();
+            Trip newTrip = new Trip(selectedVehicle, selectedVehicle.getCurrentPort(), selectedPort);
+            newTrip.start();
+            newTrip.tripComplete();
             updateVehiclePort(selectedVehicle.getID(),selectedPort.getID());
             writeVehiclePortMapInFile(vehiclePortMap, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt");
             writePortContainerMapToFile(containerPortMap,"src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
@@ -132,13 +141,8 @@ public class moveTo {
             System.out.println("Fuel require: " + fuelRequire);
             System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
             updateFuel(selectedVehicle.getID(),afterMoveFuel);
-            }
 
-
-
-//
-
-     else if (fuelRequire > selectedVehicle.getCurrentFuel()){
+        } else if (fuelRequire > selectedVehicle.getCurrentFuel()){
             System.out.println("Fuel require is larger than current fuel");
             System.out.println("Fuel require: " + fuelRequire);
             System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
