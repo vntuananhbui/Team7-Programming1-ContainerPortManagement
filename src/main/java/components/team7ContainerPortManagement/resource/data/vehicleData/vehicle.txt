@@ -1,2 +1,5 @@
 Vehicle{ID='sh-ship1', name='1', currentFuel=100.0, carryingCapacity=100.0, fuelCapacity=100.0, currentPort=p-port22}
-Vehicle{ID='sh-ship2', name='1', currentFuel=100.0, carryingCapacity=100.0, fuelCapacity=100.0, currentPort=p-port11}
+Vehicle{ID='sh-ship2', name='1', currentFuel=100.0, carryingCapacity=100.0, fuelCapacity=100.0, currentPort=p-port22}
+Vehicle{ID='sh-ship33', name='1', currentFuel=5550.0, carryingCapacity=1909.0, fuelCapacity=199.0, currentPort=p-port11}
+Vehicle{ID='ttr-tank1', name='2', currentFuel=2.0, carryingCapacity=2.0, fuelCapacity=2.0, currentPort=p-port22}
+Vehicle{ID='btr-basic1', name='truck', currentFuel=5550.0, carryingCapacity=500.0, fuelCapacity=5550.0, currentPort=p-port11}

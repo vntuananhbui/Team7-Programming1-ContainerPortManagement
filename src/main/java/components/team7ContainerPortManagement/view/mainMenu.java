@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.loadAndunloadContainer.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
@@ -99,8 +100,8 @@ public class mainMenu {
             System.out.println("2. Ship Controller");
             System.out.println("3. Truck Controller");
             System.out.println("4. Port Operations");
-            System.out.println("4. Calculate Total Container Weight");
-            System.out.println("5. Change port");
+            System.out.println("5. Calculate menu");
+            System.out.println("6. Change port");
             System.out.println("6. Port Vehicles");
             System.out.println("7. Load container");
             System.out.println("8. Test");
@@ -124,6 +125,8 @@ public class mainMenu {
                     PortOperationsMenu(selectedPort);
                     break;
                 case 5:
+//                    calculatemenu(selectedPort);
+                case 0:
                     portManagerMenu();
                     break;
                 case 6:

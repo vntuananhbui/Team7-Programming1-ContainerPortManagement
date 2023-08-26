@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.getTankerTruckByLine;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getVehiclesByPortID;
@@ -29,7 +30,6 @@ public class moveTo {
 
     public static void moveToMenu(Port currentPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
-
 // Load available ports from port.txt and display them here
         List<Port> availablePorts = null;
         //Read all available port except current port
@@ -62,11 +62,12 @@ public class moveTo {
             } else {
                 selectedVehicleNumber = availableVehicleIDs.get(selectedVehicleOrderID - 1);
                 String tankertruckLine = getBasicTruckLineBybasictruckID(selectedVehicleNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
-                selectedVehicle = getTankerTruckByLine(tankertruckLine);
+                selectedVehicle = getVehicleByLine(tankertruckLine);
                 break; // Exit the loop if a valid ship is selected
             }
         }
-        if (selectedVehicle.canMoveTo(selectedPort)) {
+        double fuelRequire = calculateFuelConsumption(currentPort,selectedPort,selectedVehicle.getID(),selectedVehicle);
+        if (selectedVehicle.canMoveTo(selectedPort) &&  fuelRequire <= selectedVehicle.getFuelCapacity()) {
 //        System.out.println("Vehicle current port: "+selectedVehicle.getCurrentPort());
 //        System.out.println("Destination port: " + selectedPort);
 //        selectedVehicle.setCurrentPort(selectedPort); //Change the file vehicle.txt
@@ -112,72 +113,31 @@ public class moveTo {
                     vehiclePortMap.put(selectedPort.getID(), mutableList);
                 }
             }
-//                vehiclePortMap.computeIfAbsent(selectedPort.getID(), k -> new ArrayList<>()).add(selectedVehicle.getID());
 
             System.out.println("After map: " + vehiclePortMap);
-
+            System.out.println();
             updateVehiclePort(selectedVehicle.getID(),selectedPort.getID());
             writeVehiclePortMapInFile(vehiclePortMap, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt");
             writePortContainerMapToFile(containerPortMap,"src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
 
-            //
-//            Map<String, List<String>> newVehiclePortMap = processDataFromVehicleFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt", vehiclePortMap);
-//            writeVehiclePortMapInFile(newVehiclePortMap, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt");
-            // Remove the vehicle and its containers from the current port
-//                System.out.println("current port: "+currentPort.getID());
-//                System.out.println("selected vehicle: "+selectedVehicle.getID());
-//                System.out.println("selected port: "+selectedPort.getID());
-//                System.out.println("Vehicle Port Map: " + vehiclePortMap);
-//                System.out.println("Current port vehicle: "+ currentPortVehicles);
-
-
-//                selectedVehicle.setCurrentPort(selectedPort);
-
-                // Add the vehicle and its containers to the selected port
-//                currentPortVehicles.add(selectedVehicle.getID());
-
-//                vehiclePortMap.computeIfAbsent(selectedPort.getID(), k -> new ArrayList<>()).add(selectedVehicle.getID());
-
-
+            System.out.println("Fuel require: " + fuelRequire);
+            System.out.println("Current fuel: " + selectedVehicle.getFuelCapacity());
             }
 
 
 
-//        Test HashMap of containerPortMap
-//        System.out.println("Container Port map: "  + containerPortMap);
-//        System.out.println("Contains key: " + containerPortMap.keySet());
-//        System.out.println(containerPortMap.containsKey(selectedPort.getID()));
-//        System.out.println("value: " + containerPortMap.values());
-//        Test Hashmap of vehiclePort map
-//        System.out.println("Vehicle port map: " + vehiclePortMap);
-//        System.out.println("Vehicle container map: " + vehicleContainerMap);
-//        System.out.println("Contains Key: "+vehiclePortMap.keySet());
-//        System.out.println(vehiclePortMap.containsKey(selectedPort.getID()));
-//        System.out.println("Selected Port: "+selectedPort.getID());
-//        System.out.println("Value: " + vehiclePortMap.values());
-//        System.out.println("Vehicle ID: " + selectedVehicle.getID() );
-//            if (vehiclePortMap.containsKey(selectedPort.getID())) {
-//                vehiclePortMap.get(selectedPort.getID()).remove(selectedVehicle.getID());
-//                if (vehiclePortMap.get(selectedPort.getID()).isEmpty()) {
-//                    vehiclePortMap.remove(selectedPort.getID());
-//                }
-//            }
-//            vehiclePortMap.computeIfAbsent(selectedPort.getID(), k -> new ArrayList<>()).add(selectedVehicle.getID());
+//
 
-        //Add vehicle to port_vehicles.txt
-//            List<String> containerIDsInCurrentPort = containerPortMap.getOrDefault(currentPort.getID(), new ArrayList<>());
-//            System.out.println(containerIDsInCurrentPort);
-//            containerPortMap.put(selectedPort.getID(), containerIDsInCurrentPort); //port_container.txt
-//            containerPortMap.put(currentPort.getID(), new ArrayList<>());
-//            List<String> selectedPortContainerIDs = containerPortMap.computeIfAbsent(selectedPort.getID(), k -> new ArrayList<>());
-        //
-//            containerPortMap.put(selectedPort.getID(), selectedPortContainerIDs);
-// Clear the list of container IDs for the current port
-//            containerPortMap.put(currentPort.getID(), new ArrayList<>());
+     else if (fuelRequire > selectedVehicle.getFuelCapacity()){
+            System.out.println("Ship current Fuel not enought to move to " + selectedPort.getID());
+            System.out.println("Fuel require: " + fuelRequire);
+            System.out.println("Current fuel: " + selectedVehicle.getFuelCapacity());
 
+        } else {
+        System.out.println("Fail to move");
+            System.out.println("Fuel require: " + fuelRequire);
+            System.out.println("Current fuel: " + selectedVehicle.getFuelCapacity());
 
-     else {
-            System.out.println("Fail to move");
         }
-    }
+}
 }
