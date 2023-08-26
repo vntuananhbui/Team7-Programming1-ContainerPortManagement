@@ -1,0 +1,1 @@
+Container{ID='c-conship1-port2', weight=1.0, containerType=DRY_STORAGE, isLoaded=true, Port{ID='p-port11', name='11'', latitude=11.000000, longitude=1.000000, storingCapacity=11, landingAbility=true}', name='port22'', latitude=22.000000, longitude=2.000000, storingCapacity=22, landingAbility=true}}

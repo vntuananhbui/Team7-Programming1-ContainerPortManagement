@@ -44,4 +44,5 @@ public class BasicTruck extends Truck {
         return super.loadContainer(container);  // Use the implementation from the Vehicle class
 
     }
+
 }

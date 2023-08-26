@@ -2,7 +2,12 @@ package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.interfaces.PortOperations;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Port implements PortOperations {
@@ -19,7 +24,7 @@ public class Port implements PortOperations {
 
     public Port(String ID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility) {
 
-        this.ID = "p-" + ID;
+        this.ID = ID;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -29,9 +34,15 @@ public class Port implements PortOperations {
     }
 
     public String getID() {
-        return ID;
+        int startIndex = ID.indexOf("'") + 1;
+        int endIndex = ID.lastIndexOf("'");
+        return ID.substring(startIndex, endIndex);
+//        return ID;
     }
 
+    public String writeID() {
+        return ID;
+    }
     public String getName() {
         return name;
     }
@@ -88,16 +99,18 @@ public class Port implements PortOperations {
 
         return Math.round(distance);
     }
+
     @Override
     public boolean canAddContainer(Container container) {
         return calculateTotalContainerWeight() + container.getWeight() <= storingCapacity;
     }
+
     @Override
     public boolean addContainer(Container container) {
         //Check if the port can add more container
         if (canAddContainer(container)) {
             System.out.println("The " + container.getID() + " container is unloaded on " + container.getPort().name);
-            System.out.println(container.getPort().name + " has added container " + container.getID() +" successfully");
+            System.out.println(container.getPort().name + " has added container " + container.getID() + " successfully");
             container.setPort(this);
             containers.add(container); //If true, add container to port containers list
             return true; //add container.
@@ -118,23 +131,25 @@ public class Port implements PortOperations {
         vehicles.add(vehicle);
         return true;
     }
+
     @Override
     public boolean removeVehicle(Vehicle vehicle) {
         vehicles.remove(vehicle);
         return true;
     }
+
     @Override
     public String toString() {
-        return "Port{" +
-                "ID='" + ID + '\'' +
-                ", name='" + name + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", storingCapacity=" + storingCapacity +
-                ", landingAbility=" + landingAbility +
-                '}';
+//        String vehicleInfo = vehicles.stream().map(Vehicle::getID).collect(Collectors.joining(","));
+        return String.format("Port{ID='%s', name='%s', latitude=%f, longitude=%f, storingCapacity=%d, landingAbility=%b}",
+                getID(), getName(), getLatitude(), getLongitude(), getStoringCapacity(), isLandingAbility());
     }
-
+    @Override
+    public String toStringAdd() {
+//        String vehicleInfo = vehicles.stream().map(Vehicle::getID).collect(Collectors.joining(","));
+        return String.format("Port{ID='%s', name='%s', latitude=%f, longitude=%f, storingCapacity=%d, landingAbility=%b}",
+                writeID(), getName(), getLatitude(), getLongitude(), getStoringCapacity(), isLandingAbility());
+    }
     public Port(String ID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility, List<Container> containers, List<Vehicle> vehicles, List<Trip> traffic) {
         this.ID = ID;
         this.name = name;
@@ -151,6 +166,7 @@ public class Port implements PortOperations {
     public boolean hasLandingAbility() {
         return landingAbility;
     }
+
     @Override
     public double calculateTotalContainerWeight() {
         double totalWeight = 0.0;
@@ -159,35 +175,115 @@ public class Port implements PortOperations {
         }
         return totalWeight;
     }
+    //Special method
+    public static List<String> getVehiclesByPortID(String portID) throws IOException {
+        List<String> vehicleIDs = new ArrayList<>();
 
-    //Show all container
-    public void showAllContainer() {
-        System.out.println("All container belong to " + this.name);
-        if (containers.isEmpty()) {
-            System.out.println(this.name + " is currrent not have container.");
+        // Path to the port_vehicles file
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt";
+
+        // Try-with-resources to automatically close BufferedReader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Port :" + portID)) {
+                    // Extract the vehicles portion
+                    String vehicleSegment = line.split("Vehicles: ")[1];
+                    vehicleSegment = vehicleSegment.replace("}", "").trim();
+
+                    // Split by comma and collect all vehicle IDs
+                    String[] vehicles = vehicleSegment.split(", ");
+                    Collections.addAll(vehicleIDs, vehicles);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Port vehicles file not found.");
+            e.printStackTrace();
         }
-        for (Container container: containers) {
-            System.out.println("Container ID: " +container.getID() + "Type: " + container.getContainerType());
+
+        return vehicleIDs;
+    }
+    public List<String> getShipsInPort() throws IOException {
+        List<String> shipIDs = new ArrayList<>();
+
+        List<String> vehicleIDs = getVehiclesByPortID(this.getID());
+
+        for (String vehicleID : vehicleIDs) {
+            if (vehicleID.startsWith("sh-")) {
+                shipIDs.add(vehicleID);
+            }
         }
+
+        return shipIDs;
+    }
+    public List<String> getBasicTrucksInPort() throws IOException {
+        List<String> basictruckIDs = new ArrayList<>();
+
+        List<String> vehicleIDs = getVehiclesByPortID(this.getID());
+
+        for (String vehicleID : vehicleIDs) {
+            if (vehicleID.startsWith("btr-")) {
+                basictruckIDs.add(vehicleID);
+            }
+        }
+
+        return basictruckIDs;
+    }
+    public List<String> getTankerTrucksInPort() throws IOException {
+        List<String> tankertruckIDs = new ArrayList<>();
+
+        List<String> vehicleIDs = getVehiclesByPortID(this.getID());
+
+        for (String vehicleID : vehicleIDs) {
+            if (vehicleID.startsWith("ttr-")) {
+                tankertruckIDs.add(vehicleID);
+            }
+        }
+
+        return tankertruckIDs;
+    }
+    public List<String> getReeferTrucksInPort() throws IOException {
+        List<String> reeferIDs = new ArrayList<>();
+
+        List<String> vehicleIDs = getVehiclesByPortID(this.getID());
+
+        for (String vehicleID : vehicleIDs) {
+            if (vehicleID.startsWith("rtr-")) {
+                reeferIDs.add(vehicleID);
+            }
+        }
+
+        return reeferIDs;
     }
 
-    public void showAllVehicleInPort() {
-        System.out.println("All vehicle belong to " + this.name);
-        if (vehicles.isEmpty()) {
-            System.out.println(this.name + " is not have any vehicle");
 
+    public static List<String> getContainerIDInPort(Port port) throws IOException {
+        List<String> containerIDs = new ArrayList<>();
+
+        // Path to the port_containers file
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Port :" + port.getID())) {
+                    String containerSegment = line.split("Container: ")[1];
+                    containerSegment = containerSegment.replace("}", "").trim();
+                    String[] containers = containerSegment.split(", ");
+                    Collections.addAll(containerIDs, containers);
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Port containers file not found.");
+            e.printStackTrace();
         }
-        for (Vehicle vehicle : vehicles) {
-                System.out.println("Vehicle ID: " + vehicle.getID());
 
-        }
-    }
-    public void addTrip(Trip trip) {
-        this.trips.add(trip);
-    }
-
-    public List<Trip> getTrips() {
-        return this.trips;
+        return containerIDs;
     }
 
 }
+
+
+

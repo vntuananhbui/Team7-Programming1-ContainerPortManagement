@@ -1,0 +1,2 @@
+Port{ID='p-port11', name='11', latitude=11.000000, longitude=11.000000, storingCapacity=11, landingAbility=true}
+Port{ID='p-port22', name='port22', latitude=22.000000, longitude=22.000000, storingCapacity=22, landingAbility=true}
