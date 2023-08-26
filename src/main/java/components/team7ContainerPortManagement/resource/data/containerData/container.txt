@@ -1,8 +1,1 @@
-Container{ID='c-Con-1', weight=2.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-port6', name='2'', latitude=2012.000000, longitude=2.000000, storingCapacity=2000, landingAbility=true}}
-Container{ID='c-Con-2', weight=2.0, containerType=OPEN_SIDE, isLoaded=true, port=Port{ID='p-port6', name='2'', latitude=2012.000000, longitude=2.000000, storingCapacity=2000, landingAbility=true}}
-Container{ID='c-con-3', weight=1.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-port6', name='2'', latitude=2012.000000, longitude=2.000000, storingCapacity=2000, landingAbility=true}}
-Container{ID='c-BasicContainer', weight=99.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-port6', name='2'', latitude=2012.000000, longitude=2.000000, storingCapacity=2000, landingAbility=true}}
-Container{ID='c-Liquid', weight=2.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-port6', name='2'', latitude=2012.000000, longitude=2.000000, storingCapacity=2000, landingAbility=true}}
-Container{ID='c-Test', weight=10.0, containerType=LIQUID, isLoaded=true, port=Port{ID='p-port6', name='2'', latitude=2012.000000, longitude=2.000000, storingCapacity=2000, landingAbility=true}}
-Container{ID='c-tanker2', weight=12.0, containerType=LIQUID, isLoaded=true, port=Port{ID='p-port6', name='2'', latitude=2012.000000, longitude=2.000000, storingCapacity=2000, landingAbility=true}}
-Container{ID='c-con1', weight=100.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-port2', name='prot2'', latitude=2302.000000, longitude=212.000000, storingCapacity=1221, landingAbility=true}}
+Container{ID='c-conship1-port2', weight=1.0, containerType=DRY_STORAGE, isLoaded=true, Port{ID='p-port11', name='11'', latitude=11.000000, longitude=1.000000, storingCapacity=11, landingAbility=true}', name='port22'', latitude=22.000000, longitude=2.000000, storingCapacity=22, landingAbility=true}}

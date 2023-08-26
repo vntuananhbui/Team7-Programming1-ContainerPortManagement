@@ -1,3 +1,1 @@
-{ttr-Tank: c-tanker2}
-{sh-ship1: c-BasicContainer}
-{btr-basic1: c-con-3, c-Con-2, c-Test}
+{sh-ship2: c-conship1-port2}

@@ -34,6 +34,7 @@ public class containerWriteFile {
 
         Files.write(file.toPath(), lines);
     }
+
     public static void updateContainerLoadFile(Vehicle vehicle) throws IOException {
         String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt";
 
@@ -59,6 +60,7 @@ public class containerWriteFile {
             }
         }
     }
+
     public static void writeContainersToFile(List<Container> containers, String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Container container : containers) {
@@ -67,6 +69,7 @@ public class containerWriteFile {
             }
         }
     }
+
     public static void writeVehicleContainerMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Map.Entry<String, List<String>> entry : map.entrySet()) {
@@ -76,4 +79,45 @@ public class containerWriteFile {
         }
     }
 
+    public static void writePortContainerMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                writer.write("{" + entry.getKey() + ": " + String.join(", ", entry.getValue()) + "}");
+                writer.newLine();
+            }
+        }
+    }
+
+    public static void updateContainerPort(String containerID, String newPortID, Port newPort) throws IOException {
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt";
+
+        // Read the contents of the file into memory
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        }
+
+        // Find the line corresponding to the container and update the port
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i).contains("Container{ID='" + containerID + "'")) {
+                int portStartIndex = lines.get(i).indexOf("port=Port{ID='") + "port=Port{ID='".length();
+                int portEndIndex = lines.get(i).indexOf("'", portStartIndex);
+                String currentPortID = lines.get(i).substring(portStartIndex, portEndIndex);
+
+                lines.set(i, lines.get(i).replace("port=Port{ID='" + currentPortID, newPort.toString()));
+                break;
+            }
+        }
+
+        // Write the updated contents back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+    }
 }

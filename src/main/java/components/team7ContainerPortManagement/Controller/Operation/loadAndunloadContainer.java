@@ -401,7 +401,9 @@ public class loadAndunloadContainer {
             selectedContainer.updateStatusContainer(true);
 
             // Update the vehicleContainerMap
+            //Read map
             Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
+            //Add container to truck
             vehicleContainerMap.computeIfAbsent(selectedReeferTruck.getID(), k -> new ArrayList<>()).add(selectedContainer.getID());
             List<ReeferTrucks> reeferTrucks = readReeferTruckFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");

@@ -1,2 +1,2 @@
-{Port :p-port6, Vehicles: sh-ship1, sh-ship-2, tr-btr-Truck1, btr-basic1, ttr-tanker1, rtr-Reftruck, ttr-Tank, rtr-Ref1}
-{Port :p-port2, Vehicles: sh-ship2}
+{Port :p-port11, Vehicles: sh-ship2}
+{Port :p-port22, Vehicles: sh-ship1}

@@ -1,2 +1,2 @@
-{Port :p-port6, Container: c-Con-1, c-Con-2, c-con-3, c-BasicContainer, c-Liquid, c-Test, c-tanker2}
-{Port :p-port2, Container: c-con1}
+{p-port11: c-conship1-port2}
+{p-port22: }

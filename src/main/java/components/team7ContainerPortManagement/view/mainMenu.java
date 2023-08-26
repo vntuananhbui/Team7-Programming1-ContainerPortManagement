@@ -1,5 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.view;
 
+import src.main.java.components.team7ContainerPortManagement.Controller.Operation.moveTo;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController;
@@ -97,6 +98,7 @@ public class mainMenu {
             System.out.println("1. Create Container");
             System.out.println("2. Ship Controller");
             System.out.println("3. Truck Controller");
+            System.out.println("4. Port Operations");
             System.out.println("4. Calculate Total Container Weight");
             System.out.println("5. Change port");
             System.out.println("6. Port Vehicles");
@@ -119,8 +121,7 @@ public class mainMenu {
 
                     TruckMenuManage(selectedPort);
                 case 4:
-                    // Call the method to calculate total container weight for the selected port
-                    // selectedPort.calculateTotalContainerWeight();
+                    PortOperationsMenu(selectedPort);
                     break;
                 case 5:
                     portManagerMenu();
@@ -274,4 +275,30 @@ public class mainMenu {
 
         }
     }
+
+    public static void PortOperationsMenu(Port selectedPort) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("1. Move Vehicle to another Port");
+//            System.out.println("2. Remove Reefer Truck");
+//            System.out.println("3. Load Container on Reefer Truck");
+//            System.out.println("4. Unload Container on Reefer Truck");
+            System.out.println("5. Return");
+            System.out.print("Choose an option: ");
+            int choiceShip = scanner.nextInt();
+            switch (choiceShip) {
+                case 1:
+                    moveTo.moveToMenu(selectedPort);
+                    break;
+                case 3:
+                    loadContainerReeferTruckMenu(selectedPort);
+                    break;
+                case 4:
+                    unloadContainerReeferTruckMenu(selectedPort);
+                    break;
+                case 5:
+                    return;
+            }
+
+        }    }
 }

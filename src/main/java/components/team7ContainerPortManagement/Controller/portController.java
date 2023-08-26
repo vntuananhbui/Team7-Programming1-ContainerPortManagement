@@ -67,6 +67,31 @@ public class portController {
             e.printStackTrace();
         }
     }
+    public static void displayDestinationPort(Port currentPort) throws IOException {
+        // Path to the ports file
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt";
+
+        // Try-with-resources to automatically close BufferedReader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            System.out.println("Destination Ports:\n------------------");
+            int orderNumber = 1;
+
+            while ((line = reader.readLine()) != null) {
+                // Extract port ID and name from the line using regex
+                String portID = extractDataFromLine(line, "ID='(.*?)'");
+                String portName = extractDataFromLine(line, "name='(.*?)'");
+
+                if (portID != null && portName != null && !portID.equals(currentPort.getID())) {
+                    System.out.printf("%d. Port ID: '%s' , Port Name: '%s'\n", orderNumber++, portID, portName);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Port file not found.");
+            e.printStackTrace();
+        }
+    }
+
     //Belong to displayAllPort
     private static String extractDataFromLine(String line, String patternStr) {
         Pattern pattern = Pattern.compile(patternStr);

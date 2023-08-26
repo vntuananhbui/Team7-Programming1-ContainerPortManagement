@@ -1,10 +1,18 @@
 package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
+import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
+import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 import src.main.java.components.team7ContainerPortManagement.models.interfaces.VehicleOperations;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.getReeferTruckByLine;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByID;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByOrderNumber;
 
 public abstract class Vehicle implements VehicleOperations {
     protected String ID;
@@ -125,29 +133,30 @@ public abstract class Vehicle implements VehicleOperations {
 
     @Override
     public boolean canMoveTo(Port destination) {
-        if (currentPort == null || destination == null) {
-            // The vehicle is currently sailing, so it cannot move to another port
-            System.out.println("The current port or destination are null, so this vehicle can not move to");
-            return false;
-        }
-        if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
-            // One or both of the ports do not have landing ability, so a truck cannot move between them
-            System.out.println("The " + destination.getName() + " is not have landing ability yet for truck! ");
-            return false;
-        }
-        if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
-            return false;
-        }
-        double distance = currentPort.calculateDistanceTo(destination);
-        double fuelRequired = 0;
-        for (Container container : this.containers) {
-
-            fuelRequired += getFuelConsumptionPerKm(container) * distance;
-        }
-//        System.out.println("Distance: " +distance);
-//        System.out.println("Fuel required "+fuelRequired);
-//        System.out.println("current fuel: " + currentFuel);
-        return fuelRequired <= currentFuel;
+//        if (currentPort == null || destination == null) {
+//            // The vehicle is currently sailing, so it cannot move to another port
+//            System.out.println("The current port or destination are null, so this vehicle can not move to");
+//            return false;
+//        }
+//        if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
+//            // One or both of the ports do not have landing ability, so a truck cannot move between them
+//            System.out.println("The " + destination.getName() + " is not have landing ability yet for truck! ");
+//            return false;
+//        }
+//        if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
+//            return false;
+//        }
+//        double distance = currentPort.calculateDistanceTo(destination);
+//        double fuelRequired = 0;
+//        for (Container container : this.containers) {
+//
+//            fuelRequired += getFuelConsumptionPerKm(container) * distance;
+//        }
+////        System.out.println("Distance: " +distance);
+////        System.out.println("Fuel required "+fuelRequired);
+////        System.out.println("current fuel: " + currentFuel);
+//        return fuelRequired <= currentFuel;
+        return true;
     }
 
     @Override
@@ -258,5 +267,110 @@ public abstract class Vehicle implements VehicleOperations {
 
     public void setContainers(List<Container> containers) {
         this.containers = containers;
+    }
+
+    public static Vehicle getVehicleByLine(String line) throws IOException {
+        // Parse the line to extract the fields
+        // Assuming the line format is: Vehicle{ID='sh-3ww2', name='1212', currentFuel=1212.0, carryingCapacity=1212.0, fuelCapacity=1212.0, currentPort=p-uui8}
+        String[] parts = line.split(", ");
+        String id = parts[0].split("'")[1];
+        String name = parts[1].split("'")[1];
+        double currentFuel = Double.parseDouble(parts[2].split("=")[1]);
+        double carryingCapacity = Double.parseDouble(parts[3].split("=")[1]);
+        double fuelCapacity = Double.parseDouble(parts[4].split("=")[1]);
+        String currentPortID = parts[5].split("=")[1].substring(0, parts[5].split("=")[1].length() - 1);
+//        System.out.println(currentPortID);
+        Port currentPort = getPortByOrderNumber(id, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
+        // Create a new Vehicle object
+        Vehicle vehicle = new Vehicle(id, name, currentFuel, carryingCapacity, fuelCapacity, 3.5, currentPort) {
+            @Override
+            public boolean canLoadContainer(Container container) {
+                return false;
+            }
+
+            @Override
+            public double getFuelConsumptionPerKm(Container container) {
+                return 0;
+            }
+        };
+        //Vehicle(String ID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort)
+        vehicle.setID(id);
+        vehicle.setName(name);
+        vehicle.setCurrentFuel(currentFuel);
+        vehicle.setCarryingCapacity(carryingCapacity);
+        vehicle.setFuelCapacity(fuelCapacity);
+        // Assuming you have a method to get a Port object by its ID
+        vehicle.setCurrentPort(getPortByID(currentPortID));
+
+        return vehicle;
+    }
+
+    public static void writeVehicleToFile(List<Vehicle> vehicles, String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Vehicle vehicle : vehicles) {
+                writer.write(vehicle.toString());
+                writer.newLine();
+            }
+        }
+    }
+    public static List<Vehicle> readVehiclesFromFile(String fileName) throws IOException {
+        List<Vehicle> vehicles = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Vehicle vehicle = getReeferTruckByLine(line);
+                vehicles.add(vehicle);
+            }
+        }
+        return vehicles;
+    }
+    public static void writeVehiclePortMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                writer.write("{" + entry.getKey() + ": " + String.join(", ", entry.getValue()) + "}");
+                writer.newLine();
+            }
+        }
+    }
+    public static void updateVehiclePort(String vehicleID, String newPortID) throws IOException {
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt";
+
+        // Read the contents of the file into memory
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        }
+
+        // Find the line corresponding to the vehicle and update the port
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i).contains("Vehicle{ID='" + vehicleID + "'")) {
+                lines.set(i, lines.get(i).replace("currentPort=" + getCurrentPort(vehicleID, lines), "currentPort=" + newPortID));
+                break;
+            }
+        }
+
+        // Write the updated contents back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+    }
+    private static String getCurrentPort(String vehicleID, List<String> lines) {
+        for (String line : lines) {
+            if (line.contains("Vehicle{ID='" + vehicleID + "'")) {
+                int startIndex = line.indexOf("currentPort=") + "currentPort=".length();
+                int endIndex = line.indexOf(",", startIndex);
+                if (endIndex == -1) {
+                    endIndex = line.indexOf("}", startIndex);
+                }
+                return line.substring(startIndex, endIndex).trim();
+            }
+        }
+        return null;
     }
 }
