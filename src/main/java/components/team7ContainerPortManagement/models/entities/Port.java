@@ -2,13 +2,10 @@ package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.interfaces.PortOperations;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.*;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Port implements PortOperations {
     private String ID;
@@ -21,6 +18,34 @@ public class Port implements PortOperations {
     private List<Vehicle> vehicles = new ArrayList<>();
     private List<Trip> trips = new ArrayList<>();
 
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setStoringCapacity(int storingCapacity) {
+        this.storingCapacity = storingCapacity;
+    }
+
+    public void setLandingAbility(boolean landingAbility) {
+        this.landingAbility = landingAbility;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
 
     public Port(String ID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility) {
 
@@ -240,6 +265,30 @@ public class Port implements PortOperations {
         }
 
         return containerIDs;
+    }
+
+    public static Map<String, Port> readPortFile() throws FileNotFoundException {
+        Map<String, Port> portMap = new HashMap<>();
+        Scanner scanner = new Scanner(new File("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt"));
+        Pattern pattern = Pattern.compile("Port\\{ID='(.+)', name='(.+)', latitude=(.+), longitude=(.+), storingCapacity=(.+), landingAbility=(.+)\\}");
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            Matcher matcher = pattern.matcher(line);
+
+            if (matcher.find()) {
+                String ID = matcher.group(1);
+                String name = matcher.group(2);
+                double latitude = Double.parseDouble(matcher.group(3));
+                double longitude = Double.parseDouble(matcher.group(4));
+                int storingCapacity = Integer.parseInt(matcher.group(5));
+                boolean landingAbility = Boolean.parseBoolean(matcher.group(6));
+
+                Port port = new Port(ID, name, latitude, longitude, storingCapacity, landingAbility);
+                portMap.put(ID, port);
+            }
+        }
+        return portMap;
     }
 
 }

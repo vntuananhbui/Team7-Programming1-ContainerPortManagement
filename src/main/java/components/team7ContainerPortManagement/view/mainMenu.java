@@ -1,5 +1,7 @@
 package src.main.java.components.team7ContainerPortManagement.view;
 
+import src.main.java.components.team7ContainerPortManagement.Controller.UserController.AdminController;
+import src.main.java.components.team7ContainerPortManagement.Controller.UserController.PortManagerController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController;
@@ -17,80 +19,85 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.O
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class mainMenu {
-    public static void mainLoop() throws IOException {
+//    public static void mainLoop() throws IOException {
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Welcome to the Container Port Management System!");
+//
+//        while (true) {
+//            System.out.println("\nMain Menu:");
+//            System.out.println("1. Admin");
+//            System.out.println("2. Port Manager");
+//            System.out.println("0. Exit");
+//            System.out.print("Choose an option: ");
+//            int choice = scanner.nextInt();
+//
+//            switch (choice) {
+//                case 1:
+//                    adminMenu();
+//                    break;
+//                case 2:
+//                    portManagerMenu();
+//                    break;
+//                case 0:
+//                    System.out.println("Exiting the program. Goodbye!");
+//                    scanner.close();
+//                    return;
+//                default:
+//                    System.out.println("Invalid choice. Please select a valid option.");
+//            }
+//        }
+//    }
+//    public static void adminMenu() throws IOException {
+//        Scanner scanner = new Scanner(System.in);
+//
+//        while (true) {
+//            System.out.println("\nAdmin Menu:");
+//            System.out.println("1. Create Port");
+//            System.out.println("2. Remove Port");
+//            System.out.println("3. Port List");
+//            System.out.println("4. Port Manager Functions");
+//            System.out.println("0. Back to Main Menu");
+//            System.out.print("Choose an option: ");
+//            int choice = scanner.nextInt();
+//
+//            switch (choice) {
+//                case 1:
+//                    portController.inputPort();
+//                    break;
+//                case 2:
+//                    // Call the function to remove a port
+////                    InputManager.removePort();
+//                    break;
+//                case 3:
+//                    List<Port> ports = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
+//                    System.out.println("Current Ports:");
+//                    portController.displayAllPorts();
+//                    break;
+//                case 4:
+//                    portManagerMenu();
+//                    break;
+//                case 0:
+//                    return;
+//                default:
+//                    System.out.println("Invalid choice. Please select a valid option.");
+//            }
+//        }
+//    }
+    public static void portManagerMenu(String username) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to the Container Port Management System!");
 
-        while (true) {
-            System.out.println("\nMain Menu:");
-            System.out.println("1. Admin");
-            System.out.println("2. Port Manager");
-            System.out.println("0. Exit");
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
+//         Load available ports from port.txt and display them here
+//        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
+//        portController.displayAllPorts();
+//        System.out.print("Choose a port by order number: ");
+//        int selectedPortOrderNumber = scanner.nextInt();
 
-            switch (choice) {
-                case 1:
-                    adminMenu();
-                    break;
-                case 2:
-                    portManagerMenu();
-                    break;
-                case 0:
-                    System.out.println("Exiting the program. Goodbye!");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
-            }
-        }
-    }
-    public static void adminMenu() throws IOException {
-        Scanner scanner = new Scanner(System.in);
+        Port selectedPort = PortManagerController.getAssociatedPort(username);
 
-        while (true) {
-            System.out.println("\nAdmin Menu:");
-            System.out.println("1. Create Port");
-            System.out.println("2. Remove Port");
-            System.out.println("3. Port List");
-            System.out.println("4. Port Manager Functions");
-            System.out.println("0. Back to Main Menu");
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
 
-            switch (choice) {
-                case 1:
-                    portController.inputPort();
-                    break;
-                case 2:
-                    // Call the function to remove a port
-//                    InputManager.removePort();
-                    break;
-                case 3:
-                    List<Port> ports = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
-                    System.out.println("Current Ports:");
-                    portController.displayAllPorts();
-                    break;
-                case 4:
-                    portManagerMenu();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
-            }
-        }
-    }
-    public static void portManagerMenu() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-
-        // Load available ports from port.txt and display them here
-        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
-        portController.displayAllPorts();
-        System.out.print("Choose a port by order number: ");
-        int selectedPortOrderNumber = scanner.nextInt();
-// Get the selected port object
-        Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
+        // Get the selected port object
+//        Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
+//        Port selectedPort = port;
 
 
         while (true) {
@@ -124,7 +131,7 @@ public class mainMenu {
                     // selectedPort.calculateTotalContainerWeight();
                     break;
                 case 5:
-                    portManagerMenu();
+                    portManagerMenu(username);
                     break;
                 case 6:
 //                    System.out.println(selectedPort.getID());

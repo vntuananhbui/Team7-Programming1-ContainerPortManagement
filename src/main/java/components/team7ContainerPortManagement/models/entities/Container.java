@@ -15,6 +15,10 @@ public class Container {
     private boolean isLoaded;
     private Port port;
 
+    public void setContainerType(ContainerType containerType) {
+        this.containerType = containerType;
+    }
+
     //Use to check container onload or not
     public Container(String ID, double weight, ContainerType containerType, boolean isLoaded, Port port) {
         this.ID = ID;

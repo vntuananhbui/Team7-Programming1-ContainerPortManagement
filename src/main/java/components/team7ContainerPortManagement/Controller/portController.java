@@ -3,6 +3,8 @@ package src.main.java.components.team7ContainerPortManagement.Controller;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,5 +82,9 @@ public class portController {
     }
     //===================================================================================================================
     //===================================================================================================================
+
+    // Khang's part: create port object from port.txt
+
+
 
 }

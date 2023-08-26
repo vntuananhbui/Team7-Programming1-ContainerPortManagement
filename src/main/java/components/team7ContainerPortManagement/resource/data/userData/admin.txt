@@ -1,0 +1,1 @@
+User{U_ID='u-986', username='admin1', Password='a891164c0db8156aae1e36f6c370fca7', userType='admin'}
