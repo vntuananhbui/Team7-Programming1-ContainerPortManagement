@@ -80,7 +80,6 @@ public class tankertruckController {
         tankerTruck.setFuelCapacity(fuelCapacity);
         // Assuming you have a method to get a Port object by its ID
         tankerTruck.setCurrentPort(getPortByID(currentPortID));
-
         return tankerTruck;
     }
 }

@@ -21,43 +21,6 @@ import static src.main.java.components.team7ContainerPortManagement.utils.PortFi
 
 public class calculateOperation {
     public static double calculateFuelConsumption(Port currentPort, Port selectedPort ,String selectedVehicleID, Vehicle selectedVehicle) throws IOException {
-//        Scanner scanner = new Scanner(System.in);
-//// Load available ports from port.txt and display them here
-//        List<Port> availablePorts = null;
-//        //Read all available port except current port
-//        availablePorts = readAvailablePortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt", currentPort);
-//        System.out.println("Choose a port by order number: ");
-//        int selectedPortOrderNumber = 1;
-//        for (Port port : availablePorts) {
-//            if (!port.equals(currentPort)) {
-//                System.out.println((selectedPortOrderNumber++) + ". Port ID: '" + port.getID() + "', Port Name: '" + port.getName() + "'");
-//            }
-//        }
-//        int selectedPortIndex = scanner.nextInt() - 1;
-//        Port selectedPort = availablePorts.get(selectedPortIndex);
-//        System.out.println("Selected Port: " + selectedPort);
-//
-//        List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
-//        System.out.println("Available vehicle in port " + currentPort.getName() + ":");
-//
-//        for (int i = 0; i < availableVehicleIDs.size(); i++) {
-//            System.out.println((i + 1) + ": " + availableVehicleIDs.get(i));
-//        }
-//        int selectedVehicleOrderID;
-//        Vehicle selectedVehicle;
-//        String selectedVehicleNumber;
-//        while (true) {
-//            System.out.print("Choose a Vehicle by order number: ");
-//            selectedVehicleOrderID = scanner.nextInt();
-//            if (selectedVehicleOrderID < 1 || selectedVehicleOrderID > availableVehicleIDs.size()) {
-//                System.out.println("Wrong number. Please choose a valid ship order number.");
-//            } else {
-//                selectedVehicleNumber = availableVehicleIDs.get(selectedVehicleOrderID - 1);
-//                String vehicleline = getBasicTruckLineBybasictruckID(selectedVehicleNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
-//                selectedVehicle = Vehicle.getVehicleByLine(vehicleline);
-//                break; // Exit the loop if a valid ship is selected
-//            }
-//        }
 
         double fuelConsumption;
 //        String selectedVehicleID = selectedVehicle.getID();

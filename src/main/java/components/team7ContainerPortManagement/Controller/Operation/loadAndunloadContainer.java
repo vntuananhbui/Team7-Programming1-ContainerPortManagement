@@ -45,7 +45,10 @@ public class loadAndunloadContainer implements VehicleOperations {
     public static void loadContainerShipMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableShipIDs = selectedPort.getShipsInPort();
-
+        if (availableShipIDs.isEmpty()) {
+            System.out.println("There is no Ship on " +selectedPort.getID()+  " port!");
+            return;
+        }
         System.out.println("Available ships in port " + selectedPort.getName() + ":");
         for (int i = 0; i < availableShipIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableShipIDs.get(i));
@@ -66,12 +69,12 @@ public class loadAndunloadContainer implements VehicleOperations {
         }
 
         List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
-
-        System.out.println("Available container in port: " + selectedPort.getID());
         if (availableContainerIDs.isEmpty()) {
             System.out.println("No available container!");
             return;
         }
+        System.out.println("Available container in port: " + selectedPort.getID());
+
         int selectedContainerOrderNumber = -1;
         for (int i = 0; i < availableContainerIDs.size(); i++) {
             String containerID = availableContainerIDs.get(i);
@@ -135,7 +138,9 @@ public class loadAndunloadContainer implements VehicleOperations {
     public static void loadContainerBasicTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableBasicTruckIDs = selectedPort.getBasicTrucksInPort();
-
+        if (availableBasicTruckIDs.isEmpty()) {
+            System.out.println("There is no Basic Truck in " + selectedPort.getID() + " port");
+        }
         System.out.println("Available basic truck in port " + selectedPort.getName() + ":");
         for (int i = 0; i < availableBasicTruckIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableBasicTruckIDs.get(i));
@@ -237,7 +242,9 @@ public class loadAndunloadContainer implements VehicleOperations {
     public static void loadContainerTankerTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableTankerTruckIDs = selectedPort.getTankerTrucksInPort();
-
+        if (availableTankerTruckIDs.isEmpty()) {
+            System.out.println("There is no Tanker Truck in " + selectedPort.getID() + " port!");
+        }
         System.out.println("Available tanker truck in port " + selectedPort.getName() + ":");
         for (int i = 0; i < availableTankerTruckIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableTankerTruckIDs.get(i));
@@ -258,7 +265,10 @@ public class loadAndunloadContainer implements VehicleOperations {
         }
 
         List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
-
+        if (availableContainerIDs.isEmpty()) {
+            System.out.println("No available container!");
+            return;
+        }
         System.out.println("Available container in port: " + selectedPort.getID());
         if (availableContainerIDs.isEmpty()) {
             System.out.println("No available container!");
@@ -345,7 +355,9 @@ public class loadAndunloadContainer implements VehicleOperations {
     public static void loadContainerReeferTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableReeferTruckIDs = selectedPort.getReeferTrucksInPort();
-
+        if (availableReeferTruckIDs.isEmpty()) {
+            System.out.println("There is no Reefer Truck in " + selectedPort.getID() + " port!");
+        }
         System.out.println("Available reefer truck in port " + selectedPort.getName() + ":");
         for (int i = 0; i < availableReeferTruckIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableReeferTruckIDs.get(i));
@@ -366,7 +378,10 @@ public class loadAndunloadContainer implements VehicleOperations {
         }
 
         List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
-
+        if (availableContainerIDs.isEmpty()) {
+            System.out.println("No available container!");
+            return;
+        }
         System.out.println("Available container in port: " + selectedPort.getID());
         if (availableContainerIDs.isEmpty()) {
             System.out.println("No available container!");
@@ -462,7 +477,10 @@ public class loadAndunloadContainer implements VehicleOperations {
     public static void unloadContainerShipMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableShipIDs = selectedPort.getShipsInPort();
-
+        if (availableShipIDs.isEmpty()) {
+            System.out.println("There is no Ship on " +selectedPort.getID()+  " port!");
+            return;
+        }
         System.out.println("Available ships in port " + selectedPort.getName() + ":");
         for (int i = 0; i < availableShipIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableShipIDs.get(i));
@@ -489,6 +507,10 @@ public class loadAndunloadContainer implements VehicleOperations {
         Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         List<String> loadedContainerIDs = vehicleContainerMap.get(selectedShip.getID());
         // Filter the availableContainerIDs to keep only those that are loaded on the selected ship
+        if (loadedContainerIDs == null) {
+            System.out.println("This vehicle not load any container!");
+            return;
+        }
         List<String> availableContainerIDs = new ArrayList<>(loadedContainerIDs);
 
 // Display only the containers that are loaded on the selected ship
@@ -544,6 +566,9 @@ public class loadAndunloadContainer implements VehicleOperations {
     public static void unloadContainerBasicTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableBasicTruckIDs = selectedPort.getBasicTrucksInPort();
+        if (availableBasicTruckIDs.isEmpty()) {
+            System.out.println("There is no Basic Truck in " + selectedPort.getID() + " port");
+        }
         System.out.println("Available basic truck in port " + selectedPort.getName() + ":");
         for (int i = 0; i < availableBasicTruckIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableBasicTruckIDs.get(i));
@@ -567,6 +592,9 @@ public class loadAndunloadContainer implements VehicleOperations {
         // Filter out the containers that are loaded on the selected ship
         Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         List<String> loadedContainerIDs = vehicleContainerMap.get(selectedBasicTruck.getID());
+        if (loadedContainerIDs == null) {
+            System.out.println("There is no container is loaded on this vehicle");
+        }
         // Filter the availableContainerIDs to keep only those that are loaded on the selected ship
         List<String> availableContainerIDs = new ArrayList<>(loadedContainerIDs);
 
@@ -622,6 +650,9 @@ public class loadAndunloadContainer implements VehicleOperations {
     public static void unloadContainerTankerTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableTankerTruckIDs = selectedPort.getTankerTrucksInPort();
+        if (availableTankerTruckIDs.isEmpty()) {
+            System.out.println("There is no Tanker Truck in " + selectedPort.getID() + " port!");
+        }
         System.out.println("Available tanker truck in port " + selectedPort.getName() + ":");
         for (int i = 0; i < availableTankerTruckIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableTankerTruckIDs.get(i));
@@ -645,6 +676,9 @@ public class loadAndunloadContainer implements VehicleOperations {
         // Filter out the containers that are loaded on the selected ship
         Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         List<String> loadedContainerIDs = vehicleContainerMap.get(selectedTankerTruck.getID());
+        if (loadedContainerIDs == null) {
+            System.out.println("There is no container is loaded on this vehicle");
+        }
         // Filter the availableContainerIDs to keep only those that are loaded on the selected ship
         List<String> availableContainerIDs = new ArrayList<>(loadedContainerIDs);
 
@@ -701,6 +735,9 @@ public class loadAndunloadContainer implements VehicleOperations {
     public static void unloadContainerReeferTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableReeferTruckIDs = selectedPort.getReeferTrucksInPort();
+        if (availableReeferTruckIDs.isEmpty()) {
+            System.out.println("There is no Reefer Truck in " + selectedPort.getID() + " port!");
+        }
         System.out.println("Available reefer truck in port " + selectedPort.getName());
         for (int i = 0; i < availableReeferTruckIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableReeferTruckIDs.get(i));
@@ -724,6 +761,9 @@ public class loadAndunloadContainer implements VehicleOperations {
         // Filter out the containers that are loaded on the selected ship
         Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         List<String> loadedContainerIDs = vehicleContainerMap.get(selectedReeferTruck.getID());
+        if (loadedContainerIDs == null) {
+            System.out.println("There is no container is loaded on this vehicle");
+        }
         // Filter the availableContainerIDs to keep only those that are loaded on the selected ship
         List<String> availableContainerIDs = new ArrayList<>(loadedContainerIDs);
 

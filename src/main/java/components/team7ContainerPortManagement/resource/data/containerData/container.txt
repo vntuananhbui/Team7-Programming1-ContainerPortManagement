@@ -1,0 +1,1 @@
+Container{ID='c-Consub', weight=99.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}

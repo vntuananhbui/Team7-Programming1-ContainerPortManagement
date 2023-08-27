@@ -245,17 +245,16 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
     public static void containerMenu(Port selectPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("==============================================");
-            System.out.println("            CONTAINER MENU                   ");
-            System.out.println("==============================================");
-            System.out.println("|                                            |");
-            System.out.println("|   [1] Create Container                      |");
-            System.out.println("|   [2] View all Containers                   |");
-            System.out.println("|   [3] Update Container                      |");
-            System.out.println("|   [4] Delete Container                      |");
-            System.out.println("|   [5] Return to Port Manager Menu           |");
-            System.out.println("|                                            |");
-            System.out.println("==============================================");
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║            CONTAINER MENU                ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("║  [1] Create Container                    ║");
+            System.out.println("║  [2] View all Containers                 ║");
+            System.out.println("║  [3] Update Container                    ║");
+            System.out.println("║  [4] Delete Container                    ║");
+            System.out.println("║  [5] Return to Port Manager Menu         ║");
+            System.out.println("║                                          ║");
+            System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("   Choose an option: ");
             int choiceTruck = scanner.nextInt();
 
@@ -285,10 +284,10 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             System.out.println("╔══════════════════════════════════════════╗");
             System.out.println("║            CONTAINER MENU                ║");
             System.out.println("╟──────────────────────────────────────────╢");
-            System.out.println("║  [1] Create Container                    ║");
-            System.out.println("║  [2] View all Containers                 ║");
-            System.out.println("║  [3] Update Container                    ║");
-            System.out.println("║  [4] Delete Container                    ║");
+            System.out.println("║  [1] Basic Truck Menu                    ║");
+            System.out.println("║  [2] Tanker Truck Menu                   ║");
+            System.out.println("║  [3] Reefer Truck Menu                   ║");
+            System.out.println("║  [4]                                     ║");
             System.out.println("║  [5] Return to Port Manager Menu         ║");
             System.out.println("║                                          ║");
             System.out.println("╚══════════════════════════════════════════╝");
@@ -480,8 +479,8 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             System.out.println("          Statistics Operations Menu          ");
             System.out.println("==============================================");
             System.out.println("|                                             |");
-            System.out.println("|   [1] Ship Controller                       |");
-            System.out.println("|   [2] Truck Controller                      |");
+            System.out.println("|   [1] Calculate Distance between Port       |");
+            System.out.println("|   [2] List all select vehicle in select port|");
             System.out.println("|   [3] Update Vehicle                        |");
             System.out.println("|   [4] Delete Vehicle                        |");
             System.out.println("|   [5] Refuel Vehicle                        |");
