@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.getContainerByID;
+import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.writeContainerToPort;
 
 public class containerController {
@@ -46,7 +48,92 @@ public class containerController {
         writeContainerToPort(currentPort, newContainer); //write to port_containers.txt
         containerWriter.close();
     }
+    //Update
+    public static void updateContainer(String portID) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
 
+        // Filter containers belonging to the same port
+        List<Container> filteredContainers = containers.stream()
+                .filter(container -> container.getPort().getID().equals(portID))
+                .collect(Collectors.toList());
+
+        // Show the list of containers to the user
+        System.out.println("Select a container to update from port " + portID + ":");
+        if (filteredContainers.isEmpty()) {
+            System.out.println("No containers found for this port.");
+            return;
+        }
+        for (int i = 0; i < filteredContainers.size(); i++) {
+            System.out.println((i + 1) + ". " + filteredContainers.get(i).getID());
+        }
+
+        // Get the user's choice
+        System.out.println("Enter the order number of the container you want to update:");
+        int selectedIndex = scanner.nextInt() - 1;  // Convert order number to index
+        if (selectedIndex >= 0 && selectedIndex < filteredContainers.size()) {
+            Container selectedContainer = filteredContainers.get(selectedIndex);
+
+            // Update the container's weight
+            System.out.println("Enter new weight for " + selectedContainer.getID() + ":");
+            double newWeight = scanner.nextDouble();
+            selectedContainer.setWeight(newWeight);
+
+            // Save the updated list of containers back to the file
+            saveContainersToFile(containers);
+            System.out.println("Container weight updated successfully!");
+        } else {
+            System.out.println("Invalid selection!");
+        }
+    }
+    public static void deleteContainer(String portID) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
+
+        // Filter containers belonging to the same port
+        List<Container> filteredContainers = containers.stream()
+                .filter(container -> container.getPort().getID().equals(portID))
+                .collect(Collectors.toList());
+
+        // Show the list of containers to the user
+        System.out.println("Select a container to delete from port " + portID + ":");
+        if (filteredContainers.isEmpty()) {
+            System.out.println("No containers found for this port.");
+            return;
+        }
+        for (int i = 0; i < filteredContainers.size(); i++) {
+            System.out.println((i + 1) + ". " + filteredContainers.get(i).getID());
+        }
+
+        // Get the user's choice
+        System.out.println("Enter the order number of the container you want to delete:");
+        int selectedIndex = scanner.nextInt() - 1;  // Convert order number to index
+
+        if (selectedIndex >= 0 && selectedIndex < filteredContainers.size()) {
+            Container selectedContainer = filteredContainers.get(selectedIndex);
+
+            // Remove the container from the main list
+            containers.remove(selectedContainer);
+
+            // Save the updated list of containers back to the file
+            saveContainersToFile(containers);
+            System.out.println("Container deleted successfully!");
+        } else {
+            System.out.println("Invalid selection!");
+        }
+    }
+
+
+    public static void saveContainersToFile(List<Container> containers) throws IOException {
+        FileWriter containerWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt", false);
+        for (Container container : containers) {
+            containerWriter.write(container.toString() + "\n");
+        }
+        containerWriter.close();
+    }
+
+//======================================================
+    //==================================================
     public static double getFinalShipConsumption(List<String> containerIDs) throws IOException {
         double finalConsumption = 0;
         for (String container : containerIDs) {

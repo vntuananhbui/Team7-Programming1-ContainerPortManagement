@@ -258,6 +258,10 @@ public class Port implements PortOperations {
     }
 
 
+    public void setLandingAbility(boolean landingAbility) {
+        this.landingAbility = landingAbility;
+    }
+
     public static List<String> getContainerIDInPort(Port port) throws IOException {
         List<String> containerIDs = new ArrayList<>();
 
@@ -283,6 +287,21 @@ public class Port implements PortOperations {
         return containerIDs;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setStoringCapacity(int storingCapacity) {
+        this.storingCapacity = storingCapacity;
+    }
 }
 
 

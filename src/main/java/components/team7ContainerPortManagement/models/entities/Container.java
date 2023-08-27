@@ -10,10 +10,14 @@ import static src.main.java.components.team7ContainerPortManagement.utils.Contai
 
 public class Container {
     private final String ID;
-    private final double weight;
+    private double weight;
     private ContainerType containerType;  // Use the enum instead of String
     private boolean isLoaded;
     private Port port;
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
     //Use to check container onload or not
     public Container(String ID, double weight, ContainerType containerType, boolean isLoaded, Port port) {

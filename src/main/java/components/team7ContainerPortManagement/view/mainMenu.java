@@ -1,5 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.view;
 
+import src.main.java.components.team7ContainerPortManagement.Controller.Operation.FileUtility;
 import src.main.java.components.team7ContainerPortManagement.Controller.Operation.moveTo;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController;
@@ -16,6 +17,9 @@ import java.util.Scanner;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.loadAndunloadContainer.*;
+import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.deletePort;
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class mainMenu {
@@ -27,6 +31,7 @@ public class mainMenu {
             System.out.println("\nMain Menu:");
             System.out.println("1. Admin");
             System.out.println("2. Port Manager");
+            System.out.println("3. Reset File");
             System.out.println("0. Exit");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
@@ -37,6 +42,10 @@ public class mainMenu {
                     break;
                 case 2:
                     portManagerMenu();
+                    break;
+                case 3:
+                    resetFileMenu();
+                    System.out.println("File reset successfully, Let's Start now!");
                     break;
                 case 0:
                     System.out.println("Exiting the program. Goodbye!");
@@ -97,11 +106,13 @@ public class mainMenu {
 
         while (true) {
             System.out.println("\nPort Manager Menu:");
-            System.out.println("1. Create Container");
+            System.out.println("1. Cotnainer Controller");
             System.out.println("2. Ship Controller");
             System.out.println("3. Truck Controller");
             System.out.println("4. Port Operations");
             System.out.println("5. Calculate menu");
+            System.out.println("6. Update Port");
+            System.out.println("7. Delete Port");
             System.out.println("6. Change port");
             System.out.println("6. Port Vehicles");
             System.out.println("7. Load container");
@@ -112,8 +123,7 @@ public class mainMenu {
 
             switch (choice) {
                 case 1:
-                    // Call the function to create a container
-                    containerController.createContainer(selectedPort);
+                    containerMenu(selectedPort);
                     break;
                 case 2:
                     // Call the function to create a ship
@@ -131,15 +141,47 @@ public class mainMenu {
                     portManagerMenu();
                     break;
                 case 6:
-//                    System.out.println(selectedPort.getID());
+                    updatePort(selectedPort);
                     break;
 
                 case 7:
+                    deletePort(selectedPort);
                     return;
                 case 8:
 
                     System.out.println(selectedPort.getName());
                     System.out.println(selectedPort.getLatitude());
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
+        }
+    }
+
+    public static void containerMenu(Port selectPort) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\nContainer Menu:");
+            System.out.println("1. Create Cotnainer");
+            System.out.println("2. View all Container");
+            System.out.println("3. Update Container");
+            System.out.println("4. Delete Container");
+            System.out.println("5. Return to Port Manager Menu");
+            System.out.print("Choose an option: ");
+            int choiceTruck = scanner.nextInt();
+
+            switch (choiceTruck) {
+                case 1:
+                    createContainer(selectPort);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    updateContainer(selectPort.getID());
+                    break;
+                case 4:
+                    deleteContainer(selectPort.getID());
+                case 5:
+                    return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
@@ -305,4 +347,8 @@ public class mainMenu {
             }
 
         }    }
+    public static void resetFileMenu() {
+        FileUtility utility = new FileUtility();
+        utility.writeAllData();
+    }
 }
