@@ -3,10 +3,14 @@ package src.main.java.components.team7ContainerPortManagement.Controller.Vehicle
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Ship;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
+import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
 import java.io.*;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.readVehiclesFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByID;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByOrderNumber;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portWriteFile.writeVehicleToPort;
@@ -43,6 +47,173 @@ public class basictruckController {
 
         shipWriter.close();
     }
+    public static void updateVehicle(String portID) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        List<Vehicle> vehicles = readVehiclesFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+
+        // Filter vehicles belonging to the same port
+        List<Vehicle> filteredVehicles = vehicles.stream()
+                .filter(vehicle -> vehicle.getCurrentPort().getID().equals(portID))
+                .collect(Collectors.toList());
+
+        // Show the list of vehicles
+        System.out.println("Select a vehicle to update from port " + portID + ":");
+        if (filteredVehicles.isEmpty()) {
+            System.out.println("No vehicles found for this port.");
+            return;
+        }
+//        for (int i = 0; i < filteredVehicles.size(); i++) {
+//            System.out.println((i + 1) + ". " + filteredVehicles.get(i).getID());
+//        }
+        displayVehiclesInColumns(filteredVehicles);
+        // User selects a vehicle
+        System.out.println("Enter the order number of the vehicle you want to update:");
+        int selectedIndex = scanner.nextInt() - 1;
+
+        if (selectedIndex >= 0 && selectedIndex < filteredVehicles.size()) {
+            Vehicle selectedVehicle = filteredVehicles.get(selectedIndex);
+
+            // Update vehicle's name
+            scanner.nextLine();
+            System.out.println("Enter new vehicle name (leave empty to skip):");
+            String newName = scanner.nextLine();
+            if (!newName.isEmpty()) {
+                selectedVehicle.setName(newName);
+            }
+
+            // Update vehicle's carrying capacity
+            System.out.println("Enter new carrying capacity (-1 to skip):");
+            double newCarryingCapacity = scanner.nextDouble();
+            if (newCarryingCapacity != -1) {
+                selectedVehicle.setCarryingCapacity(newCarryingCapacity);
+            }
+
+            // Update vehicle's fuel capacity
+            System.out.println("Enter new fuel capacity (-1 to skip):");
+            double newFuelCapacity = scanner.nextDouble();
+            if (newFuelCapacity != -1) {
+                selectedVehicle.setFuelCapacity(newFuelCapacity);
+            }
+
+            saveVehiclesToFile(vehicles);
+            System.out.println("Vehicle updated successfully!");
+        } else {
+            System.out.println("Invalid selection!");
+        }
+    }
+    public static void deleteVehicle(String portID) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        List<Vehicle> vehicles = readVehiclesFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+
+        // Filter vehicles belonging to the same port
+        List<Vehicle> filteredVehicles = vehicles.stream()
+                .filter(vehicle -> vehicle.getCurrentPort().getID().equals(portID))
+                .collect(Collectors.toList());
+
+        System.out.println("Select a vehicle to delete from port " + portID + ":");
+        if (filteredVehicles.isEmpty()) {
+            System.out.println("No vehicles found for this port.");
+            return;
+        }
+//        for (int i = 0; i < filteredVehicles.size(); i++) {
+//            System.out.println((i + 1) + ". " + filteredVehicles.get(i).toString());
+//        }
+        displayVehiclesInColumns(filteredVehicles);
+        System.out.println("Enter the order number of the vehicle you want to delete:");
+        int selectedIndex = scanner.nextInt() - 1;
+
+        if (selectedIndex >= 0 && selectedIndex < filteredVehicles.size()) {
+            Vehicle selectedVehicle = filteredVehicles.get(selectedIndex);
+            vehicles.remove(selectedVehicle);
+
+            saveVehiclesToFile(vehicles);
+            System.out.println("Vehicle deleted successfully!");
+        } else {
+            System.out.println("Invalid selection!");
+        }
+    }
+
+    public static void refuelVehicle(String portID) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        List<Vehicle> vehicles = readVehiclesFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+
+        // Filter vehicles belonging to the specified port
+        List<Vehicle> filteredVehicles = vehicles.stream()
+                .filter(vehicle -> vehicle.getCurrentPort().getID().equals(portID))
+                .collect(Collectors.toList());
+
+        if (filteredVehicles.isEmpty()) {
+            System.out.println("No vehicles found for this port.");
+            return;
+        }
+
+        // Show the list of vehicles
+        System.out.println("Select a vehicle to refuel from port " + portID + ":");
+        displayVehiclesFuelInColumns(filteredVehicles);
+
+        // User selects a vehicle
+        System.out.println("Enter the order number of the vehicle you want to refuel:");
+        int selectedIndex = scanner.nextInt() - 1;
+
+        if (selectedIndex >= 0 && selectedIndex < filteredVehicles.size()) {
+            Vehicle selectedVehicle = filteredVehicles.get(selectedIndex);
+            selectedVehicle.setCurrentFuel(selectedVehicle.getFuelCapacity());
+            saveVehiclesToFile(vehicles);
+            System.out.println("Vehicle refueled successfully!");
+        } else {
+            System.out.println("Invalid selection!");
+        }
+    }
+
+
+
+    public static void saveVehiclesToFile(List<Vehicle> vehicles) throws IOException {
+        FileWriter vehicleWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt", false);
+        for (Vehicle vehicle : vehicles) {
+            vehicleWriter.write(vehicle.toString() + "\n");
+        }
+        vehicleWriter.close();
+    }
+
+    public static void displayVehiclesInColumns(List<Vehicle> vehicles) {
+        final int MAX_PER_COLUMN = 5;
+        final int COLUMN_WIDTH = 40;
+        int totalVehicles = vehicles.size();
+        int numberOfColumns = (int) Math.ceil((double) totalVehicles / MAX_PER_COLUMN);
+
+        for (int i = 0; i < MAX_PER_COLUMN; i++) {
+            StringBuilder row = new StringBuilder();
+            for (int j = 0; j < numberOfColumns; j++) {
+                int index = j * MAX_PER_COLUMN + i;
+                if (index < totalVehicles) {
+                    String vehicleInfo = String.format("%d. %s", index + 1, vehicles.get(index).getID());
+                    row.append(String.format("%-" + COLUMN_WIDTH + "s", vehicleInfo));
+                }
+            }
+            System.out.println(row);
+        }
+    }
+    public static void displayVehiclesFuelInColumns(List<Vehicle> vehicles) {
+        final int MAX_PER_COLUMN = 5;
+        final int COLUMN_WIDTH = 40;
+        int totalVehicles = vehicles.size();
+        int numberOfColumns = (int) Math.ceil((double) totalVehicles / MAX_PER_COLUMN);
+
+        for (int i = 0; i < MAX_PER_COLUMN; i++) {
+            StringBuilder row = new StringBuilder();
+            for (int j = 0; j < numberOfColumns; j++) {
+                int index = j * MAX_PER_COLUMN + i;
+                if (index < totalVehicles) {
+                    Vehicle vehicle = vehicles.get(index);
+                    String vehicleInfo = String.format("%d. ID: %s, Current Fuel: %.2f, Capacity: %.2f",
+                            index + 1, vehicle.getID(), vehicle.getCurrentFuel(), vehicle.getFuelCapacity());
+                    row.append(String.format("%-" + COLUMN_WIDTH + "s", vehicleInfo));
+                }
+            }
+            System.out.println(row);
+        }
+    }
+
     //===================================================================================================================
     //===================================================================================================================
     //GET SHIP LINE BY ID

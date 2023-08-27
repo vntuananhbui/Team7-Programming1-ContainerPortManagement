@@ -106,14 +106,20 @@ public class Trip {
     public void tripComplete() {
         int tripDuration;
         switch (arrivalPort.getID()) {
-            case "p-port11":
+            case "p-StartPort":
                 tripDuration = 4;
                 break;
-            case "p-port22":
+            case "p-HCM":
                 tripDuration = 8;
                 break;
-            case "p-port3":
+            case "p-DN":
                 tripDuration = 16;
+                break;
+            case "p-HP":
+                tripDuration = 20;
+                break;
+            case "p-KG":
+                tripDuration = 22;
                 break;
             default:
                 tripDuration = 0;

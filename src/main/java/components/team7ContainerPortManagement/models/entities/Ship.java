@@ -6,10 +6,10 @@ public class Ship extends Vehicle{
         super(numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
     }
 
-    @Override
-    public boolean canLoadContainer(Container container) {
-        return true;
-    }
+//    @Override
+//    public boolean canLoadContainer(Container container) {
+//        return true;
+//    }
 
     @Override
     public boolean loadContainer(Container container) {

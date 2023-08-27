@@ -11,29 +11,52 @@ import src.main.java.components.team7ContainerPortManagement.Controller.portCont
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.loadAndunloadContainer.*;
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.deletePort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class mainMenu {
+    public static void displayBanner() {
+        System.out.println("  #####   ######  #     #   #####   ");
+        System.out.println("#     #  #     #  ##   ##  #     #  ");
+        System.out.println("#        #     #  # # # #  #        ");
+        System.out.println("#        ######   #  #  #   #####   ");
+        System.out.println("#        #        #     #        #  ");
+        System.out.println("#     #  #        #     #  #     #  ");
+        System.out.println(" #####   #        #     #   #####   ");
+        System.out.println("====================================");
+        System.out.println("  TEAM 7 CONTAINER PORT MANAGEMENT  ");
+        System.out.println("           SYSTEM 2023              ");
+        System.out.println("====================================");
+        System.out.println();
+
+    }
+
     public static void mainLoop() throws IOException {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Container Port Management System!");
 
         while (true) {
-            System.out.println("\nMain Menu:");
-            System.out.println("1. Admin");
-            System.out.println("2. Port Manager");
-            System.out.println("3. Reset File");
-            System.out.println("0. Exit");
-            System.out.print("Choose an option: ");
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║          CONTAINER PORT SYSTEM           ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("║  [1] Admin                               ║");
+            System.out.println("║  [2] Port Manager                        ║");
+            System.out.println("║  [3] Reset File                          ║");
+            System.out.println("║  [0] Exit                                ║");
+            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.print("  Choose an option: ");
+
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -60,13 +83,19 @@ public class mainMenu {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\nAdmin Menu:");
-            System.out.println("1. Create Port");
-            System.out.println("2. Remove Port");
-            System.out.println("3. Port List");
-            System.out.println("4. Port Manager Functions");
-            System.out.println("0. Back to Main Menu");
-            System.out.print("Choose an option: ");
+
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║               ADMIN MENU                 ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("║  [1] Create Port                         ║");
+            System.out.println("║  [2] Remove Port                         ║");
+            System.out.println("║  [3] Port List                           ║");
+            System.out.println("║  [4] Port Manager Functions              ║");
+            System.out.println("║  [0] Back to Main Menu                   ║");
+            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.print("  Choose an option: ");
+
+
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -99,26 +128,44 @@ public class mainMenu {
         List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
         portController.displayAllPorts();
         System.out.print("Choose a port by order number: ");
-        int selectedPortOrderNumber = scanner.nextInt();
+        int selectedPortOrderNumber;
+        while (true) {
+            try {
+                System.out.print("Choose a port by order number: ");
+                selectedPortOrderNumber = scanner.nextInt();
+                if (selectedPortOrderNumber >= 1 && selectedPortOrderNumber <= availablePorts.size()) {
+                    break; // Exit the loop if a valid port is selected
+                } else {
+                    System.out.println("Invalid choice. Please select a number between 1 and " + availablePorts.size() + ".");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number.");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
+
 // Get the selected port object
         Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
 
 
         while (true) {
-            System.out.println("\nPort Manager Menu:");
-            System.out.println("1. Cotnainer Controller");
-            System.out.println("2. Ship Controller");
-            System.out.println("3. Truck Controller");
-            System.out.println("4. Port Operations");
-            System.out.println("5. Calculate menu");
-            System.out.println("6. Update Port");
-            System.out.println("7. Delete Port");
-            System.out.println("6. Change port");
-            System.out.println("6. Port Vehicles");
-            System.out.println("7. Load container");
-            System.out.println("8. Test");
-            System.out.println("0. Back to Main Menu");
-            System.out.print("Choose an option: ");
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║           PORT MANAGER MENU              ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("║  [1] Container Controller                ║");
+            System.out.println("║  [2] Vehicle Controller                  ║");
+            System.out.println("║  [3] Port Operations                     ║");
+            System.out.println("║  [4] Calculate Menu                      ║");
+            System.out.println("║  [5] Update Port                         ║");
+            System.out.println("║  [6] Delete Port                         ║");
+            System.out.println("║  [7] Change Port                         ║");
+            System.out.println("║  [8] Port Vehicles                       ║");
+            System.out.println("║  [9] Load Container                      ║");
+            System.out.println("║  [10] Test                               ║");
+            System.out.println("║  [0] Back to Main Menu                   ║");
+            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.print("  Choose an option: ");
+
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -127,11 +174,8 @@ public class mainMenu {
                     break;
                 case 2:
                     // Call the function to create a ship
-                    ShipMenu(selectedPort);
+                    vehicleControllerMenu(selectedPort);
                     break;
-                case 3:
-
-                    TruckMenuManage(selectedPort);
                 case 4:
                     PortOperationsMenu(selectedPort);
                     break;
@@ -156,17 +200,63 @@ public class mainMenu {
             }
         }
     }
+public static void vehicleControllerMenu(Port selectedPort) throws IOException {
+    Scanner scanner = new Scanner(System.in);
+    while (true) {
+            System.out.println("==============================================");
+            System.out.println("               VEHICLE MENU                   ");
+            System.out.println("==============================================");
+            System.out.println("|                                             |");
+            System.out.println("|   [1] Ship Controller                       |");
+            System.out.println("|   [2] Truck Controller                      |");
+            System.out.println("|   [3] Update Vehicle                        |");
+            System.out.println("|   [4] Delete Vehicle                        |");
+            System.out.println("|   [5] Refuel Vehicle                        |");
+            System.out.println("|   [0] Back to Main Menu                     |");
+            System.out.println("|                                             |");
+            System.out.println("==============================================");
+            System.out.print("   Choose an option: ");
+        int choice = scanner.nextInt();
 
+        switch (choice) {
+            case 1:
+                ShipMenu(selectedPort);
+                break;
+            case 2:
+                TruckMenuManage(selectedPort);
+                break;
+            case 3:
+                updateVehicle(selectedPort.getID());
+                break;
+            case 4:
+                deleteVehicle(selectedPort.getID());
+                break;
+            case 5:
+                refuelVehicle(selectedPort.getID());
+            case 0:
+                return;
+            default:
+                System.out.println("Invalid choice. Please select a valid option.");
+
+
+        }
+    }
+}
     public static void containerMenu(Port selectPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\nContainer Menu:");
-            System.out.println("1. Create Cotnainer");
-            System.out.println("2. View all Container");
-            System.out.println("3. Update Container");
-            System.out.println("4. Delete Container");
-            System.out.println("5. Return to Port Manager Menu");
-            System.out.print("Choose an option: ");
+            System.out.println("==============================================");
+            System.out.println("            CONTAINER MENU                   ");
+            System.out.println("==============================================");
+            System.out.println("|                                            |");
+            System.out.println("|   [1] Create Container                      |");
+            System.out.println("|   [2] View all Containers                   |");
+            System.out.println("|   [3] Update Container                      |");
+            System.out.println("|   [4] Delete Container                      |");
+            System.out.println("|   [5] Return to Port Manager Menu           |");
+            System.out.println("|                                            |");
+            System.out.println("==============================================");
+            System.out.print("   Choose an option: ");
             int choiceTruck = scanner.nextInt();
 
             switch (choiceTruck) {
@@ -187,16 +277,23 @@ public class mainMenu {
             }
         }
     }
+
     public static void TruckMenuManage(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\nTruck Menu:");
-            System.out.println("1. Basic Truck Menu");
-            System.out.println("2. Tanker Truck Menu");
-            System.out.println("3. Reefer Truck Menu");
-            System.out.println("4. Return to Port Manager Menu");
-            System.out.print("Choose an option: ");
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║            CONTAINER MENU                ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("║  [1] Create Container                    ║");
+            System.out.println("║  [2] View all Containers                 ║");
+            System.out.println("║  [3] Update Container                    ║");
+            System.out.println("║  [4] Delete Container                    ║");
+            System.out.println("║  [5] Return to Port Manager Menu         ║");
+            System.out.println("║                                          ║");
+            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.print("   Choose an option: ");
+
             int choiceTruck = scanner.nextInt();
 
             switch (choiceTruck) {
@@ -219,12 +316,18 @@ public class mainMenu {
     public static void ShipMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("1. Create Ship");
-            System.out.println("2. Remove Ship");
-            System.out.println("3. Load Container on Ship");
-            System.out.println("4. Unload Container on Ship");
-            System.out.println("5. Return");
-            System.out.print("Choose an option: ");
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║         PORT OPERATIONS MENU             ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("║  [1] Create Ship                         ║");
+            System.out.println("║  [2] Remove Ship                         ║");
+            System.out.println("║  [3] Load Container on Ship              ║");
+            System.out.println("║  [4] Unload Container on Ship            ║");
+            System.out.println("║  [5] Return                              ║");
+            System.out.println("║                                          ║");
+            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.print("   Choose an option: ");
+
             int choiceShip = scanner.nextInt();
             switch (choiceShip) {
                 case 1:
@@ -246,12 +349,18 @@ public class mainMenu {
     public static void BasicTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("1. Create Basic Truck");
-            System.out.println("2. Remove Basic Truck");
-            System.out.println("3. Load Container on Basic Truck");
-            System.out.println("4. Unload Container on Basic Truck");
-            System.out.println("5. Return");
-            System.out.print("Choose an option: ");
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║           BASIC TRUCK MENU               ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("║  [1] Create Basic Truck                  ║");
+            System.out.println("║  [2] Remove Basic Truck                  ║");
+            System.out.println("║  [3] Load Container on Basic Truck       ║");
+            System.out.println("║  [4] Unload Container on Basic Truck     ║");
+            System.out.println("║  [5] Return                              ║");
+            System.out.println("║                                          ║");
+            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.print("   Choose an option: ");
+
             int choiceShip = scanner.nextInt();
             switch (choiceShip) {
                 case 1:
@@ -272,12 +381,19 @@ public class mainMenu {
     public static void TankerTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("1. Create Tanker Truck");
-            System.out.println("2. Remove Tanker Truck");
-            System.out.println("3. Load Container on Tanker Truck");
-            System.out.println("4. Unload Container on Tanker Truck");
-            System.out.println("5. Return");
-            System.out.print("Choose an option: ");
+
+                System.out.println("╔══════════════════════════════════════════╗");
+                System.out.println("║           TANKER TRUCK MENU              ║");
+                System.out.println("╟──────────────────────────────────────────╢");
+                System.out.println("║  [1] Create Tanker Truck                 ║");
+                System.out.println("║  [2] Remove Tanker Truck                 ║");
+                System.out.println("║  [3] Load Container on Tanker Truck      ║");
+                System.out.println("║  [4] Unload Container on Tanker Truck    ║");
+                System.out.println("║  [5] Return                              ║");
+                System.out.println("╚══════════════════════════════════════════╝");
+                System.out.print("  Choose an option: ");
+
+
             int choiceShip = scanner.nextInt();
             switch (choiceShip) {
                 case 1:
@@ -298,12 +414,18 @@ public class mainMenu {
     public static void ReeferTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("1. Create Reefer Truck");
-            System.out.println("2. Remove Reefer Truck");
-            System.out.println("3. Load Container on Reefer Truck");
-            System.out.println("4. Unload Container on Reefer Truck");
-            System.out.println("5. Return");
-            System.out.print("Choose an option: ");
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║           REEFER TRUCK MENU              ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("║  [1] Create Reefer Truck                 ║");
+            System.out.println("║  [2] Remove Reefer Truck                 ║");
+            System.out.println("║  [3] Load Container on Reefer Truck      ║");
+            System.out.println("║  [4] Unload Container on Reefer Truck    ║");
+            System.out.println("║  [5] Return                              ║");
+            System.out.println("║                                          ║");
+            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.print("   Choose an option: ");
+
             int choiceShip = scanner.nextInt();
             switch (choiceShip) {
                 case 1:
@@ -350,5 +472,47 @@ public class mainMenu {
     public static void resetFileMenu() {
         FileUtility utility = new FileUtility();
         utility.writeAllData();
+    }
+    public static void statisticOperationsMenu(Port selectedPort) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("==============================================");
+            System.out.println("          Statistics Operations Menu          ");
+            System.out.println("==============================================");
+            System.out.println("|                                             |");
+            System.out.println("|   [1] Ship Controller                       |");
+            System.out.println("|   [2] Truck Controller                      |");
+            System.out.println("|   [3] Update Vehicle                        |");
+            System.out.println("|   [4] Delete Vehicle                        |");
+            System.out.println("|   [5] Refuel Vehicle                        |");
+            System.out.println("|   [0] Back to Main Menu                     |");
+            System.out.println("|                                             |");
+            System.out.println("==============================================");
+            System.out.print("   Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    ShipMenu(selectedPort);
+                    break;
+                case 2:
+                    TruckMenuManage(selectedPort);
+                    break;
+                case 3:
+                    updateVehicle(selectedPort.getID());
+                    break;
+                case 4:
+                    deleteVehicle(selectedPort.getID());
+                    break;
+                case 5:
+                    refuelVehicle(selectedPort.getID());
+                case 0:
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+
+
+            }
+        }
     }
 }

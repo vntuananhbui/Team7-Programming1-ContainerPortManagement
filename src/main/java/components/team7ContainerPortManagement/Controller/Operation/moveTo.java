@@ -9,10 +9,7 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Tru
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
@@ -31,7 +28,7 @@ public class moveTo {
 
     public static void moveToMenu(Port currentPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
-// Load available ports from port.txt and display them here
+        // Load available ports from port.txt and display them here
         List<Port> availablePorts = null;
         //Read all available port except current port
         availablePorts = readAvailablePortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt", currentPort);
@@ -42,16 +39,33 @@ public class moveTo {
                 System.out.println((selectedPortOrderNumber++) + ". Port ID: '" + port.getID() + "', Port Name: '" + port.getName() + "'");
             }
         }
-        int selectedPortIndex = scanner.nextInt() - 1;
-        Port selectedPort = availablePorts.get(selectedPortIndex);
+        // Handling invalid port choice
+        int selectedPortIndex;
+        while (true) {
+            try {
+                selectedPortIndex = scanner.nextInt() - 1;
+                if (selectedPortIndex >= 0 && selectedPortIndex < availablePorts.size()) {
+                    break;
+                } else {
+                    System.out.println("Invalid choice. Please select a number between 1 and " + availablePorts.size());
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number.");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
+      Port selectedPort = availablePorts.get(selectedPortIndex);
         System.out.println("Selected Port: " + selectedPort);
-
         List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
-        System.out.println("Available vehicle in port " + currentPort.getName() + ":");
-
+        System.out.println("Available vehicle in port " + currentPort.getName());
+        if (availableVehicleIDs == null || availableVehicleIDs.isEmpty()) {
+            System.out.println("No vehicles available in this port.");
+            return;
+        }
         for (int i = 0; i < availableVehicleIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableVehicleIDs.get(i));
         }
+
         int selectedVehicleOrderID;
         Vehicle selectedVehicle;
         String selectedVehicleNumber;
@@ -68,7 +82,8 @@ public class moveTo {
             }
         }
         double fuelRequire = calculateFuelConsumption(currentPort,selectedPort,selectedVehicle.getID(),selectedVehicle);
-        if (selectedVehicle.canMoveTo(selectedPort) &&  fuelRequire <= selectedVehicle.getCurrentFuel()) {
+//        if (selectedVehicle.canMoveTo(selectedPort) &&  fuelRequire <= selectedVehicle.getCurrentFuel()) {
+        if (selectedVehicle.canMoveTo(selectedPort)) {
 //        System.out.println("Vehicle current port: "+selectedVehicle.getCurrentPort());
 //        System.out.println("Destination port: " + selectedPort);
 //        selectedVehicle.setCurrentPort(selectedPort); //Change the file vehicle.txt
@@ -110,7 +125,9 @@ public class moveTo {
             vehiclePortMap.put(currentPort.getID(),currentPortVehicles);
             System.out.println("Map2 :" + vehiclePortMap);
             System.out.println("After remove port vehicle: " + currentPortVehicles);
-
+            if (vehiclePortMap.get(currentPort.getID()).isEmpty()) {
+                vehiclePortMap.remove(currentPort.getID());
+            }
             if (selectedPortIDs == null) {
                 selectedPortIDs = new ArrayList<>();
                 selectedPortIDs.add(selectedVehicle.getID());
@@ -142,12 +159,14 @@ public class moveTo {
             System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
             updateFuel(selectedVehicle.getID(),afterMoveFuel);
 
-        } else if (fuelRequire > selectedVehicle.getCurrentFuel()){
-            System.out.println("Fuel require is larger than current fuel");
-            System.out.println("Fuel require: " + fuelRequire);
-            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
-
-        } else {
+        }
+//        else if (fuelRequire > selectedVehicle.getCurrentFuel()){
+//            System.out.println("Fuel require is larger than current fuel");
+//            System.out.println("Fuel require: " + fuelRequire);
+//            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
+//
+//        }
+        else {
         System.out.println("Fail to move");
             System.out.println("Fuel require: " + fuelRequire);
             System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
@@ -155,3 +174,4 @@ public class moveTo {
         }
 }
 }
+

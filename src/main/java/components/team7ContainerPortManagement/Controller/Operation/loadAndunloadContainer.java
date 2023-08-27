@@ -7,6 +7,7 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Tru
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
+import src.main.java.components.team7ContainerPortManagement.models.interfaces.VehicleOperations;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import static src.main.java.components.team7ContainerPortManagement.utils.Tanker
 import static src.main.java.components.team7ContainerPortManagement.utils.TankerTruckFileUtils.tankertruckReadFile.readTankerTruckFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.TankerTruckFileUtils.tankertruckWriteFile.writeTankerTruckToFile;
 
-public class loadAndunloadContainer {
+public class loadAndunloadContainer implements VehicleOperations {
     //vehicle Load container
     public static void loadContainerShipMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -775,5 +776,24 @@ public class loadAndunloadContainer {
             System.out.println("Failed to unload container.");
         }
     }
+
+
+
+    @Override
+    public boolean loadContainer(Container container) {
+        return false;
+    }
+
+    @Override
+    public boolean unloadContainer(Container container) {
+        return false;
+    }
+
+    @Override
+    public boolean canMoveTo(Port destination) {
+        return false;
+    }
+
+
 
 }

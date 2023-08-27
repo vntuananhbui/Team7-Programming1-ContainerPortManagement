@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.getReeferTruckByLine;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByID;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByOrderNumber;
@@ -68,8 +69,8 @@ public abstract class Vehicle implements VehicleOperations {
         return containers;
     }
 
-    @Override
-    public abstract boolean canLoadContainer(Container container);
+//    @Override
+//    public abstract boolean canLoadContainer(Container container);
 
 
 //    public boolean loadContainer(Container container) {
@@ -133,34 +134,28 @@ public abstract class Vehicle implements VehicleOperations {
 
     @Override
     public boolean canMoveTo(Port destination) {
-//        if (currentPort == null || destination == null) {
-//            // The vehicle is currently sailing, so it cannot move to another port
-//            System.out.println("The current port or destination are null, so this vehicle can not move to");
-//            return false;
-//        }
-//        if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
-//            // One or both of the ports do not have landing ability, so a truck cannot move between them
-//            System.out.println("The " + destination.getName() + " is not have landing ability yet for truck! ");
-//            return false;
-//        }
+
 //        if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
 //            return false;
 //        }
-//        double distance = currentPort.calculateDistanceTo(destination);
-//        double fuelRequired = 0;
-//        for (Container container : this.containers) {
-//
-//            fuelRequired += getFuelConsumptionPerKm(container) * distance;
-//        }
-////        System.out.println("Distance: " +distance);
-////        System.out.println("Fuel required "+fuelRequired);
-////        System.out.println("current fuel: " + currentFuel);
-//        return fuelRequired <= currentFuel;
+        try {
+            double fuelRequire = calculateFuelConsumption(currentPort,destination,this.getID(),this);
+            if(fuelRequire > this.getCurrentFuel()) {
+                System.out.println("Error!!!!");
+                System.out.println("Fuel require is larger than current fuel");
+                System.out.println("Fuel require: " + fuelRequire);
+                System.out.println("Current fuel: " + this.getCurrentFuel());
+                return false;
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         return true;
     }
 
-    @Override
-    public void moveTo(Port destination) {
+
 //        double fuelRequired = 0;
 //
 //        double distance = currentPort.calculateDistanceTo(destination);
@@ -202,23 +197,23 @@ public abstract class Vehicle implements VehicleOperations {
 //        } else {
 //            System.out.println("Current fuel : " + currentFuel + " is not enough to move to destination , require are: " + fuelRequired);
 //        }
-    }
 
-    @Override
-    public void refuel(double amount) {
-        this.currentFuel += Math.min(amount, this.fuelCapacity - this.currentFuel);
-    }
-    public void showLoadedContainers() {
-        if(containers.isEmpty()) {
-            System.out.println(this.name + " is currently not carrying any containers.");
-            return;
-        }
 
-        System.out.println(this.name + " is carrying the following containers:");
-        for(Container container : containers) {
-            System.out.println("Container ID: " + container.getID() + ", Type: " + container.getContainerType());
-        }
-    }
+//    @Override
+//    public void refuel(double amount) {
+//        this.currentFuel += Math.min(amount, this.fuelCapacity - this.currentFuel);
+//    }
+//    public void showLoadedContainers() {
+//        if(containers.isEmpty()) {
+//            System.out.println(this.name + " is currently not carrying any containers.");
+//            return;
+//        }
+//
+//        System.out.println(this.name + " is carrying the following containers:");
+//        for(Container container : containers) {
+//            System.out.println("Container ID: " + container.getID() + ", Type: " + container.getContainerType());
+//        }
+//    }
 
     @Override
     public String toString() {
@@ -283,10 +278,10 @@ public abstract class Vehicle implements VehicleOperations {
         Port currentPort = getPortByOrderNumber(id, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
         // Create a new Vehicle object
         Vehicle vehicle = new Vehicle(id, name, currentFuel, carryingCapacity, fuelCapacity, 3.5, currentPort) {
-            @Override
-            public boolean canLoadContainer(Container container) {
-                return false;
-            }
+//            @Override
+//            public boolean canLoadContainer(Container container) {
+//                return false;
+//            }
 
             @Override
             public double getFuelConsumptionPerKm(Container container) {

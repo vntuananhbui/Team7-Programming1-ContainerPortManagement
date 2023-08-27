@@ -127,7 +127,10 @@ public class portController implements PortOperations {
         // Try-with-resources to automatically close BufferedReader
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            System.out.println("Current Ports:\n------------");
+            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println("║             CURRENT PORTS                ║");
+            System.out.println("╟──────────────────────────────────────────╢");
+
             int orderNumber = 1;
 
             while ((line = reader.readLine()) != null) {
@@ -136,14 +139,22 @@ public class portController implements PortOperations {
                 String portName = extractDataFromLine(line, "name='(.*?)'");
 
                 if (portID != null && portName != null) {
-                    System.out.printf("%d. Port ID: '%s' , Port Name: '%s'\n", orderNumber++, portID, portName);
+                    System.out.println("║ [" + orderNumber + "] " + padString(portName, 36) + " ║");
+                    orderNumber++;
                 }
             }
+            System.out.println("╚══════════════════════════════════════════╝");
         } catch (FileNotFoundException e) {
             System.out.println("Port file not found.");
             e.printStackTrace();
         }
     }
+
+    // Utility method to pad the string to the desired length
+    private static String padString(String input, int length) {
+        return String.format("%-" + length + "s", input);
+    }
+
     public static void displayDestinationPort(Port currentPort) throws IOException {
         // Path to the ports file
         String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt";
