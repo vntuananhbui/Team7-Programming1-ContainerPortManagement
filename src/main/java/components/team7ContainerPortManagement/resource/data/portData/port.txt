@@ -1,2 +1,4 @@
 Port{ID='p-port6', name='6', latitude=99.999990, longitude=8.666660, storingCapacity=800, landingAbility=true}
 Port{ID='p-port2', name='2', latitude=56.777700, longitude=7.777700, storingCapacity=888, landingAbility=true}
+Port{ID='p-port8', name='8', latitude=100.111110, longitude=8.111100, storingCapacity=888, landingAbility=true}
+Port{ID='p-port20', name='20', latitude=54.999990, longitude=6.888800, storingCapacity=900, landingAbility=true}

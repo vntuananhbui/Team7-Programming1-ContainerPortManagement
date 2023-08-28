@@ -20,7 +20,11 @@ public class User {
         this.Password = hashing(Password);
         this.userType = userType;
     }
-    public User() {};
+
+    public User() {
+    }
+
+    ;
 
     public String getUsername() {
         return username;
@@ -39,33 +43,33 @@ public class User {
     }
 
     public static String hashing(String password) {
-    try {
-        // MessageDigest instance for MD5.
-        MessageDigest m = MessageDigest.getInstance("MD5");
+        try {
+            // MessageDigest instance for MD5.
+            MessageDigest m = MessageDigest.getInstance("MD5");
 
-        // Add plain-text password bytes to digest using MD5 update() method.
-        m.update(password.getBytes());
+            // Add plain-text password bytes to digest using MD5 update() method.
+            m.update(password.getBytes());
 
-        // Convert the hash value into bytes
-        byte[] bytes = m.digest();
+            // Convert the hash value into bytes
+            byte[] bytes = m.digest();
 
-        // The bytes array has bytes in decimal form. Converting it into hexadecimal format.
-        StringBuilder s = new StringBuilder();
-        for (byte aByte : bytes) {
-            s.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            // The bytes array has bytes in decimal form. Converting it into hexadecimal format.
+            StringBuilder s = new StringBuilder();
+            for (byte aByte : bytes) {
+                s.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+
+            // Complete hashed password in hexadecimal format
+            return s.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-
-        // Complete hashed password in hexadecimal format
-        return s.toString();
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
+        return "";
     }
-    return "";
-}
 
     // create adminCredentials list and read only admin object
 
-        public static List<User> readAdminCredentialFromFile(String filename) throws IOException {
+    public static List<User> readAdminCredentialFromFile(String filename) throws IOException {
         List<User> adminCredentials = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -77,7 +81,7 @@ public class User {
                     String username = parts[1].trim();
                     String password = parts[2].trim();
                     String userType = parts[3].trim();
-                    adminCredentials.add(new User(U_ID,username,password,userType));
+                    adminCredentials.add(new User(U_ID, username, password, userType));
                 }
             }
         } catch (IOException e) {
@@ -100,7 +104,7 @@ public class User {
                     String username = parts[1].trim();
                     String password = parts[2].trim();
                     String userType = parts[3].trim();
-                    portManagerCredentials.add(new User(U_ID,username,password,userType));
+                    portManagerCredentials.add(new User(U_ID, username, password, userType));
                 }
             }
         } catch (IOException e) {
@@ -122,10 +126,10 @@ public class User {
     // add admin object into adminList and write object into admin.txt
 
     public static void registerAdmin(List<User> userAdminList, String username, String password, String userType) {
-                Random randNum = new Random();
-                int U_ID = randNum.nextInt(9999);
-                String nextUid = "u-" + U_ID;
-                userAdminList.add(new User(nextUid, username, password,userType));
+        Random randNum = new Random();
+        int U_ID = randNum.nextInt(9999);
+        String nextUid = "u-" + U_ID;
+        userAdminList.add(new User(nextUid, username, password, userType));
 
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/userData/admin.txt", true))) {
@@ -138,13 +142,28 @@ public class User {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
+
+    // Method to check if the admin userType already exists
+    public static boolean checkUserTypeAdmin(String userType) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/userData/admin.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("userType='" + userType + "'")) {
+                    return false; // userType already exists
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+        return true; // userType is unique
+    }
     // add port manager object into adminList and write object into port_manager.txt
 
     public static void registerPortManager(List<User> userPortManagerList, String username, String password, String userType) {
         Random randNum = new Random();
         int U_ID = randNum.nextInt(9999);
         String nextUid = "u-" + U_ID;
-        userPortManagerList.add(new User(nextUid, username, password,userType));
+        userPortManagerList.add(new User(nextUid, username, password, userType));
 
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/userData/port_manager.txt", true))) {
@@ -158,24 +177,49 @@ public class User {
         }
     }
 
+    // Method to check if the username already exists
+    public static boolean checkUserName(String username) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/userData/port_manager.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("username='" + username + "'")) {
+                    return false; // Username already exists
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+        return true; // Username is unique
+    }
+
 
     public static boolean isValidPassword(String password) {
+        // Check if password is between 8 and 20 characters long
         if (password.length() < 8 || password.length() > 20) {
             return false;
         }
 
+        // Check if password contains at least one digit
         if (!Pattern.compile("[0-9]").matcher(password).find()) {
             return false;
         }
 
+        // Check if password contains at least one lowercase letter
         if (!Pattern.compile("[a-z]").matcher(password).find()) {
             return false;
         }
 
+        // Check if password contains at least one uppercase letter
         if (!Pattern.compile("[A-Z]").matcher(password).find()) {
+            return false;
+        }
+
+        // Check if password contains at least one special character
+        if (!Pattern.compile("[!@#$%^&*()-+=<>?]").matcher(password).find()) {
             return false;
         }
         return true;
     }
-}
+    }
+
 
