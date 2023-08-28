@@ -175,6 +175,10 @@ public class containerController {
         for (String container : containerIDs) {
             Container ObjectContainerList = getContainerByID(container);
 //            System.out.println("Object container: " + ObjectContainerList);
+            if (ObjectContainerList == null) {
+                System.out.println("There is no container");
+                break;
+            }
             assert ObjectContainerList != null;
             ContainerType containerConsumption = ObjectContainerList.getContainerType();
             System.out.println(containerConsumption); //DRY_STORAGE

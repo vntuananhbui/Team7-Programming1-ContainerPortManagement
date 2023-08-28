@@ -27,6 +27,15 @@ import static src.main.java.components.team7ContainerPortManagement.utils.Reefer
 public class moveTo {
 
     public static void moveToMenu(Port currentPort) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String yellow = "\u001B[33m";
+        String VEHICLE_ICON = "\uD83D\uDE97";  // 🚗
+        String VEHICLE_Truck = "\uD83D\uDE9A";
+        String VEHICLE_ship = "\uD83D\uDEA2";
+        String PORT_ICON = "\uD83C\uDFED";
         Scanner scanner = new Scanner(System.in);
         // Load available ports from port.txt and display them here
         List<Port> availablePorts = null;
@@ -146,17 +155,32 @@ public class moveTo {
             }
             double afterMoveFuel = selectedVehicle.getCurrentFuel() -fuelRequire;
 
-            System.out.println("After map: " + vehiclePortMap);
-            System.out.println();
-            Trip newTrip = new Trip(selectedVehicle, selectedVehicle.getCurrentPort(), selectedPort);
+
+
+//            Trip newTrip = new Trip(selectedVehicle, selectedVehicle.getCurrentPort(), selectedPort);
+            Trip newTrip = new Trip(selectedVehicle,selectedVehicle.getCurrentPort(),selectedPort,fuelRequire);
             newTrip.start();
             newTrip.tripComplete();
+            System.out.println("After map: " + vehiclePortMap);
+            System.out.println();
+
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 VEHICLE MOVE CONFRIMATION" + "              ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢");
+            System.out.println( "            " + selectedVehicle.getID() + " " + VEHICLE_ship + yellow + " =======> " + ANSI_GREEN + selectedPort.getID() + " " + PORT_ICON + "   " + ANSI_RESET);
+            System.out.println("  Fuel Consumption:    " + fuelRequire);
+            System.out.println("  Time of Departure:   " + newTrip.getDepartureDate() + "        " );
+            System.out.println("  Time of Arrival:     " + newTrip.getArrivalDate() + "        " );
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println("╚════════════════════════════════════════════════════════╝");
+
+
             updateVehiclePort(selectedVehicle.getID(),selectedPort.getID());
             writeVehiclePortMapInFile(vehiclePortMap, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt");
             writePortContainerMapToFile(containerPortMap,"src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
 
-            System.out.println("Fuel require: " + fuelRequire);
-            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
+//            System.out.println("Fuel require: " + fuelRequire);
+//            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
             updateFuel(selectedVehicle.getID(),afterMoveFuel);
 
         }

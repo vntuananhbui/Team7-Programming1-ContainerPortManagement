@@ -390,7 +390,7 @@ public abstract class Vehicle implements VehicleOperations {
                     line = replaceFuelValue(line, newFuel);
                 }
                 lines.add(line);
-                System.out.println("Update fuel complete!");
+//                System.out.println("Update fuel complete!");
             }
         }
 

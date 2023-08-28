@@ -5,10 +5,17 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Por
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import static java.lang.Math.round;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
@@ -20,7 +27,10 @@ import static src.main.java.components.team7ContainerPortManagement.utils.Contai
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readAvailablePortsFromFile;
 
 public class calculateOperation {
-    public static double calculateFuelConsumption(Port currentPort, Port selectedPort ,String selectedVehicleID, Vehicle selectedVehicle) throws IOException {
+    public calculateOperation() throws FileNotFoundException {
+    }
+
+    public static double calculateFuelConsumption(Port currentPort, Port selectedPort, String selectedVehicleID, Vehicle selectedVehicle) throws IOException {
 
         double fuelConsumption;
 //        String selectedVehicleID = selectedVehicle.getID();
@@ -72,7 +82,7 @@ public class calculateOperation {
         double totalWeightContainerInPort = 0;
         List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
         Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
-        System.out.println("Available vehicle in port: "+availableVehicleIDs);
+        System.out.println("Available vehicle in port: " + availableVehicleIDs);
         for (String vehicle : availableVehicleIDs) {
             Vehicle selectedVehicle = getVehicleByVehicleID(vehicle);
             List<String> containerIDs = vehicleContainerMap.get(selectedVehicle.getID());
@@ -85,10 +95,54 @@ public class calculateOperation {
                 }
             }
         }
-        System.out.println("Total weight"+totalWeightContainerInPort);
+        System.out.println("Total weight" + totalWeightContainerInPort);
         return totalWeightContainerInPort;
     }
 
 
+    public static void trafficOfPort(String port) {
+        System.out.println("Traffic for port: " + port);
+        System.out.println("Arrivals:");
+        System.out.println("Ship ID | Arrival Date | Fuel Consumption");
+        System.out.println("-----------------------------------------");
 
+        try (BufferedReader reader = new BufferedReader(new FileReader("trip.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(", ");
+                String shipID = parts[0];
+                String arrivalPort = parts[4];
+                String departurePort = parts[3];
+                String arrivalDate = parts[2];
+                String fuelConsumption = parts[6];
+
+                if (arrivalPort.equals(port)) {
+                    System.out.println(shipID + " | " + arrivalDate + " | " + fuelConsumption);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("\nDepartures:");
+        System.out.println("Ship ID | Departure Date | Fuel Consumption");
+        System.out.println("-------------------------------------------");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("trip.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(", ");
+                String shipID = parts[0];
+                String departurePort = parts[3];
+                String departureDate = parts[1];
+                String fuelConsumption = parts[6];
+
+                if (departurePort.equals(port)) {
+                    System.out.println(shipID + " | " + departureDate + " | " + fuelConsumption);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+}//END

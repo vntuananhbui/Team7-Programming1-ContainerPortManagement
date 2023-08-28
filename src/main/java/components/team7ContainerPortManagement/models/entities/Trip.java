@@ -2,9 +2,7 @@ package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.enums.TripStatus;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +17,7 @@ public class Trip {
     private Port departurePort;
     private Port arrivalPort;
     private TripStatus status;
+    private double fuelConsumption;
     private static List<Trip> tripHistory = new ArrayList<>();
     // Constructor, getters, and setters
 
@@ -29,6 +28,13 @@ public class Trip {
         this.status = TripStatus.PLANNED;
         tripHistory.add(this);
 
+    }
+
+    public Trip(Vehicle vehicle, Port departurePort, Port arrivalPort, double fuelConsumption) {
+        this.vehicle = vehicle;
+        this.departurePort = departurePort;
+        this.arrivalPort = arrivalPort;
+        this.fuelConsumption = fuelConsumption;
     }
 
     public Vehicle getVehicle() {
@@ -60,9 +66,28 @@ public class Trip {
     }
 
     public void start() {
-        this.departureDate = LocalDateTime.now();
+        // Read the last arrivalDate from the trip.txt file
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(", ");
+                if (parts[0].equals(vehicle.getID())) {
+                    if (!"null".equals(parts[2])) {
+                        this.departureDate = LocalDateTime.parse(parts[2]);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (this.departureDate == null) {
+            this.departureDate = LocalDateTime.now();
+        }
+
         this.status = TripStatus.IN_PROGRESS;
     }
+
     public LocalDateTime tripStart() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the departure date in dd.mm.yyyy format:");
@@ -131,13 +156,14 @@ public class Trip {
     }
     public void saveTripToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt", true))) {
-            writer.write(String.format("%s, %s, %s, %s, %s, %s%n",
+            writer.write(String.format("%s, %s, %s, %s, %s, %s, %f%n",
                     vehicle.getID(),
                     departureDate,
                     arrivalDate,
                     departurePort.getID(),
                     arrivalPort.getID(),
-                    status
+                    status,
+                    fuelConsumption
             ));
         } catch (IOException e) {
             e.printStackTrace();

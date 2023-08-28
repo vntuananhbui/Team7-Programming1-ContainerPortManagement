@@ -26,36 +26,59 @@ import static src.main.java.components.team7ContainerPortManagement.utils.PortFi
 
 public class mainMenu {
     public static void displayBanner() {
-        System.out.println("  #####   ######  #     #   #####   ");
-        System.out.println("#     #  #     #  ##   ##  #     #  ");
-        System.out.println("#        #     #  # # # #  #        ");
-        System.out.println("#        ######   #  #  #   #####   ");
-        System.out.println("#        #        #     #        #  ");
-        System.out.println("#     #  #        #     #  #     #  ");
-        System.out.println(" #####   #        #     #   #####   ");
-        System.out.println("====================================");
-        System.out.println("  TEAM 7 CONTAINER PORT MANAGEMENT  ");
-        System.out.println("           SYSTEM 2023              ");
-        System.out.println("====================================");
-        System.out.println();
 
-    }
+
+                String red = "\u001B[31m";
+                String green = "\u001B[32m";
+                String yellow = "\u001B[33m";
+                String blue = "\u001B[34m";
+                String purple = "\u001B[35m";
+                String cyan = "\u001B[36m";
+                String white = "\u001B[37m";
+                String reset = "\u001B[0m";
+                System.out.println(red + "====================================");
+                System.out.println(cyan + "  " + cyan + "#####   " + purple + "######  " + yellow + "#     #   " + blue + "#####   " + reset);
+                System.out.println(cyan + "#     #  " + purple + "#     #  " + yellow + "##   ##  " + blue + "#     #  " + reset);
+                System.out.println(cyan + "#        " + purple + "#     #  " + yellow + "# # # #  " + blue + "#        " + reset);
+                System.out.println(cyan + "#        " + purple + "######   " + yellow + "#  #  #   " + blue + "#####   " + reset);
+                System.out.println(cyan + "#        " + purple + "#        " + yellow + "#     #  " + blue + "      #  " + reset);
+                System.out.println(cyan + "#     #  " + purple + "#        " + yellow + "#     #  " + blue + "#     #  " + reset);
+                System.out.println(cyan + " #####   " + purple + "#        " + yellow + "#     #   " + blue + "#####   " + reset);
+                System.out.println(red + "====================================");
+                System.out.println(red + "  TEAM 7 CONTAINER PORT MANAGEMENT  ");
+                System.out.println("           SYSTEM 2023              ");
+                System.out.println(red + "====================================");
+                System.out.println(reset);
+            }
+
+
+
+
 
     public static void mainLoop() throws IOException {
-
+        String red = "\u001B[31m";
+        String green = "\u001B[32m";
+        String yellow = "\u001B[33m";
+        String blue = "\u001B[34m";
+        String purple = "\u001B[35m";
+        String cyan = "\u001B[36m";
+        String white = "\u001B[37m";
+        String reset = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Container Port Management System!");
 
         while (true) {
-            System.out.println("╔══════════════════════════════════════════╗");
-            System.out.println("║          CONTAINER PORT SYSTEM           ║");
-            System.out.println("╟──────────────────────────────────────────╢");
-            System.out.println("║  [1] Admin                               ║");
-            System.out.println("║  [2] Port Manager                        ║");
-            System.out.println("║  [3] Reset File                          ║");
-            System.out.println("║  [0] Exit                                ║");
-            System.out.println("╚══════════════════════════════════════════╝");
-            System.out.print("  Choose an option: ");
+
+
+                    System.out.println("╔══════════════════════════════════════════╗");
+                    System.out.println("║      " + blue + "   CONTAINER" + reset + " " + blue + "PORT" + reset + " " + blue + "SYSTEM" + reset + "            ║");
+                    System.out.println("╟──────────────────────────────────────────╢");
+                    System.out.println("║  [1] " + blue + "Admin" + reset + "                               ║");
+                    System.out.println("║  [2] " + blue + "Port Manager" + reset + "                        ║");
+                    System.out.println("║  [3] " + blue + "Reset File" + reset + "                          ║");
+                    System.out.println("║  [0] " + blue + "Exit" + reset + "                                ║");
+                    System.out.println("╚══════════════════════════════════════════╝");
+
 
             int choice = scanner.nextInt();
 
