@@ -68,7 +68,7 @@ public class moveTo {
         List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
         System.out.println("Available vehicle in port " + currentPort.getName());
         if (availableVehicleIDs == null || availableVehicleIDs.isEmpty()) {
-            System.out.println("No vehicles available in this port.");
+            System.out.println("No vehicles available in this port."); //RED
             return;
         }
         for (int i = 0; i < availableVehicleIDs.size(); i++) {
@@ -172,8 +172,7 @@ public class moveTo {
             System.out.println("  Time of Departure:   " + newTrip.getDepartureDate() + "        " );
             System.out.println("  Time of Arrival:     " + newTrip.getArrivalDate() + "        " );
             System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
-            System.out.println("╚════════════════════════════════════════════════════════╝");
-
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝");
 
             updateVehiclePort(selectedVehicle.getID(),selectedPort.getID());
             writeVehiclePortMapInFile(vehiclePortMap, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt");

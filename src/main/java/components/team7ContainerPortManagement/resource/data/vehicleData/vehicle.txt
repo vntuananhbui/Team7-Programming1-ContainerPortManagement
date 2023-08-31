@@ -1,2 +1,2 @@
-Vehicle{ID='rtr-RMIT2', name='rmittruck', currentFuel=509999.0, carryingCapacity=2000.0, fuelCapacity=2000000.0, currentPort=p-HCM}
-Vehicle{ID='sh-ship2', name='ship', currentFuel=65687.5, carryingCapacity=200.0, fuelCapacity=200000.0, currentPort=p-StartPort}
+Vehicle{ID='rtr-RMIT2', name='rmittruck', currentFuel=509999.0, carryingCapacity=2000.0, fuelCapacity=2000000.0, currentPort=p-KG}
+Vehicle{ID='sh-ship2', name='ship', currentFuel=11962.5, carryingCapacity=200.0, fuelCapacity=200000.0, currentPort=p-StartPort}

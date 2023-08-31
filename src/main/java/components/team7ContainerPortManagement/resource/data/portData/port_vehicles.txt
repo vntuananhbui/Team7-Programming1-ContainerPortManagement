@@ -1,3 +1,2 @@
-{Port :p-KG, Vehicles: sh-ship1}
-{Port :p-HCM, Vehicles: rtr-RMIT2}
+{Port :p-KG, Vehicles: sh-ship1, rtr-RMIT2}
 {Port :p-StartPort, Vehicles: sh-ship2}
