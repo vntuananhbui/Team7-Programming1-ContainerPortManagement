@@ -43,10 +43,21 @@ import static src.main.java.components.team7ContainerPortManagement.utils.Tanker
 public class loadAndunloadContainer implements VehicleOperations {
     //vehicle Load container
     public static void loadContainerShipMenu(Port selectedPort) throws IOException {
+        String reset = "\u001B[0m";
+        String red = "\u001B[31m";
         Scanner scanner = new Scanner(System.in);
         List<String> availableShipIDs = selectedPort.getShipsInPort();
         if (availableShipIDs.isEmpty()) {
-            System.out.println("There is no Ship on " +selectedPort.getID()+  " port!");
+            System.out.println("There is no Ship in " + selectedPort.getID() + " port!");
+            System.out.println(red+"╔══════════════════════════════════════════════╗");
+            System.out.println(red+"║                    Error                     ║");
+            System.out.println(red+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          No Ship in " + selectedPort.getID() + " port!         ");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
             return;
         }
         System.out.println("Available ships in port " + selectedPort.getName() + ":");
@@ -136,10 +147,22 @@ public class loadAndunloadContainer implements VehicleOperations {
 
     //========================
     public static void loadContainerBasicTruckMenu(Port selectedPort) throws IOException {
+        String reset = "\u001B[0m";
+        String red = "\u001B[31m";
         Scanner scanner = new Scanner(System.in);
         List<String> availableBasicTruckIDs = selectedPort.getBasicTrucksInPort();
         if (availableBasicTruckIDs.isEmpty()) {
-            System.out.println("There is no Basic Truck in " + selectedPort.getID() + " port");
+            System.out.println("There is no Basic Truck in " + selectedPort.getID() + " port!");
+            System.out.println(red+"╔══════════════════════════════════════════════╗");
+            System.out.println(red+"║                    Error                     ║");
+            System.out.println(red+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          No Basic Truck in " + selectedPort.getID() + " port!         ");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
         }
         System.out.println("Available basic truck in port " + selectedPort.getName() + ":");
         for (int i = 0; i < availableBasicTruckIDs.size(); i++) {

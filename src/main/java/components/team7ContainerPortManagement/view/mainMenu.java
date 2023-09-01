@@ -15,8 +15,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
-import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.loadAndunloadContainer.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
@@ -202,22 +201,28 @@ public class mainMenu {
                 case 4:
                     PortOperationsMenu(selectedPort);
                     break;
-                case 5:
+                case 11:
                     calculateTotalWeightContainerPort(selectedPort);
                 case 0:
                     portManagerMenu();
                     break;
-                case 6:
+                case 5:
                     updatePort(selectedPort);
                     break;
 
-                case 7:
+                case 6:
                     deletePort(selectedPort);
                     return;
                 case 8:
 
                     System.out.println(selectedPort.getName());
                     System.out.println(selectedPort.getLatitude());
+                case 9:
+                    calculateFuelInDay(selectedPort.getID());
+                    return;
+                case 10:
+                    calculateFuelInDayAdmin();
+                    return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }

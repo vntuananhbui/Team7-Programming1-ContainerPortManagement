@@ -12,10 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 import static java.lang.Math.round;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
@@ -145,4 +142,148 @@ public class calculateOperation {
             e.printStackTrace();
         }
     }
+
+
+    public static void calculateFuelInDay(String portID) {
+        Map<String, List<String>> datesByPort = new HashMap<>();
+        double arrivalFuelConsumption = 0.0;
+        double departureFuelConsumption = 0.0;
+
+        StringBuilder arrivalSection = new StringBuilder("Arrival:\n");
+        StringBuilder departureSection = new StringBuilder("Departure:\n");
+
+        String selectedDate = null; // Initialize selectedDate to null
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
+            String line;
+            int orderNumber = 1;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parse = line.split(", ");
+
+                if (parse.length >= 7) { // Ensure there are enough fields
+                    String arrivalPortID = parse[3];
+                    String departurePortID = parse[4];
+
+                    if (arrivalPortID.equals(portID) || departurePortID.equals(portID)) {
+                        // Extract the date from either parse[1] or parse[2]
+                        String date = parse[1].split("T")[0]; // Use parse[1] for departure, parse[2] for arrival
+
+                        if (!datesByPort.containsKey(portID)) {
+                            datesByPort.put(portID, new ArrayList<>());
+                        }
+
+                        if (!datesByPort.get(portID).contains(date)) {
+                            datesByPort.get(portID).add(date);
+                        }
+
+                        orderNumber++;
+                    }
+                }
+            }
+
+            // Print available dates for the specified port with order numbers
+            List<String> availableDates = datesByPort.get(portID);
+            System.out.println("Available Dates for Port " + portID + ":");
+            for (int i = 0; i < availableDates.size(); i++) {
+                System.out.println((i + 1) + ". " + availableDates.get(i));
+            }
+
+            // Prompt the user to choose a date by order number
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter the order number of the date to view trips: ");
+            int selectedOrder = scanner.nextInt();
+
+            if (selectedOrder > 0 && selectedOrder <= availableDates.size()) {
+                selectedDate = availableDates.get(selectedOrder - 1); // Set selectedDate to the chosen date
+            } else {
+                System.out.println("Invalid order number.");
+                return;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
+            String line;
+            int orderNumber = 1;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parse = line.split(", ");
+
+                if (parse.length >= 7) { // Ensure there are enough fields
+                    String arrivalPortID = parse[3];
+                    String departurePortID = parse[4];
+
+                    if (arrivalPortID.equals(portID) || departurePortID.equals(portID)) {
+                        // Extract the date from either parse[1] or parse[2]
+                        String date = parse[1].split("T")[0]; // Use parse[1] for departure, parse[2] for arrival
+
+                        // Display trip details and accumulate fuel consumption for the selected date
+                        if (date.equals(selectedDate)) {
+                            StringBuilder section = (arrivalPortID.equals(portID)) ? arrivalSection : departureSection;
+                            section.append("Order Number: ").append(orderNumber)
+                                    .append(" | Vehicle ID: ").append(parse[0])
+                                    .append(" | Date: ").append(date)
+                                    .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+
+                            if (arrivalPortID.equals(portID)) {
+                                arrivalFuelConsumption += Double.parseDouble(parse[6]);
+                            } else {
+                                departureFuelConsumption += Double.parseDouble(parse[6]);
+                            }
+                        }
+
+                        orderNumber++;
+                    }
+                }
+            }
+
+            // Print the Arrival section for the selected date
+            System.out.println(arrivalSection.toString());
+
+            // Print the Departure section for the selected date or "No trip" if no trips for Departure
+            if (departureSection.toString().isEmpty()) {
+                System.out.println("Departure:\nNo trip");
+            } else {
+                System.out.println(departureSection.toString());
+            }
+
+            // Print total fuel consumption for the selected date
+            double totalFuelConsumption = arrivalFuelConsumption + departureFuelConsumption;
+            System.out.println("Total Fuel Consumption for " + selectedDate + ": " + totalFuelConsumption);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void calculateFuelInDayAdmin() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
+            String line;
+            double totalConsumption = 0;
+            System.out.println("All Trip Data:");
+            System.out.println("Vehicle ID | Date | Fuel Consumption");
+            System.out.println("------------------------------------");
+
+            while ((line = reader.readLine()) != null) {
+                String[] parse = line.split(", ");
+
+                if (parse.length >= 7) { // Ensure there are enough fields
+                    System.out.printf("%-11s | %-23s | %.2f%n", parse[0], parse[2], Double.parseDouble(parse[6]));
+                }
+                totalConsumption += Double.parseDouble(parse[6]);
+            }
+            System.out.println("Total Consumption: " + totalConsumption);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
 }//END

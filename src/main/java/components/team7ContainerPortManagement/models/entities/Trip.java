@@ -115,12 +115,12 @@ public class Trip {
         }
         Duration tripDuration;
         switch(departurePort.getID()) {
-            case "p-1": tripDuration = Duration.ofDays(2); break;
-            case "p-2": tripDuration = Duration.ofDays(4); break;
-            case "p-3": tripDuration = Duration.ofDays(6); break;
-            case "p-4": tripDuration = Duration.ofDays(8); break;
-            case "p-5": tripDuration = Duration.ofDays(10); break;
-            default: tripDuration = Duration.ofDays(1); break;
+            case "p-1": tripDuration = Duration.ofHours(3); break;
+            case "p-2": tripDuration = Duration.ofHours(6); break;
+            case "p-3": tripDuration = Duration.ofHours(8); break;
+            case "p-4": tripDuration = Duration.ofHours(10); break;
+            case "p-5": tripDuration = Duration.ofHours(12); break;
+            default: tripDuration = Duration.ofHours(1); break;
         }
 
         this.arrivalDate = arrivalDate.plus(tripDuration);
@@ -132,24 +132,24 @@ public class Trip {
         int tripDuration;
         switch (arrivalPort.getID()) {
             case "p-StartPort":
-                tripDuration = 4;
+                tripDuration = 3;
                 break;
             case "p-HCM":
-                tripDuration = 8;
+                tripDuration = 5;
                 break;
             case "p-DN":
-                tripDuration = 16;
+                tripDuration = 7;
                 break;
             case "p-HP":
-                tripDuration = 20;
+                tripDuration = 9;
                 break;
             case "p-KG":
-                tripDuration = 22;
+                tripDuration = 10;
                 break;
             default:
-                tripDuration = 0;
+                tripDuration = 1;
         }
-        this.arrivalDate = this.departureDate.plusDays(tripDuration);
+        this.arrivalDate = this.departureDate.plusHours(tripDuration);
         this.status = TripStatus.COMPLETED;
 
         saveTripToFile();

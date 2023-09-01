@@ -11,6 +11,7 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Veh
 import java.io.IOException;
 import java.util.*;
 
+import static java.awt.Color.red;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.getTankerTruckByLine;
@@ -34,6 +35,7 @@ public class moveTo {
         String yellow = "\u001B[33m";
         String VEHICLE_ICON = "\uD83D\uDE97";  // 🚗
         String VEHICLE_Truck = "\uD83D\uDE9A";
+        String reset = "\u001B[0m";
         String VEHICLE_ship = "\uD83D\uDEA2";
         String PORT_ICON = "\uD83C\uDFED";
         Scanner scanner = new Scanner(System.in);
@@ -68,7 +70,16 @@ public class moveTo {
         List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
         System.out.println("Available vehicle in port " + currentPort.getName());
         if (availableVehicleIDs == null || availableVehicleIDs.isEmpty()) {
-            System.out.println("No vehicles available in this port."); //RED
+            System.out.println("There is no Basic Truck in " + selectedPort.getID() + " port!");
+            System.out.println(red+"╔══════════════════════════════════════════════╗");
+            System.out.println(red+"║                    Error                     ║");
+            System.out.println(red+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          No Basic Truck in " + selectedPort.getID() + " port!         ");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
             return;
         }
         for (int i = 0; i < availableVehicleIDs.size(); i++) {
