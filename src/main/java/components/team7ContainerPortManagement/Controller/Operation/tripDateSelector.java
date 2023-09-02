@@ -50,6 +50,8 @@ public class tripDateSelector {
 
         // List trips between selected dates
         listTripsBetweenSelectedDates(portID, dayA, dayB);
+        System.out.println("Press any key to return...");
+        scanner.nextLine();
     }
 
     private static List<String> getAvailableDatesBetweenDates(String portID) {
@@ -178,8 +180,10 @@ public class tripDateSelector {
                         }
 
                         orderNumber++;
+
                     }
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

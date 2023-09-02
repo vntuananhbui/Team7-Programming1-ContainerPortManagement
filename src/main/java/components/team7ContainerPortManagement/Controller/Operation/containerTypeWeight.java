@@ -96,6 +96,7 @@ public class containerTypeWeight {
             double totalWeight = totalWeights.getOrDefault(selectedContainerType, 0.0);
             System.out.println("Total Weight of " + selectedContainerType + " Containers: " + totalWeight);
             return totalWeight;
+
         } else {
             System.out.println("Invalid order number.");
             return 0.0;

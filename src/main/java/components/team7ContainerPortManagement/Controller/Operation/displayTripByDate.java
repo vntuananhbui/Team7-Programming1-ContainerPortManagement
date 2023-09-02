@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.*;
 
@@ -31,8 +32,10 @@ public class displayTripByDate {
         double arrivalFuelConsumption = 0.0;
         double departureFuelConsumption = 0.0;
 
-        StringBuilder arrivalSection = new StringBuilder("Arrival:\n");
-        StringBuilder departureSection = new StringBuilder("Departure:\n");
+//        StringBuilder arrivalSection = new StringBuilder("Arrival:\n");
+//        StringBuilder departureSection = new StringBuilder("Departure:\n");
+        StringBuilder arrivalSection = new StringBuilder("\n");
+        StringBuilder departureSection = new StringBuilder("\n");
 
         String selectedDate = selectDate(datesByPort);
 
@@ -78,7 +81,9 @@ public class displayTripByDate {
             } else {
                 System.out.println(departureSection.toString());
             }
-
+            System.out.println("Press any key to return...");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,14 +118,17 @@ public class displayTripByDate {
                     }
                 }
             }
-
-            System.out.println(arrivalSection.toString());
-
             if (departureSection.toString().isEmpty()) {
                 System.out.println("Departure:\nNo trip");
             } else {
                 System.out.println(departureSection.toString());
             }
+            System.out.println(arrivalSection.toString());
+            System.out.println("Press any key to return...");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+
+
 
 
         } catch (IOException e) {
