@@ -1,0 +1,4 @@
+{Port :p-DN, Vehicles: sh-shiptest, sh-shiptest1212, sh-popo, sh-shipcon1}
+{Port :p-HCM, Vehicles: sh-ship2, btr-tu}
+{Port :p-KG, Vehicles: sh-ship99}
+{Port :p-StartPort, Vehicles: sh-ship323}

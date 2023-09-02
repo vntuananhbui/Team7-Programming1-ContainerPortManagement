@@ -1,0 +1,3 @@
+Container{ID='c-contest1', weight=2.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-HCM', name='Ho Chi Minh Port'''', latitude=222.200000, longitude=0.500000, storingCapacity=20000, landingAbility=true}}
+Container{ID='c-basictruckcontainer', weight=20.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port'''', latitude=222.200000, longitude=0.500000, storingCapacity=20000, landingAbility=true}}
+Container{ID='c-ref', weight=2.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port'''', latitude=222.200000, longitude=0.500000, storingCapacity=20000, landingAbility=true}}
