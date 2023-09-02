@@ -1,4 +1,3 @@
-Container{ID='c-Consub', weight=200.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
-Container{ID='c-conport3', weight=2000.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-DN', name='Da Nang Port'', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}}
-Container{ID='c-con1', weight=20.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
-Container{ID='c-con2', weight=200.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
+Container{ID='c-contest1', weight=2.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-HCM', name='Ho Chi Minh Port'''', latitude=222.200000, longitude=0.500000, storingCapacity=20000, landingAbility=true}}
+Container{ID='c-basictruckcontainer', weight=20.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port'''', latitude=222.200000, longitude=0.500000, storingCapacity=20000, landingAbility=true}}
+Container{ID='c-ref', weight=2.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port'''', latitude=222.200000, longitude=0.500000, storingCapacity=20000, landingAbility=true}}

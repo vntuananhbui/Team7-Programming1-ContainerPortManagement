@@ -70,12 +70,12 @@ public class moveTo {
         List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
         System.out.println("Available vehicle in port " + currentPort.getName());
         if (availableVehicleIDs == null || availableVehicleIDs.isEmpty()) {
-            System.out.println("There is no Basic Truck in " + selectedPort.getID() + " port!");
+//            System.out.println("There is no Basic Truck in " + selectedPort.getID() + " port!");
             System.out.println(red+"╔══════════════════════════════════════════════╗");
             System.out.println(red+"║                    Error                     ║");
             System.out.println(red+"║──────────────────────────────────────────────║" + reset);
             System.out.println("                                              ");
-            System.out.println("          No Basic Truck in " + selectedPort.getID() + " port!         ");
+            System.out.println("          No Vehicle in " + selectedPort.getID() + " port!         ");
             System.out.println("                                              ");
             System.out.println("╚══════════════════════════════════════════════╝");
             System.out.println("Press any key to return...: ");

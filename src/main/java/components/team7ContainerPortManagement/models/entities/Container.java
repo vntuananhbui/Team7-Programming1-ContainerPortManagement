@@ -13,7 +13,18 @@ public class Container {
     private double weight;
     private ContainerType containerType;  // Use the enum instead of String
     private boolean isLoaded;
-    private Port port;
+    private static Port port;
+    private String portID;
+
+    //Use for calculate
+    public Container(String ID, double weight, ContainerType containerType, boolean isLoaded, String portID) {
+        this.ID = ID;
+        this.weight = weight;
+        this.containerType = containerType;
+        this.isLoaded = isLoaded;
+        this.portID = portID; // Store the port ID as a string
+    }
+
 
     public void setWeight(double weight) {
         this.weight = weight;
@@ -34,6 +45,7 @@ public class Container {
         this.isLoaded = false; // Initialize isLoaded to false
         this.port = port;
     }
+
     public String getID() {
         return ID;
     }
@@ -92,6 +104,8 @@ public void updateStatusContainer(boolean isLoaded) throws IOException {
 
         writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
     }
+
+
 
 
 

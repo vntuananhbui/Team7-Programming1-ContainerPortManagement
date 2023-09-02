@@ -16,10 +16,23 @@ public class shipController {
     public static void createShip(Port selectedPort) throws IOException {
         FileWriter shipWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt", true);
         Scanner scanner = new Scanner(System.in);
-        // Collect input values
-        System.out.println("Enter ship ID:");
-        String shipID = "sh-" + scanner.next();
-        scanner.nextLine();
+        String shipID;
+        boolean idExists;
+
+        do {
+            // Collect input values
+            System.out.println("Enter ship ID:");
+            shipID = "sh-" + scanner.next();
+            scanner.nextLine();
+
+            // Check if the ship ID already exists in the file
+            idExists = isShipIDAlreadyExists(shipID);
+
+            if (idExists) {
+                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
+            }
+        } while (idExists);
+
         System.out.println("Enter ship name:");
         String shipName = scanner.nextLine();
 
@@ -45,6 +58,19 @@ public class shipController {
         }
 
         shipWriter.close();
+    }
+    static boolean isShipIDAlreadyExists(String shipID) throws IOException {
+        File file = new File("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.contains("ID='" + shipID + "'")) {
+                scanner.close();
+                return true; // ID already exists
+            }
+        }
+        scanner.close();
+        return false; // ID does not exist
     }
     //===================================================================================================================
     //===================================================================================================================

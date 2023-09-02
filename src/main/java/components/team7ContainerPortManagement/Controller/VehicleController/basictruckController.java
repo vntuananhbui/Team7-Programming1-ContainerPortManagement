@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.isShipIDAlreadyExists;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.readVehiclesFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByID;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByOrderNumber;
@@ -19,12 +20,25 @@ public class basictruckController {
     public static void createBasicTruck(Port selectedPort) throws IOException {
         FileWriter shipWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt", true);
         Scanner scanner = new Scanner(System.in);
-        // Collect input values
-        System.out.println("Enter Basic Truck ID:");
-        String shipID = "btr-" + scanner.next();
+        String basictruckID;
+        boolean idExists;
+
+        do {
+            // Collect input values
+            System.out.println("Enter Basic Truck ID:");
+            basictruckID = "btr-" + scanner.next();
+            scanner.nextLine();
+
+            // Check if the ship ID already exists in the file
+            idExists = isShipIDAlreadyExists(basictruckID);
+
+            if (idExists) {
+                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
+            }
+        } while (idExists);
         scanner.nextLine();
         System.out.println("Enter Basic Truck name:");
-        String shipName = scanner.nextLine();
+        String BaiscTruckName = scanner.nextLine();
 
         System.out.println("Enter Basic Truck carrying capacity:");
         double carryingCapacity = scanner.nextDouble();
@@ -35,7 +49,7 @@ public class basictruckController {
         scanner.nextLine();
         double currentFuel = fuelCapacity;
         if (selectedPort != null) {
-            BasicTruck newBasicTruck = new BasicTruck(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
+            BasicTruck newBasicTruck = new BasicTruck(basictruckID, BaiscTruckName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
             selectedPort.addVehicle(newBasicTruck);
             newBasicTruck.setCurrentPort(selectedPort);
             shipWriter.write(newBasicTruck +"\n");

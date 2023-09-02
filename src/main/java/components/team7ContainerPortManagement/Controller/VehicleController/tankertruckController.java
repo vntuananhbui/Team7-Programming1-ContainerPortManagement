@@ -7,6 +7,7 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Tru
 import java.io.*;
 import java.util.Scanner;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.isShipIDAlreadyExists;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByID;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByOrderNumber;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portWriteFile.writeVehicleToPort;
@@ -15,10 +16,22 @@ public class tankertruckController {
     public static void createTankerTruck(Port selectedPort) throws IOException {
         FileWriter shipWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt", true);
         Scanner scanner = new Scanner(System.in);
-        // Collect input values
-        System.out.println("Enter Tanker Truck ID:");
-        String shipID = "ttr-" + scanner.next();
-        scanner.nextLine();
+        String tankertruckID;
+        boolean idExists;
+
+        do {
+            // Collect input values
+            System.out.println("Enter Tanker Truck ID:");
+            tankertruckID = "ttr-" + scanner.next();
+            scanner.nextLine();
+
+            // Check if the ship ID already exists in the file
+            idExists = isShipIDAlreadyExists(tankertruckID);
+
+            if (idExists) {
+                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
+            }
+        } while (idExists);
         System.out.println("Enter Tanker Truck name:");
         String shipName = scanner.nextLine();
 
@@ -31,7 +44,7 @@ public class tankertruckController {
         scanner.nextLine();
         double currentFuel = fuelCapacity;
         if (selectedPort != null) {
-            BasicTruck newTankerTruck = new BasicTruck(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
+            BasicTruck newTankerTruck = new BasicTruck(tankertruckID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
             selectedPort.addVehicle(newTankerTruck);
             newTankerTruck.setCurrentPort(selectedPort);
             shipWriter.write(newTankerTruck.toString() +"\n");

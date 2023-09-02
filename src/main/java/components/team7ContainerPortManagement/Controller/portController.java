@@ -19,11 +19,22 @@ public class portController implements PortOperations {
     public static void inputPort() throws IOException {
         Scanner scanner = new Scanner(System.in);
         FileWriter portWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt", true);
+        String portID;
+        boolean idExists;
 
-        // Collect input values
-        System.out.println("Enter port ID:");
-        String portID = "p-" + scanner.next();
-        scanner.nextLine();
+        do {
+            // Collect input values
+            System.out.println("Enter port ID:");
+            portID = "p-" + scanner.next();
+            scanner.nextLine();
+
+            // Check if the port ID already exists in the file
+            idExists = isPortIDAlreadyExists(portID);
+
+            if (idExists) {
+                System.out.println("Error: Port ID already exists. Please enter a different ID.");
+            }
+        } while (idExists);
         System.out.println("Enter port name:");
         String portName = scanner.nextLine();
         System.out.println("Enter latitude:");
@@ -45,6 +56,19 @@ public class portController implements PortOperations {
         portWriter.write(newPort.toStringAdd() + "\n");
 
         portWriter.close();
+    }
+    private static boolean isPortIDAlreadyExists(String portID) throws IOException {
+        File file = new File("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.contains("ID='" + portID + "'")) {
+                scanner.close();
+                return true; // ID already exists
+            }
+        }
+        scanner.close();
+        return false; // ID does not exist
     }
     //===================================================================================================================
     //===================================================================================================================

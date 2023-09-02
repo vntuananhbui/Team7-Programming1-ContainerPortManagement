@@ -134,10 +134,15 @@ public abstract class Vehicle implements VehicleOperations {
 
     @Override
     public boolean canMoveTo(Port destination) {
-
-//        if (!currentPort.hasLandingAbility() || !destination.hasLandingAbility()) {
-//            return false;
-//        }
+        if (this.getID().startsWith("sh-")) {
+            return true;
+        }
+        if (!(this.getID().startsWith("sh-")) && (!destination.isLandingAbility() || !this.currentPort.isLandingAbility())) {
+            // The vehicle can move because it's not a ship (doesn't start with "sh-")
+            // and either the destination port or the current port has landing ability.
+            System.out.println("This vehicle cannot move to a port that does not have landing ability!");
+            return false;
+        }
         try {
             double fuelRequire = calculateFuelConsumption(currentPort,destination,this.getID(),this);
             if(fuelRequire > this.getCurrentFuel()) {
@@ -153,6 +158,7 @@ public abstract class Vehicle implements VehicleOperations {
         }
 
         return true;
+
     }
 
 

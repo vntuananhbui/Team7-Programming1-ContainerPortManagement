@@ -7,6 +7,7 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Tru
 import java.io.*;
 import java.util.Scanner;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.isShipIDAlreadyExists;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByID;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.getPortByOrderNumber;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portWriteFile.writeVehicleToPort;
@@ -15,10 +16,21 @@ public class reefertruckController {
     public static void createReeferTruck(Port selectedPort) throws IOException {
         FileWriter shipWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt", true);
         Scanner scanner = new Scanner(System.in);
-        // Collect input values
-        System.out.println("Enter Reefer Truck ID:");
-        String shipID = "rtr-" + scanner.next();
-        scanner.nextLine();
+        String reefertruckID;
+        boolean idExists;
+        do {
+            // Collect input values
+            System.out.println("Enter Tanker Truck ID:");
+            reefertruckID = "rtr-" + scanner.next();
+            scanner.nextLine();
+
+            // Check if the ship ID already exists in the file
+            idExists = isShipIDAlreadyExists(reefertruckID);
+
+            if (idExists) {
+                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
+            }
+        } while (idExists);
         System.out.println("Enter Reefer Truck name:");
         String shipName = scanner.nextLine();
 
@@ -31,7 +43,7 @@ public class reefertruckController {
         scanner.nextLine();
         double currentFuel = fuelCapacity;
         if (selectedPort != null) {
-            ReeferTrucks newReeferTruck = new ReeferTrucks(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
+            ReeferTrucks newReeferTruck = new ReeferTrucks(reefertruckID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
             selectedPort.addVehicle(newReeferTruck);
             newReeferTruck.setCurrentPort(selectedPort);
             shipWriter.write(newReeferTruck.toString() + "\n");
