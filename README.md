@@ -1,7 +1,6 @@
 # Team7-Programming1-ContainerPortManagement
 
 # Project file
-Google drive: https://drive.google.com/drive/folders/1REA1BfpRaBPQKx333JmbhGbpEuKiPIhW?usp=sharing
 UML DRIAGRAM: https://drive.google.com/file/d/1XQal3Jv4b2wrsqM0Hp8xhQUr6fKyB86r/view?usp=sharing
 <br />
 <hr>
@@ -13,7 +12,7 @@ UML DRIAGRAM: https://drive.google.com/file/d/1XQal3Jv4b2wrsqM0Hp8xhQUr6fKyB86r/
 
 | Student Name      | Student ID | Contribution Score |
 | :---------------- | :--------- | :----------------: |
-| Bui Tuan Anh      | S-3963207  |         20         |
+| Bui Tuan Anh      | S-3970375  |         20         |
 
 
 ## Project Structure
