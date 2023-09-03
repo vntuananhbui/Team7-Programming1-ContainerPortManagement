@@ -3,11 +3,16 @@ package src.main.java.components.team7ContainerPortManagement.Controller.Operati
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public class FileUtility {
     // Writes to port.txt
     String portFile = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt";
     String vehicleFile = "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt";
+    String containerFile = "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt";
+    String port_vehicleFile = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt";
+    String port_containerFile = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+
     private void writeToPortFile() throws IOException {
         String content = "Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=112.900000, storingCapacity=500000, landingAbility=true}\n" +
                 // Add other ports here if needed...
@@ -51,6 +56,71 @@ public class FileUtility {
         }
     }
 
+    private static final String[] FRUITS = {
+            "Apple", "Banana", "Orange", "Mango", "Strawberry", "Pineapple",
+            "Grapes", "Cherry", "Peach", "Watermelon", "Lemon", "Kiwi"
+    };
+
+    private static final String[] FOODS = {
+            "Carrot", "Broccoli", "Potato", "Tomato", "Cucumber", "Eggplant",
+            "Lettuce", "Onion", "Pepper", "Spinach", "Cabbage", "Corn"
+    };
+
+    private static final String[] CONTAINER_TYPES = {
+            "DRY_STORAGE", "OPEN_TOP", "OPEN_SIDE", "REFRIGERATED", "LIQUID"
+    };
+
+    private static final Random random = new Random();
+    private static int containerCounter = 0; // Maintain a counter for container IDs
+
+    // Define a constant port information
+    private static final String PORT_INFO = "port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=112.900000, storingCapacity=500000, landingAbility=true}";
+
+
+    private static void writeToContainerFile() throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt", false))) {
+            for (String containerType : CONTAINER_TYPES) {
+                for (int i = 0; i < 6; i++) {
+                    String containerId = "c-" + containerCounter;
+                    double weight = generateRandomWeightLessThan2000(); // Generate weight less than 2000
+                    boolean isLoaded = false; // Set isLoaded to false
+
+                    String content = String.format("Container{ID='%s', weight=%.1f, containerType=%s, isLoaded=%s, %s}",
+                            containerId, weight, containerType, isLoaded, PORT_INFO);
+
+                    writer.write(content);
+                    writer.newLine();
+
+                    containerCounter++; // Increment the container counter
+                }
+            }
+        }
+    }
+
+    private static double generateRandomWeightLessThan2000() {
+        return random.nextDouble() * 2000; // Weight less than 2000
+    }
+
+    public static void addLineToPortVehiclesFile() {
+        String line = "{Port :p-StartPort, Vehicles: sh-RMIT1, rtr-RMIT2, btr-RMIT3, ttr-RMIT4, sh-RMIT5, sh-RMIT6, sh-RMIT7, sh-RMIT8, sh-RMIT9, ttr-RMIT5, ttr-RMIT6, ttr-RMIT7, ttr-RMIT8, ttr-RMIT9, rtr-RMIT5, rtr-RMIT6, rtr-RMIT7, rtr-RMIT8, rtr-RMIT9, btr-RMIT5, btr-RMIT6, btr-RMIT7, btr-RMIT8, btr-RMIT9}";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt", false))) {
+            writer.write(line);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addPortContainerFile() {
+        String line  = "{Port :p-StartPort, Container: c-0, c-1, c-2, c-3, c-4, c-5, c-6, c-7, c-8, c-9, c-10, c-11, c-12, c-13, c-14, c-15, c-16, c-17, c-18, c-19, c-20, c-21, c-22, c-23, c-24, c-25, c-26, c-27, c-28, c-29}\n\n";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt", false))) {
+            writer.write(line);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     // Clears content of a file
     private void clearFileContent(String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false))) {
@@ -61,8 +131,14 @@ public class FileUtility {
         try {
             clearFileContent(portFile);
             clearFileContent(vehicleFile);
+            clearFileContent(containerFile);
+            clearFileContent(port_vehicleFile);
+            clearFileContent(port_containerFile);
             writeToPortFile();
             writeToVehicleFile();
+            writeToContainerFile();
+            addLineToPortVehiclesFile();
+            addPortContainerFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,2 +1,1 @@
-{sh-ship2: c-contest}
-{sh-ship1: c-con1, c-con2}
+{sh-RMIT1: c-0}
