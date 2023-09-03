@@ -128,4 +128,17 @@ public static void writePortContainerMapToFile(Map<String, List<String>> map, St
             }
         }
     }
+    public static void writePortContainersToFile(String portID, List<String> containerList) throws IOException {
+        String fileName = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (String containerID : containerList) {
+                writer.write("{Port :" + portID + ", Container: " + containerID + "}");
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+            throw e;
+        }
+    }
 }

@@ -166,21 +166,34 @@ public class tripDateSelector {
                     String[] parse = line.split(", ");
 
                     if (parse.length >= 7) {
-                        String date = parse[1].split("T")[0];
+//                        String date = parse[1].split("T")[0];
+                        String timestamp = parse[1];
 
-                        // Check if the trip falls within the specified date range
-                        if (date.compareTo(dayA) >= 0 && date.compareTo(dayB) <= 0) {
-                            // Print the trip details in one line
-                            System.out.println("Order Number: " + orderNumber +
-                                    " | Vehicle ID: " + parse[0] +
-                                    " | Date: " + date +
-                                    " | Fuel Consumption: " + parse[6] +
-                                    " | Arrival Port: " + parse[3] +
-                                    " | Departure Port: " + parse[4]);
+                        // Split the timestamp string by "T" to separate date and time
+                        String[] timestampParts = timestamp.split("T");
+
+                        if (timestampParts.length == 2) {
+                            String date = timestampParts[0]; // Date component
+                            String timeWithMilliseconds = timestampParts[1]; // Time component with milliseconds
+
+                            // Split the time component by "." to separate hours and milliseconds
+                            String[] timeParts = timeWithMilliseconds.split("\\.");
+                            String hour = timeParts[0]; // Hour component
+                            // Check if the trip falls within the specified date range
+                            if (date.compareTo(dayA) >= 0 && date.compareTo(dayB) <= 0) {
+                                // Print the trip details in one line
+                                System.out.println("Order Number: " + orderNumber +
+                                        " | Vehicle ID: " + parse[0] +
+                                        " | Date: " + date +
+                                        " | Hour: " + hour +
+                                        " | Fuel Consumption: " + parse[6] +
+                                        " | Arrival Port: " + parse[3] +
+                                        " | Departure Port: " + parse[4]);
+                            }
+
+                            orderNumber++;
+
                         }
-
-                        orderNumber++;
-
                     }
                 }
 

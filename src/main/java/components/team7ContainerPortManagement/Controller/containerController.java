@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.getTotalContainerWeightByPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.getContainerByID;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.writeContainerToPort;
@@ -42,6 +43,13 @@ public class containerController {
 
         // Create an instance of Container using the input values and current port
         Container newContainer = new Container(containerID, weight, selectedType,currentPort);
+        double currentWeightOfContainerInPort = getTotalContainerWeightByPort(currentPort.getID());
+        if (currentWeightOfContainerInPort + weight > currentPort.getStoringCapacity()) {
+            System.out.println("This port storing capacity is overweight, try to modify the container weight!");
+            System.out.println("Weight when add new container: " + currentWeightOfContainerInPort + weight);
+            System.out.println("Port capacity: " + currentPort.getStoringCapacity());
+            return;
+        }
         currentPort.addContainer(newContainer);
         // Write the input values to the file
         containerWriter.write(newContainer + "\n");
@@ -209,5 +217,6 @@ public class containerController {
 
         return finalConsumption;
     }
+
 
 }

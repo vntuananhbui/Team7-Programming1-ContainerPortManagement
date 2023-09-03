@@ -59,17 +59,32 @@ public class displayTripByDate {
                 if (parse.length >= 7) {
                     String arrivalPortID = parse[3];
                     String departurePortID = parse[4];
-                    String date = parse[1].split("T")[0];
+//                    String date = parse[1].split("T")[0];
+                    String timestamp = parse[1];
 
-                    if (date.equals(selectedDate)) {
-                        StringBuilder section = (arrivalPortID.equals(portID)) ? arrivalSection : departureSection;
-                        section.append(" Vehicle ID: ").append(parse[0])
-                                .append(" | Date: ").append(date)
-                                .append(" | Arrival Port: ").append(arrivalPortID)
-                                .append(" | Departure Port: ").append(departurePortID)
-                                .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+                    // Split the timestamp string by "T" to separate date and time
+                    String[] timestampParts = timestamp.split("T");
+
+                    if (timestampParts.length == 2) {
+                        String date = timestampParts[0]; // Date component
+                        String timeWithMilliseconds = timestampParts[1]; // Time component with milliseconds
+
+                        // Split the time component by "." to separate hours and milliseconds
+                        String[] timeParts = timeWithMilliseconds.split("\\.");
+                        String hour = timeParts[0]; // Hour component
+
+                        //----
+                        if (date.equals(selectedDate)) {
+                            StringBuilder section = (arrivalPortID.equals(portID)) ? arrivalSection : departureSection;
+                            section.append(" Vehicle ID: ").append(parse[0])
+                                    .append(" | Date: ").append(date)
+                                    .append(" | Hour: ").append(hour)
+                                    .append(" | Arrival Port: ").append(arrivalPortID)
+                                    .append(" | Departure Port: ").append(departurePortID)
+                                    .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
 
 
+                        }
                     }
                 }
             }
@@ -97,23 +112,36 @@ public class displayTripByDate {
                 String[] parse = line.split(", ");
 
                 if (parse.length >= 7) {
-                    String date = parse[1].split("T")[0];
+                    String timestamp = parse[1];
 
-                    if (date.equals(selectedDate)) {
-                        String arrivalPortID = parse[3];
-                        String departurePortID = parse[4];
+                    // Split the timestamp string by "T" to separate date and time
+                    String[] timestampParts = timestamp.split("T");
 
-                        StringBuilder section = (arrivalPortID.equals(departurePortID)) ? arrivalSection : departureSection;
-                        section.append(" Vehicle ID: ").append(parse[0])
-                                .append(" | Date: ").append(date)
-                                .append(" | Arrival Port: ").append(arrivalPortID)
-                                .append(" | Departure Port: ").append(departurePortID)
-                                .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+                    if (timestampParts.length == 2) {
+                        String date = timestampParts[0]; // Date component
+                        String timeWithMilliseconds = timestampParts[1]; // Time component with milliseconds
 
-                        if (arrivalPortID.equals("p-StartPort")) {
-                            arrivalFuelConsumption += Double.parseDouble(parse[6]);
-                        } else {
-                            departureFuelConsumption += Double.parseDouble(parse[6]);
+                        // Split the time component by "." to separate hours and milliseconds
+                        String[] timeParts = timeWithMilliseconds.split("\\.");
+                        String hour = timeParts[0]; // Hour component
+
+                        if (date.equals(selectedDate)) {
+                            String arrivalPortID = parse[3];
+                            String departurePortID = parse[4];
+
+                            StringBuilder section = (arrivalPortID.equals(departurePortID)) ? arrivalSection : departureSection;
+                            section.append(" Vehicle ID: ").append(parse[0])
+                                    .append(" | Date: ").append(date)
+                                    .append(" | Hour: ").append(hour)
+                                    .append(" | Arrival Port: ").append(arrivalPortID)
+                                    .append(" | Departure Port: ").append(departurePortID)
+                                    .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+
+                            if (arrivalPortID.equals("p-StartPort")) {
+                                arrivalFuelConsumption += Double.parseDouble(parse[6]);
+                            } else {
+                                departureFuelConsumption += Double.parseDouble(parse[6]);
+                            }
                         }
                     }
                 }

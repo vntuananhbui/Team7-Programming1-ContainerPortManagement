@@ -1,1 +1,2 @@
-{sh-shiptest: c-contest1}
+{sh-ship2: c-contest}
+{sh-ship1: c-con1, c-con2}

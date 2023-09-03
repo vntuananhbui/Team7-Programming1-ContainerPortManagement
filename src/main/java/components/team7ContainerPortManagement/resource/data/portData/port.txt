@@ -1,4 +1,4 @@
-Port{ID='p-HCM', name='Ho Chi Minh Port''', latitude=222.200000, longitude=0.500000, storingCapacity=20000, landingAbility=true}
+Port{ID='p-HCM', name='Ho Chi Minh Port''', latitude=222.200000, longitude=0.500000, storingCapacity=25000, landingAbility=true}
 Port{ID='p-DN', name='Da Nang Port''', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}
 Port{ID='p-HP', name='Hai Phong Port''', latitude=1080.800000, longitude=0.800000, storingCapacity=114000, landingAbility=true}
 Port{ID='p-KG', name='Kien Giang Port''', latitude=808.800000, longitude=0.600000, storingCapacity=111400, landingAbility=true}

@@ -2,8 +2,12 @@ package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.writeContainersToFile;
@@ -103,6 +107,54 @@ public void updateStatusContainer(boolean isLoaded) throws IOException {
         }
 
         writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
+    }
+    private static final Pattern PORT_ID_PATTERN = Pattern.compile("port=Port\\{ID='(.*?)'");
+    private static final Pattern WEIGHT_PATTERN = Pattern.compile("weight=(.*?),");
+    public static double getTotalContainerWeightByPort(String portID) throws IOException {
+        double totalWeight = 0.0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                Matcher portMatcher = PORT_ID_PATTERN.matcher(line);
+                Matcher weightMatcher = WEIGHT_PATTERN.matcher(line);
+
+                if (portMatcher.find() && weightMatcher.find()) {
+                    String extractedPortId = portMatcher.group(1);
+                    double weight = Double.parseDouble(weightMatcher.group(1));
+
+                    if (extractedPortId.equals(portID)) {
+                        totalWeight += weight;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Total Weight of Containers at Port " + portID + ": " + totalWeight);
+        return totalWeight;
+    }
+    static Pattern CONTAINER_ID_PATTERN = Pattern.compile("Container\\{ID='(.*?)'");
+    public static double getTotalWeightOfContainersInVehicle(List<String> containerIDs) throws IOException {
+        double totalWeight = 0.0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                Matcher containerIDMatcher = CONTAINER_ID_PATTERN.matcher(line);
+                Matcher weightMatcher = WEIGHT_PATTERN.matcher(line);
+
+                if (containerIDMatcher.find() && weightMatcher.find()) {
+                    String containerID = containerIDMatcher.group(1);
+                    double weight = Double.parseDouble(weightMatcher.group(1));
+
+                    if (containerIDs.contains(containerID)) {
+                        totalWeight += weight;
+                    }
+                }
+            }
+        }
+
+        return totalWeight;
     }
 
 

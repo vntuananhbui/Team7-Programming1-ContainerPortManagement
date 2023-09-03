@@ -31,6 +31,7 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.V
 import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.deletePort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.getTotalContainerWeightByPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class mainMenu {
@@ -364,6 +365,11 @@ public class mainMenu {
                     return;
                 case 19:
                     listTripsBetweenDatesAdmin();
+                    return;
+                case 20:
+                    System.out.println("total weight of port " + selectedPort.getID());
+
+                    getTotalContainerWeightByPort(selectedPort.getID());
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");

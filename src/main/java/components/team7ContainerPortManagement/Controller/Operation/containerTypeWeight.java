@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class containerTypeWeight {
-    private static final Pattern PORT_ID_PATTERN = Pattern.compile("port=Port\\{ID='(.*?)'");
+    public static final Pattern PORT_ID_PATTERN = Pattern.compile("port=Port\\{ID='(.*?)'");
     private static final Pattern WEIGHT_PATTERN = Pattern.compile("weight=(.*?),");
     private static final Pattern CONTAINER_TYPE_PATTERN = Pattern.compile("containerType=(.*?),");
 
