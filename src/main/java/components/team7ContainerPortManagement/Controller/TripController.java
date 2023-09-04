@@ -32,9 +32,9 @@ public class TripController {
             // Check if the journey started or ended on the target date
             if (departureDate.equals(targetDate) || arrivalDate.equals(targetDate)) {
                 totalFuelUsage += journey.getFuelConsumption();
-            } else if (departureDate.isBefore(targetDate) && arrivalDate.isAfter(targetDate)) {
-                // Check if the journey spans the target date
-                totalFuelUsage += journey.getFuelConsumption();
+//            } else if (departureDate.isBefore(targetDate) && arrivalDate.isAfter(targetDate)) {
+//                // Check if the journey spans the target date
+//                totalFuelUsage += journey.getFuelConsumption();
             }
         }
 
