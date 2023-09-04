@@ -66,13 +66,25 @@ public class Trip {
             System.out.println("This trip is not start yet!");
         }
         Duration tripDuration;
-        switch(departurePort.getID()) {
-            case "p-1": tripDuration = Duration.ofDays(2); break;
-            case "p-2": tripDuration = Duration.ofDays(4); break;
-            case "p-3": tripDuration = Duration.ofDays(6); break;
-            case "p-4": tripDuration = Duration.ofDays(8); break;
-            case "p-5": tripDuration = Duration.ofDays(10); break;
-            default: tripDuration = Duration.ofDays(1); break;
+        switch (departurePort.getID()) {
+            case "p-1":
+                tripDuration = Duration.ofDays(2);
+                break;
+            case "p-2":
+                tripDuration = Duration.ofDays(4);
+                break;
+            case "p-3":
+                tripDuration = Duration.ofDays(6);
+                break;
+            case "p-4":
+                tripDuration = Duration.ofDays(8);
+                break;
+            case "p-5":
+                tripDuration = Duration.ofDays(10);
+                break;
+            default:
+                tripDuration = Duration.ofDays(1);
+                break;
         }
 
         this.arrivalDate = arrivalDate.plus(tripDuration);
@@ -98,12 +110,12 @@ public class Trip {
     @Override
     public String toString() {
 
-        return "\n" +"Trip{" +
+        return "\n" + "Trip{" +
                 "vehicle=" + vehicle.getName() + "\n" +
-                ", departureDate=" + departureDate +"\n" +
-                ", arrivalDate=" + arrivalDate +"\n" +
-                ", departurePort=" + departurePort.getName() +"\n" +
-                ", arrivalPort=" + arrivalPort.getName() +"\n" +
+                ", departureDate=" + departureDate + "\n" +
+                ", arrivalDate=" + arrivalDate + "\n" +
+                ", departurePort=" + departurePort.getName() + "\n" +
+                ", arrivalPort=" + arrivalPort.getName() + "\n" +
                 ", status=" + status.name() +
                 '}';
     }

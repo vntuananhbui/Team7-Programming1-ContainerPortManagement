@@ -1,7 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.Controller.VehicleController;
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Ship;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
 
 import java.io.*;
@@ -31,10 +30,10 @@ public class basictruckController {
         scanner.nextLine();
         double currentFuel = fuelCapacity;
         if (selectedPort != null) {
-            BasicTruck newBasicTruck = new BasicTruck(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
+            BasicTruck newBasicTruck = new BasicTruck(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5, selectedPort);
             selectedPort.addVehicle(newBasicTruck);
             newBasicTruck.setCurrentPort(selectedPort);
-            shipWriter.write(newBasicTruck +"\n");
+            shipWriter.write(newBasicTruck + "\n");
             writeVehicleToPort(selectedPort, newBasicTruck);
             System.out.println("Ship created and added to selected port.");
         } else {
@@ -43,10 +42,11 @@ public class basictruckController {
 
         shipWriter.close();
     }
+
     //===================================================================================================================
     //===================================================================================================================
     //GET SHIP LINE BY ID
-    public static String getBasicTruckLineBybasictruckID(String shipID, String filePath) throws IOException {
+    public static String getVehicleTextLine(String shipID, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -60,6 +60,7 @@ public class basictruckController {
         }
         return null; // Ship line not found
     }
+
     //===================================================================================================================
     //===================================================================================================================
     public static BasicTruck getBasicTruckByLine(String line) throws IOException {
@@ -75,7 +76,7 @@ public class basictruckController {
 //        System.out.println(currentPortID);
         Port currentPort = getPortByOrderNumber(id, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
         // Create a new Vehicle object
-        BasicTruck basictruck = new BasicTruck(id,name,currentFuel,carryingCapacity,fuelCapacity,3.5,currentPort);
+        BasicTruck basictruck = new BasicTruck(id, name, currentFuel, carryingCapacity, fuelCapacity, 3.5, currentPort);
         basictruck.setID(id);
         basictruck.setName(name);
         basictruck.setCurrentFuel(currentFuel);

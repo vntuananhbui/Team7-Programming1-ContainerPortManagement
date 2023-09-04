@@ -2,7 +2,6 @@ package src.main.java.components.team7ContainerPortManagement.utils.BasicTruckFi
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Ship;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
 
 import java.io.BufferedReader;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckByLine;
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.getShipByLine;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.*;
 
 public class basictruckReadFile {
@@ -29,6 +27,7 @@ public class basictruckReadFile {
         }
         return basictrucks;
     }
+
     public static double getBasicTruckTotalContainerWeight(BasicTruck basicTruck, Port port) throws IOException {
         Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         List<String> loadedContainerIDs = vehicleContainerMap.getOrDefault(basicTruck.getID(), Collections.emptyList());

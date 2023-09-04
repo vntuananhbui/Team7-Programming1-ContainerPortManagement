@@ -1,8 +1,5 @@
 package src.main.java.components.team7ContainerPortManagement.models.entities;
 
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 import src.main.java.components.team7ContainerPortManagement.models.interfaces.VehicleOperations;
 
 import java.io.*;
@@ -21,14 +18,12 @@ public abstract class Vehicle implements VehicleOperations {
     protected double carryingCapacity;
     protected double fuelCapacity;
     protected Port currentPort;
-    protected  double fuelConsumtion;
+    protected double fuelConsumtion;
     protected List<Container> containers;
     protected double currentLoad;
 
 
-
-
-    public Vehicle(String ID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
+    public Vehicle(String ID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, double fuelConsumtion, Port currentPort) {
         this.ID = ID;
         this.name = name;
         this.currentFuel = currentFuel;
@@ -98,8 +93,8 @@ public abstract class Vehicle implements VehicleOperations {
 
 
         if (!this.currentPort.getID().equals(container.getPort().getID())) {
-            System.out.println("ship port: " +this.currentPort.getID());
-            System.out.println("Container port"+container.getPort().getID());
+            System.out.println("ship port: " + this.currentPort.getID());
+            System.out.println("Container port" + container.getPort().getID());
             System.out.println("The container and the vehicle are not in the same port.");
             return false;
         }
@@ -107,8 +102,6 @@ public abstract class Vehicle implements VehicleOperations {
         this.currentLoad += container.getWeight();
         return true;
     }
-
-
 
 
     @Override
@@ -123,7 +116,7 @@ public abstract class Vehicle implements VehicleOperations {
 //            System.out.println("Container is not be loaded in this vehicle.");
 //            return false;
 //        }
-        if(!container.isLoaded()) {
+        if (!container.isLoaded()) {
             System.out.println("This container is not currently load on this vehicle");
             return false;
         }
@@ -208,14 +201,15 @@ public abstract class Vehicle implements VehicleOperations {
     public void refuel(double amount) {
         this.currentFuel += Math.min(amount, this.fuelCapacity - this.currentFuel);
     }
+
     public void showLoadedContainers() {
-        if(containers.isEmpty()) {
+        if (containers.isEmpty()) {
             System.out.println(this.name + " is currently not carrying any containers.");
             return;
         }
 
         System.out.println(this.name + " is carrying the following containers:");
-        for(Container container : containers) {
+        for (Container container : containers) {
             System.out.println("Container ID: " + container.getID() + ", Type: " + container.getContainerType());
         }
     }
@@ -229,7 +223,7 @@ public abstract class Vehicle implements VehicleOperations {
 
     public abstract double getFuelConsumptionPerKm(Container container);
 
-//SET CURRENT PORT
+    //SET CURRENT PORT
     public void setCurrentPort(Port newPort) {
         if (currentPort != null) {
             currentPort.removeVehicle(this); // Remove the vehicle from the current port's list
@@ -313,6 +307,7 @@ public abstract class Vehicle implements VehicleOperations {
             }
         }
     }
+
     public static List<Vehicle> readVehiclesFromFile(String fileName) throws IOException {
         List<Vehicle> vehicles = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -324,6 +319,7 @@ public abstract class Vehicle implements VehicleOperations {
         }
         return vehicles;
     }
+
     public static void writeVehiclePortMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Map.Entry<String, List<String>> entry : map.entrySet()) {
@@ -332,6 +328,7 @@ public abstract class Vehicle implements VehicleOperations {
             }
         }
     }
+
     public static void updateVehiclePort(String vehicleID, String newPortID) throws IOException {
         String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt";
 
@@ -360,6 +357,7 @@ public abstract class Vehicle implements VehicleOperations {
             }
         }
     }
+
     private static String getCurrentPort(String vehicleID, List<String> lines) {
         for (String line : lines) {
             if (line.contains("Vehicle{ID='" + vehicleID + "'")) {

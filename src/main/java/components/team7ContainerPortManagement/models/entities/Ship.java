@@ -1,9 +1,9 @@
 package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 
-public class Ship extends Vehicle{
-    public Ship(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
-        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
+public class Ship extends Vehicle {
+    public Ship(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, double fuelConsumtion, Port currentPort) {
+        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity, fuelConsumtion, currentPort);
     }
 
     @Override
@@ -24,7 +24,6 @@ public class Ship extends Vehicle{
         }
         return true;
     }
-
 
 
     @Override

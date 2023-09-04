@@ -31,10 +31,10 @@ public class tankertruckController {
         scanner.nextLine();
         double currentFuel = fuelCapacity;
         if (selectedPort != null) {
-            BasicTruck newTankerTruck = new BasicTruck(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
+            BasicTruck newTankerTruck = new BasicTruck(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5, selectedPort);
             selectedPort.addVehicle(newTankerTruck);
             newTankerTruck.setCurrentPort(selectedPort);
-            shipWriter.write(newTankerTruck.toString() +"\n");
+            shipWriter.write(newTankerTruck.toString() + "\n");
             writeVehicleToPort(selectedPort, newTankerTruck);
             System.out.println("Tanker Truck created and added to selected port.");
         } else {
@@ -43,6 +43,7 @@ public class tankertruckController {
 
         shipWriter.close();
     }
+
     public static String getTankerTruckLineBytankertruckID(String shipID, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -57,6 +58,7 @@ public class tankertruckController {
         }
         return null; // Ship line not found
     }
+
     //===================================================================================================================
     //===================================================================================================================
     public static TankerTruck getTankerTruckByLine(String line) throws IOException {
@@ -72,7 +74,7 @@ public class tankertruckController {
 //        System.out.println(currentPortID);
         Port currentPort = getPortByOrderNumber(id, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
         // Create a new Vehicle object
-        TankerTruck tankerTruck = new TankerTruck(id,name,currentFuel,carryingCapacity,fuelCapacity,3.5,currentPort);
+        TankerTruck tankerTruck = new TankerTruck(id, name, currentFuel, carryingCapacity, fuelCapacity, 3.5, currentPort);
         tankerTruck.setID(id);
         tankerTruck.setName(name);
         tankerTruck.setCurrentFuel(currentFuel);

@@ -2,7 +2,6 @@ package src.main.java.components.team7ContainerPortManagement.Controller.Vehicle
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 
 import java.io.*;
 import java.util.Scanner;
@@ -31,7 +30,7 @@ public class reefertruckController {
         scanner.nextLine();
         double currentFuel = fuelCapacity;
         if (selectedPort != null) {
-            ReeferTrucks newReeferTruck = new ReeferTrucks(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
+            ReeferTrucks newReeferTruck = new ReeferTrucks(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5, selectedPort);
             selectedPort.addVehicle(newReeferTruck);
             newReeferTruck.setCurrentPort(selectedPort);
             shipWriter.write(newReeferTruck.toString() + "\n");
@@ -43,6 +42,7 @@ public class reefertruckController {
 
         shipWriter.close();
     }
+
     public static String getReeferTruckLineByreefertruckID(String shipID, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -57,6 +57,7 @@ public class reefertruckController {
         }
         return null; // Ship line not found
     }
+
     //===================================================================================================================
     //===================================================================================================================
     public static ReeferTrucks getReeferTruckByLine(String line) throws IOException {
@@ -72,7 +73,7 @@ public class reefertruckController {
 //        System.out.println(currentPortID);
         Port currentPort = getPortByOrderNumber(id, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
         // Create a new Vehicle object
-        ReeferTrucks reeferTruck = new ReeferTrucks(id,name,currentFuel,carryingCapacity,fuelCapacity,3.5,currentPort);
+        ReeferTrucks reeferTruck = new ReeferTrucks(id, name, currentFuel, carryingCapacity, fuelCapacity, 3.5, currentPort);
         reeferTruck.setID(id);
         reeferTruck.setName(name);
         reeferTruck.setCurrentFuel(currentFuel);

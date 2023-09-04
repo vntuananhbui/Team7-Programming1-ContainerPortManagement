@@ -23,13 +23,15 @@ public class Container {
         this.isLoaded = isLoaded(); // Initialize isLoaded to false
         this.port = port;
     }
-    public Container(String ID, double weight, ContainerType containerType,Port port) {
+
+    public Container(String ID, double weight, ContainerType containerType, Port port) {
         this.ID = ID;
         this.weight = weight;
         this.containerType = containerType;
         this.isLoaded = false; // Initialize isLoaded to false
         this.port = port;
     }
+
     public String getID() {
         return ID;
     }
@@ -37,9 +39,11 @@ public class Container {
     public double getWeight() {
         return weight;
     }
+
     public ContainerType getContainerType() {
         return containerType;
     }
+
     public boolean isLoaded() {
         return this.isLoaded;
     }
@@ -48,6 +52,7 @@ public class Container {
     public void setLoaded(boolean isLoaded) {
         this.isLoaded = isLoaded;
     }
+
     public Port getPort() {
         return port;
     }
@@ -67,13 +72,13 @@ public class Container {
                 '}';
     }
 
-//Special method
-public void updateStatusContainer(boolean isLoaded) throws IOException {
-    setLoaded(isLoaded);
+    //Special method
+    public void updateStatusContainer(boolean isLoaded) throws IOException {
+        setLoaded(isLoaded);
 
-    // Assuming you have a method to update the container data in the file
-    updateContainerInFile();
-}
+        // Assuming you have a method to update the container data in the file
+        updateContainerInFile();
+    }
 
     private void updateContainerInFile() throws IOException {
         // Assuming you have methods to read, update, and write the container data to the file
@@ -88,7 +93,6 @@ public void updateStatusContainer(boolean isLoaded) throws IOException {
 
         writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
     }
-
 
 
 }

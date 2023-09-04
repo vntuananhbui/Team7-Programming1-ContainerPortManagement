@@ -15,12 +15,14 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.Math.round;
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.*;
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckByLine;
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getVehicleTextLine;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.getReeferTruckByLine;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.getReeferTruckLineByreefertruckID;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.getShipByLine;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.getShipLineByShipID;
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.*;
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.getTankerTruckByLine;
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.getTankerTruckLineBytankertruckID;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getContainerIDInPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.BasicTruckFileUtils.basictruckReadFile.getBasicTruckTotalContainerWeight;
 import static src.main.java.components.team7ContainerPortManagement.utils.BasicTruckFileUtils.basictruckReadFile.readBasicTruckFromFile;
@@ -50,7 +52,7 @@ public class loadAndunloadContainer {
         }
         int selectedShipOrderID;
         Ship selectedShip;
-        while(true) {
+        while (true) {
             System.out.print("Choose a ship by order number: ");
             selectedShipOrderID = scanner.nextInt();
             if (selectedShipOrderID < 1 || selectedShipOrderID > availableShipIDs.size()) {
@@ -96,7 +98,7 @@ public class loadAndunloadContainer {
         //Load function
 
         //Calculate total weight
-        double totalWeight = round(getShipTotalContainerWeight(selectedShip,selectedPort) + selectedContainer.getWeight());
+        double totalWeight = round(getShipTotalContainerWeight(selectedShip, selectedPort) + selectedContainer.getWeight());
 
 
         if (selectedShip.loadContainer(selectedContainer) && totalWeight < selectedShip.getCarryingCapacity()) {
@@ -117,9 +119,8 @@ public class loadAndunloadContainer {
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         } else if (totalWeight > selectedShip.getCarryingCapacity()) {
-            System.out.println("The total container weight in Ship is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedShip.getCarryingCapacity());
-        }
-        else {
+            System.out.println("The total container weight in Ship is larger than it capacity | " + "Total weight: " + totalWeight + " Weight limit: " + selectedShip.getCarryingCapacity());
+        } else {
             System.out.println("Failed to load container.");
         }
 
@@ -137,14 +138,14 @@ public class loadAndunloadContainer {
         }
         int selectedBasicTruckOrderID;
         BasicTruck selectedBasicTruck;
-        while(true) {
+        while (true) {
             System.out.print("Choose a basic truck by order number: ");
             selectedBasicTruckOrderID = scanner.nextInt();
             if (selectedBasicTruckOrderID < 1 || selectedBasicTruckOrderID > availableBasicTruckIDs.size()) {
                 System.out.println("Wrong number. Please choose a valid ship order number.");
             } else {
                 String selectedBasicTruckNumber = availableBasicTruckIDs.get(selectedBasicTruckOrderID - 1);
-                String basictruckLine = getBasicTruckLineBybasictruckID(selectedBasicTruckNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+                String basictruckLine = getVehicleTextLine(selectedBasicTruckNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
                 selectedBasicTruck = getBasicTruckByLine(basictruckLine);
                 break; // Exit the loop if a valid ship is selected
             }
@@ -185,12 +186,11 @@ public class loadAndunloadContainer {
 //        System.out.println("Get container: " + getContainerByLine(containerLine));
 
         Container selectedContainer = getContainerByLine(containerLine);
-        System.out.println("Container Type: "+selectedContainer.getContainerType());
+        System.out.println("Container Type: " + selectedContainer.getContainerType());
         //Load function
 
-        double totalWeight = round(getBasicTruckTotalContainerWeight(selectedBasicTruck,selectedPort) + selectedContainer.getWeight());
-        if (selectedBasicTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP) || selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE) || selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE))
-        {
+        double totalWeight = round(getBasicTruckTotalContainerWeight(selectedBasicTruck, selectedPort) + selectedContainer.getWeight());
+        if (selectedBasicTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP) || selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE) || selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)) {
 
             System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedBasicTruck.getID());
 
@@ -208,15 +208,14 @@ public class loadAndunloadContainer {
             writeBasicTruckToFile(BasicTruck, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
-        } else if (selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED)){
+        } else if (selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED)) {
             System.out.println("This Basic truck can not carry Refrigerated Container!");
 
         } else if (selectedContainer.getContainerType().equals(ContainerType.LIQUID)) {
             System.out.println("This Basic truck can not carry Liquid container!");
         } else if (totalWeight < selectedBasicTruck.getCarryingCapacity()) {
-            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedBasicTruck.getCarryingCapacity());
-        }
-        else {
+            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: " + totalWeight + " Weight limit: " + selectedBasicTruck.getCarryingCapacity());
+        } else {
             System.out.println("Fail to load! ");
         }
 
@@ -235,7 +234,7 @@ public class loadAndunloadContainer {
         }
         int selectedTankerTruckOrderID;
         TankerTruck selectedTankerTruck;
-        while(true) {
+        while (true) {
             System.out.print("Choose a tanker truck by order number: ");
             selectedTankerTruckOrderID = scanner.nextInt();
             if (selectedTankerTruckOrderID < 1 || selectedTankerTruckOrderID > availableTankerTruckIDs.size()) {
@@ -283,12 +282,11 @@ public class loadAndunloadContainer {
 //        System.out.println("Get container: " + getContainerByLine(containerLine));
 
         Container selectedContainer = getContainerByLine(containerLine);
-        System.out.println("Container Type: "+selectedContainer.getContainerType());
+        System.out.println("Container Type: " + selectedContainer.getContainerType());
         //Load function
 
-        double totalWeight = round(getTankerTruckTotalContainerWeight(selectedTankerTruck,selectedPort) + selectedContainer.getWeight());
-        if (selectedTankerTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.LIQUID))
-        {
+        double totalWeight = round(getTankerTruckTotalContainerWeight(selectedTankerTruck, selectedPort) + selectedContainer.getWeight());
+        if (selectedTankerTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.LIQUID)) {
 
             System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedTankerTruck.getID());
 
@@ -306,27 +304,24 @@ public class loadAndunloadContainer {
             writeTankerTruckToFile(TankerTruck, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
-        } else if (selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED)){
+        } else if (selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED)) {
             System.out.println("This Basic truck can not carry Refrigerated Container!");
 
         } else if (selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE)) {
             System.out.println("This Basic truck can not carry Open Side container!");
         } else if (selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP)) {
             System.out.println("This Basic truck can not carry Open Top container!");
-        }
-        else if (selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)) {
+        } else if (selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)) {
             System.out.println("This Basic truck can not carry Dry Storage container!");
-        }
-        else if (totalWeight < selectedTankerTruck.getCarryingCapacity()) {
-            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedTankerTruck.getCarryingCapacity());
-        }
-        else {
+        } else if (totalWeight < selectedTankerTruck.getCarryingCapacity()) {
+            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: " + totalWeight + " Weight limit: " + selectedTankerTruck.getCarryingCapacity());
+        } else {
             System.out.println("Fail to load! ");
         }
 
 
-
     }
+
     //======================================================================================
     public static void loadContainerReeferTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -338,7 +333,7 @@ public class loadAndunloadContainer {
         }
         int selectedReeferTruckOrderID;
         ReeferTrucks selectedReeferTruck;
-        while(true) {
+        while (true) {
             System.out.print("Choose a reefer truck by order number: ");
             selectedReeferTruckOrderID = scanner.nextInt();
             if (selectedReeferTruckOrderID < 1 || selectedReeferTruckOrderID > availableReeferTruckIDs.size()) {
@@ -386,12 +381,11 @@ public class loadAndunloadContainer {
 //        System.out.println("Get container: " + getContainerByLine(containerLine));
 
         Container selectedContainer = getContainerByLine(containerLine);
-        System.out.println("Container Type: "+selectedContainer.getContainerType());
+        System.out.println("Container Type: " + selectedContainer.getContainerType());
         //Load function
 
-        double totalWeight = round(getReeferTruckTotalContainerWeight(selectedReeferTruck,selectedPort) + selectedContainer.getWeight());
-        if (selectedReeferTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED))
-        {
+        double totalWeight = round(getReeferTruckTotalContainerWeight(selectedReeferTruck, selectedPort) + selectedContainer.getWeight());
+        if (selectedReeferTruck.loadContainer(selectedContainer) && selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED)) {
 
             System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedReeferTruck.getID());
 
@@ -411,32 +405,24 @@ public class loadAndunloadContainer {
             writeReeferTruckToFile(reeferTrucks, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
-        } else if (selectedContainer.getContainerType().equals(ContainerType.LIQUID)){
+        } else if (selectedContainer.getContainerType().equals(ContainerType.LIQUID)) {
             System.out.println("This Basic truck can not carry Liquid Container!");
 
         } else if (selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE)) {
             System.out.println("This Basic truck can not carry Open Side container!");
         } else if (selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP)) {
             System.out.println("This Basic truck can not carry Open Top container!");
-        }
-        else if (selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)) {
+        } else if (selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)) {
             System.out.println("This Basic truck can not carry Dry Storage container!");
-        }
-        else if (totalWeight < selectedReeferTruck.getCarryingCapacity()) {
-            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedReeferTruck.getCarryingCapacity());
-        }
-        else {
+        } else if (totalWeight < selectedReeferTruck.getCarryingCapacity()) {
+            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: " + totalWeight + " Weight limit: " + selectedReeferTruck.getCarryingCapacity());
+        } else {
             System.out.println("Fail to load! ");
         }
 
 
         // Define other methods (e.g., readPortsFromFile, displayAvailablePorts) here
     }
-
-
-
-
-
 
 
     //vehicle unload Container
@@ -539,7 +525,7 @@ public class loadAndunloadContainer {
                 System.out.println("Wrong number. Please choose a valid ship order number.");
             } else {
                 selectedBasicTruckNumber = availableBasicTruckIDs.get(selectedBasicTruckOrderID - 1);
-                String basictruckLine = getBasicTruckLineBybasictruckID(selectedBasicTruckNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+                String basictruckLine = getVehicleTextLine(selectedBasicTruckNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
                 selectedBasicTruck = getBasicTruckByLine(basictruckLine);
                 break; // Exit the loop if a valid ship is selected
             }
@@ -600,6 +586,7 @@ public class loadAndunloadContainer {
             System.out.println("Failed to unload container.");
         }
     }
+
     public static void unloadContainerTankerTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         List<String> availableTankerTruckIDs = selectedPort.getTankerTrucksInPort();
@@ -617,7 +604,7 @@ public class loadAndunloadContainer {
                 System.out.println("Wrong number. Please choose a valid ship order number.");
             } else {
                 selectedTankerTruckNumber = availableTankerTruckIDs.get(selectedTankerTruckOrderID - 1);
-                String tankertruckLine = getBasicTruckLineBybasictruckID(selectedTankerTruckNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+                String tankertruckLine = getVehicleTextLine(selectedTankerTruckNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
                 selectedTankerTruck = getTankerTruckByLine(tankertruckLine);
                 break; // Exit the loop if a valid ship is selected
             }

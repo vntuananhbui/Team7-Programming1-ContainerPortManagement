@@ -1,2 +1,4 @@
-Vehicle{ID='sh-ship1', name='1', currentFuel=100.0, carryingCapacity=100.0, fuelCapacity=100.0, currentPort=p-port22}
+Vehicle{ID='sh-ship1', name='1', currentFuel=100.0, carryingCapacity=100.0, fuelCapacity=100.0, currentPort=p-port11}
 Vehicle{ID='sh-ship2', name='1', currentFuel=100.0, carryingCapacity=100.0, fuelCapacity=100.0, currentPort=p-port11}
+Vehicle{ID='sh-78687687', name='The David Ship', currentFuel=500.0, carryingCapacity=90.0, fuelCapacity=500.0, currentPort=p-port11}
+Vehicle{ID='btr-2323132', name='Da Supreme David', currentFuel=200.0, carryingCapacity=200.0, fuelCapacity=200.0, currentPort=p-port11}

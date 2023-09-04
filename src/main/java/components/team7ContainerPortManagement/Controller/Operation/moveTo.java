@@ -1,10 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.Controller.Operation;
 
-import src.main.java.components.team7ContainerPortManagement.Controller.portController;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
 import java.io.IOException;
@@ -13,26 +9,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
+import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getVehicleTextLine;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.getTankerTruckByLine;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getVehiclesByPortID;
-import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.*;
-import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.updateVehiclePort;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readVehicleContainerMapFromFile;
-import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.*;
+import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.updateContainerPort;
+import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.writePortContainerMapToFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.*;
-import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portWriteFile.*;
-import static src.main.java.components.team7ContainerPortManagement.utils.ReeferTruckFileUtils.reefertruckReadFile.readReeferTruckFromFile;
-import static src.main.java.components.team7ContainerPortManagement.utils.ReeferTruckFileUtils.reefertruckWriteFile.writeReeferTruckToFile;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portWriteFile.writeVehiclePortMapInFile;
 
 public class moveTo {
 
     public static void moveToMenu(Port currentPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-// Load available ports from port.txt and display them here
+        // Load available ports from port.txt and displays them for selection
         List<Port> availablePorts = null;
-        //Read all available port except current port
         availablePorts = readAvailablePortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt", currentPort);
         System.out.println("Choose a port by order number: ");
         int selectedPortOrderNumber = 1;
@@ -41,44 +34,48 @@ public class moveTo {
                 System.out.println((selectedPortOrderNumber++) + ". Port ID: '" + port.getID() + "', Port Name: '" + port.getName() + "'");
             }
         }
+
+        // Displays the current selected port
         int selectedPortIndex = scanner.nextInt() - 1;
         Port selectedPort = availablePorts.get(selectedPortIndex);
         System.out.println("Selected Port: " + selectedPort);
 
+        //Gets the available Vehicle ID at current port (via the vehicle text file) and displays them to the console
         List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
         System.out.println("Available vehicle in port " + currentPort.getName() + ":");
-
         for (int i = 0; i < availableVehicleIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableVehicleIDs.get(i));
         }
+
         int selectedVehicleOrderID;
-        Vehicle selectedVehicle;
-        String selectedVehicleNumber;
+        Vehicle selectedVehicleObject;
+        String selectedVehicleID;
         while (true) {
             System.out.print("Choose a Vehicle by order number: ");
             selectedVehicleOrderID = scanner.nextInt();
+            // If the input is an invalid integer, print an error message and repeat the loop
             if (selectedVehicleOrderID < 1 || selectedVehicleOrderID > availableVehicleIDs.size()) {
-                System.out.println("Wrong number. Please choose a valid ship order number.");
+                System.out.println("Invalid number. Please choose a valid vehicle number");
             } else {
-                selectedVehicleNumber = availableVehicleIDs.get(selectedVehicleOrderID - 1);
-                String tankertruckLine = getBasicTruckLineBybasictruckID(selectedVehicleNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
-                selectedVehicle = getTankerTruckByLine(tankertruckLine);
+                selectedVehicleID = availableVehicleIDs.get(selectedVehicleOrderID - 1);
+                String vehicleTextLine = getVehicleTextLine(selectedVehicleID, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
+                selectedVehicleObject = getTankerTruckByLine(vehicleTextLine);
                 break; // Exit the loop if a valid ship is selected
             }
         }
-        if (selectedVehicle.canMoveTo(selectedPort)) {
+        if (selectedVehicleObject.canMoveTo(selectedPort)) {
 //        System.out.println("Vehicle current port: "+selectedVehicle.getCurrentPort());
 //        System.out.println("Destination port: " + selectedPort);
 //        selectedVehicle.setCurrentPort(selectedPort); //Change the file vehicle.txt
             Map<String, List<String>> vehiclePortMap = readVehiclePortMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt");
             Map<String, List<String>> containerPortMap = readPortContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
             Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
-            System.out.println("Before map: " +vehiclePortMap);
-                // Retrieve the list of containers associated with the vehicle
-                List<String> containerIDs = vehicleContainerMap.get(selectedVehicle.getID());
-                List<String> currentPortVehicles = new ArrayList<>(vehiclePortMap.get(currentPort.getID()));
-                List<String> currentPortContainers = containerPortMap.get(currentPort.getID());
-                List<String> selectedPortIDs = vehiclePortMap.get(selectedPort.getID());
+            System.out.println("Before map: " + vehiclePortMap);
+            // Retrieve the list of containers associated with the vehicle
+            List<String> containerIDs = vehicleContainerMap.get(selectedVehicleObject.getID());
+            List<String> currentPortVehicles = new ArrayList<>(vehiclePortMap.get(currentPort.getID()));
+            List<String> currentPortContainers = containerPortMap.get(currentPort.getID());
+            List<String> selectedPortIDs = vehiclePortMap.get(selectedPort.getID());
             System.out.println("currentport container: " + currentPortContainers);
             if (currentPortContainers != null) {
                 currentPortContainers = new ArrayList<>(currentPortContainers);
@@ -95,20 +92,20 @@ public class moveTo {
                 }
             }
             System.out.println("currentport vehicle: " + currentPortVehicles);
-                System.out.println("selected vehicle: "+selectedVehicle.getID());
-                currentPortVehicles.remove(selectedVehicle.getID());
-                vehiclePortMap.put(currentPort.getID(),currentPortVehicles);
+            System.out.println("selected vehicle: " + selectedVehicleObject.getID());
+            currentPortVehicles.remove(selectedVehicleObject.getID());
+            vehiclePortMap.put(currentPort.getID(), currentPortVehicles);
             if (selectedPortIDs == null) {
                 selectedPortIDs = new ArrayList<>();
                 vehiclePortMap.put(selectedPort.getID(), currentPortVehicles);
-                System.out.println("IF: Selected Port ID: "+selectedPortIDs);
+                System.out.println("IF: Selected Port ID: " + selectedPortIDs);
             } else {
                 try {
-                    selectedPortIDs.add(selectedVehicle.getID());
-                    System.out.println("ELSE: Selected Port ID: "+selectedPortIDs);
+                    selectedPortIDs.add(selectedVehicleObject.getID());
+                    System.out.println("ELSE: Selected Port ID: " + selectedPortIDs);
                 } catch (UnsupportedOperationException e) {
                     List<String> mutableList = new ArrayList<>(selectedPortIDs);
-                    mutableList.add(selectedVehicle.getID());
+                    mutableList.add(selectedVehicleObject.getID());
                     vehiclePortMap.put(selectedPort.getID(), mutableList);
                 }
             }
@@ -116,9 +113,9 @@ public class moveTo {
 
             System.out.println("After map: " + vehiclePortMap);
 
-            updateVehiclePort(selectedVehicle.getID(),selectedPort.getID());
+            updateVehiclePort(selectedVehicleObject.getID(), selectedPort.getID());
             writeVehiclePortMapInFile(vehiclePortMap, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt");
-            writePortContainerMapToFile(containerPortMap,"src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
+            writePortContainerMapToFile(containerPortMap, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
 
             //
 //            Map<String, List<String>> newVehiclePortMap = processDataFromVehicleFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt", vehiclePortMap);
@@ -133,14 +130,13 @@ public class moveTo {
 
 //                selectedVehicle.setCurrentPort(selectedPort);
 
-                // Add the vehicle and its containers to the selected port
+            // Add the vehicle and its containers to the selected port
 //                currentPortVehicles.add(selectedVehicle.getID());
 
 //                vehiclePortMap.computeIfAbsent(selectedPort.getID(), k -> new ArrayList<>()).add(selectedVehicle.getID());
 
 
-            }
-
+        }
 
 
 //        Test HashMap of containerPortMap
@@ -176,8 +172,12 @@ public class moveTo {
 //            containerPortMap.put(currentPort.getID(), new ArrayList<>());
 
 
-     else {
+        else {
             System.out.println("Fail to move");
         }
+    }
+
+    public static boolean canMoveTo(Port currentPort, Port destinationPort) throws IOException {
+        return true;
     }
 }

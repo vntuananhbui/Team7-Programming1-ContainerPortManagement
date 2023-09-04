@@ -28,6 +28,7 @@ public class shipReadFile {
         }
         return ships;
     }
+
     public static double getShipTotalContainerWeight(Ship ship, Port port) throws IOException {
         Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         List<String> loadedContainerIDs = vehicleContainerMap.getOrDefault(ship.getID(), Collections.emptyList());

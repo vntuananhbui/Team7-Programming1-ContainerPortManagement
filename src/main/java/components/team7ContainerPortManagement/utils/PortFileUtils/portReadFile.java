@@ -1,7 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils;
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,6 +24,7 @@ public class portReadFile {
 
         return null; // Port not found
     }
+
     //GET PORT BY ID
     public static Port getPortByID(String portID) throws IOException {
         // You might need to implement a method to retrieve a Port by its ID
@@ -37,6 +37,7 @@ public class portReadFile {
         }
         return null; // Return null if port with the given ID is not found
     }
+
     //Read all port in port.txt
     public static List<Port> readPortsFromFile(String filePath) throws IOException {
         List<Port> ports = new ArrayList<>();
@@ -58,6 +59,7 @@ public class portReadFile {
         }
         return ports;
     }
+
     //===================================================================================================================
     //===================================================================================================================
     public static List<Port> readAvailablePortsFromFile(String filePath, Port currentPort) throws IOException {

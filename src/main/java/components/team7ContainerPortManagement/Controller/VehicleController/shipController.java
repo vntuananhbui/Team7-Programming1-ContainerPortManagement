@@ -32,7 +32,7 @@ public class shipController {
         scanner.nextLine();
         double currentFuel = fuelCapacity;
         if (selectedPort != null) {
-            Ship newShip = new Ship(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
+            Ship newShip = new Ship(shipID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5, selectedPort);
             selectedPort.addVehicle(newShip);
             newShip.setCurrentPort(selectedPort);
 //           shipWriter.write(newShip.toString() + ", Port=" + selectedPort.toString() + "\n");
@@ -46,6 +46,7 @@ public class shipController {
 
         shipWriter.close();
     }
+
     //===================================================================================================================
     //===================================================================================================================
     //GET SHIP LINE BY ID
@@ -63,6 +64,7 @@ public class shipController {
         }
         return null; // Ship line not found
     }
+
     //===================================================================================================================
     //===================================================================================================================
     //AFTER GET SHIP LINE, USE THIS METHOD TO FIND THE SHIP OBJECT
@@ -79,7 +81,7 @@ public class shipController {
 //        System.out.println(currentPortID);
         Port currentPort = getPortByOrderNumber(id, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
         // Create a new Vehicle object
-        Ship ship = new Ship(id,name,currentFuel,carryingCapacity,fuelCapacity,3.5,currentPort);
+        Ship ship = new Ship(id, name, currentFuel, carryingCapacity, fuelCapacity, 3.5, currentPort);
         ship.setID(id);
         ship.setName(name);
         ship.setCurrentFuel(currentFuel);

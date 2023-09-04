@@ -19,12 +19,14 @@ public interface PortOperations {
 
     // Calculate total container weight
     double calculateTotalContainerWeight();
+
     // Add a container to the port
     boolean addContainer(Container container);
+
     boolean canAddContainer(Container container);
+
     // Remove a container from the port
     boolean removeContainer(Container container);
-
 
 
 }

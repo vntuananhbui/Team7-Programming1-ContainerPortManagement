@@ -5,11 +5,12 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Por
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
 
 
-public class ReeferTrucks extends Truck{
+public class ReeferTrucks extends Truck {
 
-    public ReeferTrucks(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
-        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
+    public ReeferTrucks(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, double fuelConsumtion, Port currentPort) {
+        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity, fuelConsumtion, currentPort);
     }
+
     @Override
     public boolean canLoadContainer(Container container) {
         ContainerType containerType = container.getContainerType();

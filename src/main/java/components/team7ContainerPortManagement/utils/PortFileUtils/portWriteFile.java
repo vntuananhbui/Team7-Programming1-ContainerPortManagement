@@ -33,6 +33,7 @@ public class portWriteFile {
 
         Files.write(file.toPath(), lines);
     }
+
     public static void writeVehiclePortMapInFile(Map<String, List<String>> vehiclePortMap, String filePath) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Map.Entry<String, List<String>> entry : vehiclePortMap.entrySet()) {
@@ -111,7 +112,6 @@ public class portWriteFile {
             }
         }
     }
-
 
 
 }

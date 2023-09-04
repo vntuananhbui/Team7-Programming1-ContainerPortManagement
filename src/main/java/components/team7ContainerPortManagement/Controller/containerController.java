@@ -36,7 +36,7 @@ public class containerController {
         ContainerType selectedType = containerTypes[typeNumber - 1];
 
         // Create an instance of Container using the input values and current port
-        Container newContainer = new Container(containerID, weight, selectedType,currentPort);
+        Container newContainer = new Container(containerID, weight, selectedType, currentPort);
         currentPort.addContainer(newContainer);
         // Write the input values to the file
         containerWriter.write(newContainer + "\n");

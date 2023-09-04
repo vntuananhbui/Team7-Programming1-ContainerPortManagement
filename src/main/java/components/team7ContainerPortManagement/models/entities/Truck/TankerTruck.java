@@ -5,10 +5,10 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Por
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
 
 
-public class TankerTruck extends Truck{
+public class TankerTruck extends Truck {
 
-    public TankerTruck(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity,double fuelConsumtion, Port currentPort) {
-        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity,fuelConsumtion, currentPort);
+    public TankerTruck(String numberID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, double fuelConsumtion, Port currentPort) {
+        super(numberID, name, currentFuel, carryingCapacity, fuelCapacity, fuelConsumtion, currentPort);
     }
 
     @Override

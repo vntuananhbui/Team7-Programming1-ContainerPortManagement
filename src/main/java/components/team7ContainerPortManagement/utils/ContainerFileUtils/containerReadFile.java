@@ -33,6 +33,7 @@ public class containerReadFile {
 
         return null; // Container not found
     }
+
     public static String getContainerLineByContainerID(String containerID, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -47,6 +48,7 @@ public class containerReadFile {
         }
         return null; // Container line not found
     }
+
     protected static String getContainerInfoAsString(List<Container> containers) {
         StringBuilder containerInfo = new StringBuilder();
         for (Container container : containers) {
@@ -57,6 +59,7 @@ public class containerReadFile {
         }
         return containerInfo.toString();
     }
+
     public static Container parseContainerLine(String line) throws IOException {
         String[] parts = line.split(", ");
 
@@ -71,7 +74,7 @@ public class containerReadFile {
             port = getPortByID(portID);
         }
 
-        return new Container(containerID, weight, containerType, isLoaded,port);
+        return new Container(containerID, weight, containerType, isLoaded, port);
     }
 
     public static Container getContainerByLine(String line) throws IOException {
@@ -89,11 +92,12 @@ public class containerReadFile {
         String portID = parts[4].split("'")[1];
 
         // Create a new Container object
-        Container container = new Container(id, weight, ContainerType.valueOf(containerType),getPortByID(portID));
+        Container container = new Container(id, weight, ContainerType.valueOf(containerType), getPortByID(portID));
         container.setLoaded(isLoaded);
 
         return container;
     }
+
     public static List<Container> readContainersFromFile(String fileName) throws IOException {
         List<Container> containers = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -105,6 +109,7 @@ public class containerReadFile {
         }
         return containers;
     }
+
     public static Map<String, List<String>> readVehicleContainerMapFromFile(String fileName) throws IOException {
 
         Map<String, List<String>> map = new HashMap<>();
@@ -122,7 +127,6 @@ public class containerReadFile {
         }
         return map;
     }
-
 
 
     public static String getStatusContainerbyID(String containerID) throws IOException {

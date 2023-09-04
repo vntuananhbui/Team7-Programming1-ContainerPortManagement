@@ -1,7 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.utils.ReeferTruckFileUtils;
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
 import java.io.BufferedWriter;

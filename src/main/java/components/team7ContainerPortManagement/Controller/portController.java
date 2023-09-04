@@ -40,6 +40,7 @@ public class portController {
 
         portWriter.close();
     }
+
     //===================================================================================================================
     //===================================================================================================================
     //DISPLAY ALL PORT IN FILE
@@ -67,6 +68,7 @@ public class portController {
             e.printStackTrace();
         }
     }
+
     public static void displayDestinationPort(Port currentPort) throws IOException {
         // Path to the ports file
         String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt";

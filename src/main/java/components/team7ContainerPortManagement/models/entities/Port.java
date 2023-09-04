@@ -43,6 +43,7 @@ public class Port implements PortOperations {
     public String writeID() {
         return ID;
     }
+
     public String getName() {
         return name;
     }
@@ -144,12 +145,14 @@ public class Port implements PortOperations {
         return String.format("Port{ID='%s', name='%s', latitude=%f, longitude=%f, storingCapacity=%d, landingAbility=%b}",
                 getID(), getName(), getLatitude(), getLongitude(), getStoringCapacity(), isLandingAbility());
     }
+
     @Override
     public String toStringAdd() {
 //        String vehicleInfo = vehicles.stream().map(Vehicle::getID).collect(Collectors.joining(","));
         return String.format("Port{ID='%s', name='%s', latitude=%f, longitude=%f, storingCapacity=%d, landingAbility=%b}",
                 writeID(), getName(), getLatitude(), getLongitude(), getStoringCapacity(), isLandingAbility());
     }
+
     public Port(String ID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility, List<Container> containers, List<Vehicle> vehicles, List<Trip> traffic) {
         this.ID = ID;
         this.name = name;
@@ -175,6 +178,7 @@ public class Port implements PortOperations {
         }
         return totalWeight;
     }
+
     //Special method
     public static List<String> getVehiclesByPortID(String portID) throws IOException {
         List<String> vehicleIDs = new ArrayList<>();
@@ -204,6 +208,7 @@ public class Port implements PortOperations {
 
         return vehicleIDs;
     }
+
     public List<String> getShipsInPort() throws IOException {
         List<String> shipIDs = new ArrayList<>();
 
@@ -217,6 +222,7 @@ public class Port implements PortOperations {
 
         return shipIDs;
     }
+
     public List<String> getBasicTrucksInPort() throws IOException {
         List<String> basictruckIDs = new ArrayList<>();
 
@@ -230,6 +236,7 @@ public class Port implements PortOperations {
 
         return basictruckIDs;
     }
+
     public List<String> getTankerTrucksInPort() throws IOException {
         List<String> tankertruckIDs = new ArrayList<>();
 
@@ -243,6 +250,7 @@ public class Port implements PortOperations {
 
         return tankertruckIDs;
     }
+
     public List<String> getReeferTrucksInPort() throws IOException {
         List<String> reeferIDs = new ArrayList<>();
 

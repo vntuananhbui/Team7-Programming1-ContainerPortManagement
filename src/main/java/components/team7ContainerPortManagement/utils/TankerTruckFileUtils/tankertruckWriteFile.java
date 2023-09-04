@@ -1,6 +1,5 @@
 package src.main.java.components.team7ContainerPortManagement.utils.TankerTruckFileUtils;
 
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
