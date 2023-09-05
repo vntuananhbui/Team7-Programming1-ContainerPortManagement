@@ -108,9 +108,7 @@ public class loadAndunloadContainer implements VehicleOperations {
         System.out.println();
         String containerLine = getContainerLineByContainerID(selectedContainerNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
         Container selectedContainer = getContainerByLine(containerLine);
-
         //Load function
-
         //Calculate total weight
         double totalWeight = round(getShipTotalContainerWeight(selectedShip,selectedPort) + selectedContainer.getWeight());
         double totalConweigthinPort = round(calculateTotalWeightContainerPort(selectedPort)) + selectedContainer.getWeight();

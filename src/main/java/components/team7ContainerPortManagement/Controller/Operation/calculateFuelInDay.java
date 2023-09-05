@@ -3,6 +3,7 @@ package src.main.java.components.team7ContainerPortManagement.Controller.Operati
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.*;
 
@@ -23,6 +24,9 @@ public class calculateFuelInDay {
         }
 
         displayTripsForDate(portID, selectedDate, arrivalSection, departureSection, arrivalFuelConsumption, departureFuelConsumption);
+        System.out.println("Press any key to return...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.next();
     }
     public static void calculateFuelInDayAdmin() {
         Map<String, List<String>> datesByPort = new HashMap<>();

@@ -179,8 +179,6 @@ public class basictruckController {
         }
     }
 
-
-
     public static void saveVehiclesToFile(List<Vehicle> vehicles) throws IOException {
         FileWriter vehicleWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt", false);
         for (Vehicle vehicle : vehicles) {

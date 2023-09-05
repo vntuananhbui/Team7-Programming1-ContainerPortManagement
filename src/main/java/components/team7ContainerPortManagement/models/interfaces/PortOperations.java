@@ -25,6 +25,4 @@ public interface PortOperations {
     // Remove a container from the port
     boolean removeContainer(Container container);
 
-
-
 }

@@ -75,15 +75,25 @@ public class displayTripByDate {
 
                         //----
                         if (date.equals(selectedDate)) {
-                            StringBuilder section = (arrivalPortID.equals(portID)) ? arrivalSection : departureSection;
-                            section.append(" Vehicle ID: ").append(parse[0])
-                                    .append(" | Date: ").append(date)
-                                    .append(" | Hour: ").append(hour)
-                                    .append(" | Arrival Port: ").append(arrivalPortID)
-                                    .append(" | Departure Port: ").append(departurePortID)
-                                    .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
-
-
+//                            StringBuilder section = (arrivalPortID.equals(portID)) ? arrivalSection : departureSection;
+                            StringBuilder section = null;
+                            if (arrivalPortID.equals(portID)) {
+                                section = arrivalSection;
+                                section.append(" Vehicle ID: ").append(parse[0])
+                                        .append(" | Date: ").append(date)
+                                        .append(" | Hour: ").append(hour)
+                                        .append(" | Arrival Port: ").append(arrivalPortID)
+                                        .append(" | Departure Port: ").append(departurePortID)
+                                        .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+                            } else if(departurePortID.equals(portID)) {
+                                section = departureSection;
+                                section.append(" Vehicle ID: ").append(parse[0])
+                                        .append(" | Date: ").append(date)
+                                        .append(" | Hour: ").append(hour)
+                                        .append(" | Arrival Port: ").append(arrivalPortID)
+                                        .append(" | Departure Port: ").append(departurePortID)
+                                        .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+                            }
                         }
                     }
                 }

@@ -210,14 +210,23 @@ public class calculateOperation {
                     String date = parse[1].split("T")[0];
 
                     if (date.equals(selectedDate)) {
-                        StringBuilder section = (arrivalPortID.equals(portID)) ? arrivalSection : departureSection;
-                        section.append(" Vehicle ID: ").append(parse[0])
-                                .append(" | Date: ").append(date)
-                                .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+//                        StringBuilder section = (arrivalPortID.equals(portID)) ? arrivalSection : departureSection;
+                        StringBuilder section = null;
+                        if (arrivalPortID.equals(portID)) {
+                             section = arrivalSection;
+                            section.append(" Vehicle ID: ").append(parse[0])
+                                    .append(" | Date: ").append(date)
+                                    .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+                        } else if(departurePortID.equals(portID)) {
+                             section = departureSection;
+                            section.append(" Vehicle ID: ").append(parse[0])
+                                    .append(" | Date: ").append(date)
+                                    .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+                        }
 
                         if (arrivalPortID.equals(portID)) {
                             arrivalFuelConsumption += Double.parseDouble(parse[6]);
-                        } else {
+                        } if(departurePortID.equals(portID)) {
                             departureFuelConsumption += Double.parseDouble(parse[6]);
                         }
                     }

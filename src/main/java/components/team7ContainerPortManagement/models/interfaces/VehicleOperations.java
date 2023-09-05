@@ -8,5 +8,4 @@ public interface VehicleOperations {
     boolean unloadContainer(Container container);
     boolean canMoveTo(Port destination);
 
-
 }

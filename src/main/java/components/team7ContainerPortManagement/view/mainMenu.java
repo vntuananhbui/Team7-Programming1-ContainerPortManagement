@@ -22,9 +22,9 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.O
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.containerTypeWeight.getTotalTypeContainerWeight;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.containerTypeWeight.getTotalTypeContainerWeightAdmin;
-import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.displayTripByDate.ListTripInDayAdmin;
-import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.displayTripByDate.listTripsInDay;
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.displayTripByDate.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.loadAndunloadContainer.*;
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.moveTo.moveToMenu;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.tripDateSelector.listTripsBetweenDates;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.tripDateSelector.listTripsBetweenDatesAdmin;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.*;
@@ -33,6 +33,7 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.p
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.getTotalContainerWeightByPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
+import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.adminMenu;
 
 public class mainMenu {
     public static void displayBanner() {
@@ -112,156 +113,10 @@ public class mainMenu {
             }
         }
     }
-    public static void adminMenu() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-
-            System.out.println("╔══════════════════════════════════════════╗");
-            System.out.println("║               ADMIN MENU                 ║");
-            System.out.println("╟──────────────────────────────────────────╢");
-            System.out.println("║  [1] Port Controller                     ║");
-            System.out.println("║  [2] Port Admin Operation                ║");
-            System.out.println("║  [3] Port List                           ║");
-            System.out.println("║  [4] Port Manager Functions              ║");
-            System.out.println("║  [0] Back to Main Menu                   ║");
-            System.out.println("╚══════════════════════════════════════════╝");
-            System.out.print("  Choose an option: ");
 
 
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    adminPortController();
-                    break;
-                case 2:
-                    adminPortOperation();
-                    break;
-                case 3:
-                    List<Port> ports = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
-                    System.out.println("Current Ports:");
-                    portController.displayAllPorts();
-                    break;
-                case 4:
-                    portManagerMenu();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
-            }
-        }
-    }
-
-    public static void adminPortController() throws IOException {
-        // Load available ports from port.txt and display them here
-        Scanner scanner = new Scanner(System.in);
-
-        // Load available ports from port.txt and display them here
-        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
-        portController.displayAllPorts();
-        System.out.print("Choose a port by order number: ");
-        int selectedPortOrderNumber;
-        while (true) {
-            try {
-                System.out.print("Choose a port by order number: ");
-                selectedPortOrderNumber = scanner.nextInt();
-                if (selectedPortOrderNumber >= 1 && selectedPortOrderNumber <= availablePorts.size()) {
-                    break; // Exit the loop if a valid port is selected
-                } else {
-                    System.out.println("Invalid choice. Please select a number between 1 and " + availablePorts.size() + ".");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a valid number.");
-                scanner.nextLine(); // Clear the invalid input
-            }
-        }
-
-// Get the selected port object
-        Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
-
-        while (true) {
-
-            System.out.println("╔══════════════════════════════════════════╗");
-            System.out.println("║               ADMIN MENU                 ║");
-            System.out.println("╟──────────────────────────────────────────╢");
-            System.out.println("║  [1] Create Port                         ║");
-            System.out.println("║  [2] Remove Port                         ║");
-            System.out.println("║  [3] Update Port                         ║");
-            System.out.println("║  [4] View Current Port                   ║");
-            System.out.println("║  [5] Port operation                      ║");
-            System.out.println("║  [0] Back to Main Menu                   ║");
-            System.out.println("╚══════════════════════════════════════════╝");
-            System.out.print("  Choose an option: ");
 
 
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    portController.inputPort();
-                    break;
-                case 2:
-                    deletePort(selectedPort);
-                     //remove port
-                    break;
-                case 3:
-                    //update Port
-                    updatePort(selectedPort);
-                case 4:
-                    //View port
-                    portController.displayAllPorts();
-                    System.out.println("Press any key to return...");
-                    scanner.nextLine();
-                case 5:
-                    adminPortOperation();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
-
-            }
-        }
-    }
-
-    public static void adminPortOperation() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("╔══════════════════════════════════════════╗");
-        System.out.println("║         ADMIN MENU (Port operation)      ║");
-        System.out.println("╟──────────────────────────────────────────╢");
-        System.out.println("║  [1] Fuel Use in specific Day            ║"); //operation 1
-        System.out.println("║  [2] Total Weight of Container Type      ║"); //operation 2
-        System.out.println("║  [3] List all ship in port               ║");
-        System.out.println("║  [4] List all trip in specific Day       ║");
-        System.out.println("║  [5] List all trip from Day A to day B   ║");
-        System.out.println("║  [0] Back to Main Menu                   ║");
-        System.out.println("╚══════════════════════════════════════════╝");
-        System.out.print("  Choose an option: ");
-
-
-        int choice = scanner.nextInt();
-        switch (choice) {
-            case 1:
-                calculateFuelInDayAdmin();
-                break;
-            case 2:
-                //remove port
-                getTotalTypeContainerWeightAdmin();
-                break;
-            case 3:
-                listAllShipInPortAdmin();
-                break;
-            case 4:
-                ListTripInDayAdmin();
-                break;
-            case 5:
-                listTripsBetweenDatesAdmin();
-                break;
-            default:
-                System.out.println("Invalid choice. Please select a valid option.");
-
-        }
-    }
     public static void portManagerMenu() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
@@ -296,13 +151,10 @@ public class mainMenu {
             System.out.println("║  [1] Container Controller                ║");
             System.out.println("║  [2] Vehicle Controller                  ║");
             System.out.println("║  [3] Port Operations                     ║");
-            System.out.println("║  [4] Calculate Menu                      ║");
+            System.out.println("║  [4] Vehicle Movement                    ║");
             System.out.println("║  [5] Update Port                         ║");
-            System.out.println("║  [6] Delete Port                         ║");
             System.out.println("║  [7] Change Port                         ║");
             System.out.println("║  [8] Port Vehicles                       ║");
-            System.out.println("║  [9] Load Container                      ║");
-            System.out.println("║  [10] Test                               ║");
             System.out.println("║  [0] Back to Main Menu                   ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
@@ -317,60 +169,19 @@ public class mainMenu {
                     // Call the function to create a ship
                     vehicleControllerMenu(selectedPort);
                     break;
-                case 4:
-                    PortOperationsMenu(selectedPort);
+                case 3:
+                    statisticOperationsMenu(selectedPort);
                     break;
-                case 11:
-                    calculateTotalWeightContainerPort(selectedPort);
-                case 0:
-                    portManagerMenu();
+                case 4:
+                    //moveTo
+                    moveToMenu(selectedPort);
                     break;
                 case 5:
                     updatePort(selectedPort);
                     break;
+                case 0:
+                    return;
 
-                case 6:
-                    deletePort(selectedPort);
-                    return;
-                case 8:
-
-                    System.out.println(selectedPort.getName());
-                    System.out.println(selectedPort.getLatitude());
-                case 9:
-                    calculateFuelInDay(selectedPort.getID());
-                    return;
-                case 10:
-                    calculateFuelInDayAdmin();
-                    return;
-                case 12:
-                    getTotalTypeContainerWeight(selectedPort.getID());
-                    return;
-                case 13:
-                    getTotalTypeContainerWeightAdmin();//
-                    return;
-                case 14:
-                    listAllShipInPort(selectedPort.getID());
-                    return;
-                case 15:
-                    listAllShipInPortAdmin();//
-                    return;
-                case 16:
-                    listTripsInDay(selectedPort.getID());
-                    return;
-                case 17:
-                    ListTripInDayAdmin();//
-                    return;
-                case 18:
-                    listTripsBetweenDates(selectedPort.getID());
-                    return;
-                case 19:
-                    listTripsBetweenDatesAdmin();
-                    return;
-                case 20:
-                    System.out.println("total weight of port " + selectedPort.getID());
-
-                    getTotalContainerWeightByPort(selectedPort.getID());
-                    return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
@@ -631,7 +442,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             int choiceShip = scanner.nextInt();
             switch (choiceShip) {
                 case 1:
-                    moveTo.moveToMenu(selectedPort);
+                    moveToMenu(selectedPort);
                     break;
                 case 3:
                     loadContainerReeferTruckMenu(selectedPort);
@@ -655,12 +466,14 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             System.out.println("          Statistics Operations Menu          ");
             System.out.println("==============================================");
             System.out.println("|                                             |");
-            System.out.println("|   [1] Calculate Distance between Port       |");
-            System.out.println("|   [2] List all select vehicle in select port|");
-            System.out.println("|   [3] Update Vehicle                        |");
-            System.out.println("|   [4] Delete Vehicle                        |");
-            System.out.println("|   [5] Refuel Vehicle                        |");
-            System.out.println("|   [0] Back to Main Menu                     |");
+            System.out.println("|  [1] Calculate Distance between Port       |");
+            System.out.println("║  [2] Fuel Use in specific Day               ║"); //operation 1
+            System.out.println("║  [3] Total Weight of Container Type         ║"); //operation 2
+            System.out.println("║  [4] List all ship in port                  ║");
+            System.out.println("║  [5] List all trip in specific Day          ║");
+            System.out.println("║  [6] List all trip from Day A to day B      ║");
+            System.out.println("║  [7] Calculate total weight of Container    ║");
+            System.out.println("|  [0] Back to Main Menu                     |");
             System.out.println("|                                             |");
             System.out.println("==============================================");
             System.out.print("   Choose an option: ");
@@ -668,19 +481,29 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
 
             switch (choice) {
                 case 1:
-                    ShipMenu(selectedPort);
+                    //distance
                     break;
                 case 2:
-                    TruckMenuManage(selectedPort);
+                    //fuel in day
+                    calculateFuelInDay(selectedPort.getID());
                     break;
                 case 3:
-                    updateVehicle(selectedPort.getID());
+                    //total weight of type
+                    getTotalTypeContainerWeight(selectedPort.getID());
                     break;
                 case 4:
-                    deleteVehicle(selectedPort.getID());
+                    listAllShipInPort(selectedPort.getID());
                     break;
                 case 5:
-                    refuelVehicle(selectedPort.getID());
+                    listTripsInDay(selectedPort.getID());
+
+                    break;
+                case 6:
+                    listTripsBetweenDates(selectedPort.getID());
+                    break;
+                case 7:
+                    calculateTotalWeightContainerPort(selectedPort);
+                    break;
                 case 0:
                     return;
                 default:
