@@ -121,6 +121,7 @@ public class containerController {
             Container selectedContainer = filteredContainers.get(selectedIndex);
 
             // Remove the container from the main list
+
             containers.remove(selectedContainer);
 
             // Save the updated list of containers back to the file
@@ -139,7 +140,6 @@ public class containerController {
         }
         containerWriter.close();
     }
-
 //======================================================
     //==================================================
     public static double getFinalShipConsumption(List<String> containerIDs) throws IOException {

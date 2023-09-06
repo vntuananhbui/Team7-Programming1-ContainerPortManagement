@@ -2,13 +2,15 @@ package src.main.java.components.team7ContainerPortManagement.models.entities;
 
 import src.main.java.components.team7ContainerPortManagement.models.interfaces.PortOperations;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
+
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.isPortIDAlreadyExists;
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.savePortsToFile;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class Port implements PortOperations {
     private String ID;
@@ -71,17 +73,17 @@ public class Port implements PortOperations {
         return vehicles;
     }
 
-    public List<Trip> getTraffic() {
-        return trips;
-    }
+//    public List<Trip> getTraffic() {
+//        return trips;
+//    }
 
-    public void setContainers(List<Container> containers) {
-        this.containers = containers;
-    }
-
-    public void setVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
-    }
+//    public void setContainers(List<Container> containers) {
+//        this.containers = containers;
+//    }
+//
+//    public void setVehicles(List<Vehicle> vehicles) {
+//        this.vehicles = vehicles;
+//    }
 
     //Override the interfaces
     @Override
@@ -302,6 +304,9 @@ public class Port implements PortOperations {
     public void setStoringCapacity(int storingCapacity) {
         this.storingCapacity = storingCapacity;
     }
+
+
+
 }
 
 

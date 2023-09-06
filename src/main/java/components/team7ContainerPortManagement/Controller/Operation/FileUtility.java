@@ -102,7 +102,7 @@ public class FileUtility {
     }
 
     public static void addLineToPortVehiclesFile() {
-        String line = "{Port :p-StartPort, Vehicles: sh-RMIT1, rtr-RMIT2, btr-RMIT3, ttr-RMIT4, sh-RMIT5, sh-RMIT6, sh-RMIT7, sh-RMIT8, sh-RMIT9, ttr-RMIT5, ttr-RMIT6, ttr-RMIT7, ttr-RMIT8, ttr-RMIT9, rtr-RMIT5, rtr-RMIT6, rtr-RMIT7, rtr-RMIT8, rtr-RMIT9, btr-RMIT5, btr-RMIT6, btr-RMIT7, btr-RMIT8, btr-RMIT9}";
+        String line = "{Port :p-StartPort, Vehicles: sh-RMIT1, rtr-RMIT2, btr-RMIT3, ttr-RMIT4, sh-RMIT5, sh-RMIT6, sh-RMIT7, sh-RMIT8, sh-RMIT9, ttr-RMIT5, ttr-RMIT6, ttr-RMIT7, ttr-RMIT8, ttr-RMIT9, rtr-RMIT5, rtr-RMIT6, rtr-RMIT7, rtr-RMIT8, rtr-RMIT9, btr-RMIT5, btr-RMIT6, btr-RMIT7, btr-RMIT8, btr-RMIT9}\n";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt", false))) {
             writer.write(line);

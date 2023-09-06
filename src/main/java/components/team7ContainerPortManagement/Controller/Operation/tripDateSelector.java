@@ -9,52 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class tripDateSelector {
-    public static void listTripsBetweenDates(String portID) {
-        Scanner scanner = new Scanner(System.in);
 
-        // Get available dates
-        List<String> availableDates = getAvailableDatesBetweenDates(portID);
 
-        if (availableDates.isEmpty()) {
-            System.out.println("No valid dates found in the trip file.");
-            return;
-        }
-
-        // Display available dates
-        System.out.println("Available Dates:");
-        for (int i = 0; i < availableDates.size(); i++) {
-            System.out.println((i + 1) + ". " + availableDates.get(i));
-        }
-
-        // Prompt the user to choose the start date
-        System.out.print("Enter the order number of the start date: ");
-        int startOrder = scanner.nextInt();
-
-        if (startOrder < 1 || startOrder > availableDates.size()) {
-            System.out.println("Invalid start date order number.");
-            return;
-        }
-
-        String dayA = availableDates.get(startOrder - 1);
-
-        // Prompt the user to choose the end date
-        System.out.print("Enter the order number of the end date: ");
-        int endOrder = scanner.nextInt();
-
-        if (endOrder < 1 || endOrder > availableDates.size() || endOrder < startOrder) {
-            System.out.println("Invalid end date order number or end date must be after the start date.");
-            return;
-        }
-
-        String dayB = availableDates.get(endOrder - 1);
-
-        // List trips between selected dates
-        listTripsBetweenSelectedDates(portID, dayA, dayB);
-        System.out.println("Press any key to return...");
-        scanner.nextLine();
-    }
-
-    private static List<String> getAvailableDatesBetweenDates(String portID) {
+    static List<String> getAvailableDatesBetweenDates(String portID) {
         List<String> availableDates = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
@@ -82,7 +39,7 @@ public class tripDateSelector {
         return availableDates;
     }
 
-    private static void listTripsBetweenSelectedDates(String portID, String dayA, String dayB) {
+    static void listTripsBetweenSelectedDates(String portID, String dayA, String dayB) {
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
             String line;
             int orderNumber = 1;
@@ -114,96 +71,6 @@ public class tripDateSelector {
         }
     }
 
-    public static void listTripsBetweenDatesAdmin() {
-        Scanner scanner = new Scanner(System.in);
 
-        // Create a list to store available dates
-        List<String> availableDates = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] parse = line.split(", ");
-
-                if (parse.length >= 7) {
-                    String date = parse[1].split("T")[0];
-
-                    // Check if the date is not already in the list, then add it
-                    if (!availableDates.contains(date)) {
-                        availableDates.add(date);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Display available dates with order numbers
-        System.out.println("Available Dates:");
-        for (int i = 0; i < availableDates.size(); i++) {
-            System.out.println((i + 1) + ". " + availableDates.get(i));
-        }
-
-        // Prompt the admin to choose day A and day B by order number
-        System.out.print("Enter the order number of day A: ");
-        int dayAOrder = scanner.nextInt();
-        System.out.print("Enter the order number of day B: ");
-        int dayBOrder = scanner.nextInt();
-
-        // Retrieve the selected dates based on the order numbers
-
-        if (dayAOrder > 0 && dayAOrder <= availableDates.size() && dayBOrder > 0 && dayBOrder <= availableDates.size()) {
-            String dayA = availableDates.get(dayAOrder - 1);
-            String dayB = availableDates.get(dayBOrder - 1);
-            // Check if day A is not after day B
-            if (dayA.compareTo(dayB) <= 0) {
-            try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
-                String line;
-                int orderNumber = 1;
-
-                while ((line = reader.readLine()) != null) {
-                    String[] parse = line.split(", ");
-
-                    if (parse.length >= 7) {
-//                        String date = parse[1].split("T")[0];
-                        String timestamp = parse[1];
-
-                        // Split the timestamp string by "T" to separate date and time
-                        String[] timestampParts = timestamp.split("T");
-
-                        if (timestampParts.length == 2) {
-                            String date = timestampParts[0]; // Date component
-                            String timeWithMilliseconds = timestampParts[1]; // Time component with milliseconds
-
-                            // Split the time component by "." to separate hours and milliseconds
-                            String[] timeParts = timeWithMilliseconds.split("\\.");
-                            String hour = timeParts[0]; // Hour component
-                            // Check if the trip falls within the specified date range
-                            if (date.compareTo(dayA) >= 0 && date.compareTo(dayB) <= 0) {
-                                // Print the trip details in one line
-                                System.out.println("Order Number: " + orderNumber +
-                                        " | Vehicle ID: " + parse[0] +
-                                        " | Date: " + date +
-                                        " | Hour: " + hour +
-                                        " | Fuel Consumption: " + parse[6] +
-                                        " | Arrival Port: " + parse[3] +
-                                        " | Departure Port: " + parse[4]);
-                            }
-
-                            orderNumber++;
-
-                        }
-                    }
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-                System.out.println("Day A cannot be after Day B.");
-            }
-        }
-    }
 
 }

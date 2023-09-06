@@ -340,5 +340,131 @@ public class calculateOperation {
         }
     }
 
+    static void displayListTripForDate(String portID, String selectedDate, StringBuilder arrivalSection,
+                                       StringBuilder departureSection, double arrivalFuelConsumption, double departureFuelConsumption) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parse = line.split(", ");
+
+                if (parse.length >= 7) {
+                    String arrivalPortID = parse[3];
+                    String departurePortID = parse[4];
+//                    String date = parse[1].split("T")[0];
+                    String timestamp = parse[1];
+
+                    // Split the timestamp string by "T" to separate date and time
+                    String[] timestampParts = timestamp.split("T");
+
+                    if (timestampParts.length == 2) {
+                        String date = timestampParts[0]; // Date component
+                        String timeWithMilliseconds = timestampParts[1]; // Time component with milliseconds
+
+                        // Split the time component by "." to separate hours and milliseconds
+                        String[] timeParts = timeWithMilliseconds.split("\\.");
+                        String hour = timeParts[0]; // Hour component
+
+                        //----
+                        if (date.equals(selectedDate)) {
+//                            StringBuilder section = (arrivalPortID.equals(portID)) ? arrivalSection : departureSection;
+                            StringBuilder section = null;
+                            if (arrivalPortID.equals(portID)) {
+                                section = arrivalSection;
+                                section.append(" Vehicle ID: ").append(parse[0])
+                                        .append(" | Date: ").append(date)
+                                        .append(" | Hour: ").append(hour)
+                                        .append(" | Arrival Port: ").append(arrivalPortID)
+                                        .append(" | Departure Port: ").append(departurePortID)
+                                        .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+                            } else if(departurePortID.equals(portID)) {
+                                section = departureSection;
+                                section.append(" Vehicle ID: ").append(parse[0])
+                                        .append(" | Date: ").append(date)
+                                        .append(" | Hour: ").append(hour)
+                                        .append(" | Arrival Port: ").append(arrivalPortID)
+                                        .append(" | Departure Port: ").append(departurePortID)
+                                        .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+                            }
+                        }
+                    }
+                }
+            }
+
+            System.out.println(arrivalSection.toString());
+
+            if (departureSection.toString().isEmpty()) {
+                System.out.println("Departure:\nNo trip");
+            } else {
+                System.out.println(departureSection.toString());
+            }
+            System.out.println("Press any key to return...");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    static void displayListTripsForAdmin(String selectedDate, StringBuilder arrivalSection,
+                                         StringBuilder departureSection, double arrivalFuelConsumption, double departureFuelConsumption) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/components/team7ContainerPortManagement/resource/data/TripData/trip.txt"))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parse = line.split(", ");
+
+                if (parse.length >= 7) {
+                    String timestamp = parse[1];
+
+                    // Split the timestamp string by "T" to separate date and time
+                    String[] timestampParts = timestamp.split("T");
+
+                    if (timestampParts.length == 2) {
+                        String date = timestampParts[0]; // Date component
+                        String timeWithMilliseconds = timestampParts[1]; // Time component with milliseconds
+
+                        // Split the time component by "." to separate hours and milliseconds
+                        String[] timeParts = timeWithMilliseconds.split("\\.");
+                        String hour = timeParts[0]; // Hour component
+
+                        if (date.equals(selectedDate)) {
+                            String arrivalPortID = parse[3];
+                            String departurePortID = parse[4];
+
+                            StringBuilder section = (arrivalPortID.equals(departurePortID)) ? arrivalSection : departureSection;
+                            section.append(" Vehicle ID: ").append(parse[0])
+                                    .append(" | Date: ").append(date)
+                                    .append(" | Hour: ").append(hour)
+                                    .append(" | Arrival Port: ").append(arrivalPortID)
+                                    .append(" | Departure Port: ").append(departurePortID)
+                                    .append(" | Fuel Consumption: ").append(parse[6]).append("\n");
+
+                            if (arrivalPortID.equals("p-StartPort")) {
+                                arrivalFuelConsumption += Double.parseDouble(parse[6]);
+                            } else {
+                                departureFuelConsumption += Double.parseDouble(parse[6]);
+                            }
+                        }
+                    }
+                }
+            }
+            if (departureSection.toString().isEmpty()) {
+                System.out.println("Departure:\nNo trip");
+            } else {
+                System.out.println(departureSection.toString());
+            }
+            System.out.println(arrivalSection.toString());
+            System.out.println("Press any key to return...");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }//END
