@@ -7,6 +7,7 @@ import static src.main.java.components.team7ContainerPortManagement.view.mainMen
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        displayBanner();
         mainLoop();
     }
 

@@ -4,6 +4,8 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Con
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
+import java.io.IOException;
+
 public interface PortOperations {
     // Calculate distance to another port
     double calculateDistanceTo(Port anotherPort);

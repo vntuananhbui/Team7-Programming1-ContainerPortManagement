@@ -79,14 +79,22 @@ public class containerWriteFile {
         }
     }
 
-    public static void writePortContainerMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-                writer.write("{" + entry.getKey() + ": " + String.join(", ", entry.getValue()) + "}");
-                writer.newLine();
-            }
+//    public static void writePortContainerMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
+//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+//            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+//                writer.write("{" + entry.getKey() + ": " + String.join(", ", entry.getValue()) + "}");
+//                writer.newLine();
+//            }
+//        }
+//    }
+public static void writePortContainerMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            writer.write("{Port :" + entry.getKey() + ", Container: " + String.join(", ", entry.getValue()) + "}");
+            writer.newLine();
         }
     }
+}
 
     public static void updateContainerPort(String containerID, String newPortID, Port newPort) throws IOException {
         String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt";
@@ -118,6 +126,19 @@ public class containerWriteFile {
                 writer.write(line);
                 writer.newLine();
             }
+        }
+    }
+    public static void writePortContainersToFile(String portID, List<String> containerList) throws IOException {
+        String fileName = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (String containerID : containerList) {
+                writer.write("{Port :" + portID + ", Container: " + containerID + "}");
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+            throw e;
         }
     }
 }
