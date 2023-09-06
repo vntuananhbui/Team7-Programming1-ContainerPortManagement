@@ -124,6 +124,13 @@ public class portController {
     //===================================================================================================================
     //===================================================================================================================
     public static void inputPort() throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
         FileWriter portWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt", true);
         String portID;
@@ -161,10 +168,30 @@ public class portController {
 
         // Write the input values to the file
         portWriter.write(newPort.toStringAdd() + "\n");
+        System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+        System.out.println("╟" + ANSI_CYAN + "                 CREATE PORT SUCCESSFULLY" + "             ║");
+        System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+        System.out.println( "            Port ID: " + portID);
+        System.out.println( "            Port Name: " + portName);
+        System.out.println( "            Port Latitude: " + latitude);
+        System.out.println( "            Port Longtitude: " + longitude);
+        System.out.println( "            Port Capacity: " + capacity);
+        System.out.println( "            Port Landing Ability: " + landingAbility);
+        System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+        System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
 
         portWriter.close();
+        System.out.print("Press any key to return...\n");
+        scanner.next();  // Wait for the user to press Enter
     }
     public static void updatePort(Port portToUpdate) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
         List<Port> ports = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
 
@@ -203,11 +230,34 @@ public class portController {
                 System.out.println("Invalid input for landing ability. Skipped.");
             }
         }
-
-        // Save the updated ports back to the file
         savePortsToFile(ports);
+        System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+        System.out.println("╟" + ANSI_CYAN + "                 UPDATE PORT SUCCESSFULLY" + "              ║");
+        System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+        System.out.println( "            Port Name: " + portName);
+        System.out.println( "            Port Latitude: " + latitude);
+        System.out.println( "            Port Longtitude: " + longitude);
+        System.out.println( "            Port Capacity: " + capacity);
+        System.out.println( "            Port Landing Ability: " + landingAbilityInput);
+        System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+        System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+
+        System.out.print("Press any key to return...");
+        scanner.next();  // Wait for the user to press Enter
+
+        return;
+        // Save the updated ports back to the file
+
     }
     public static void deletePort(Port portToDelete) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
+        Scanner scanner = new Scanner(System.in);
         List<Port> ports = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
         for (int i = 0; i < ports.size(); i++) {
             if (ports.get(i).getID().equals(portToDelete.getID())) {
@@ -218,7 +268,14 @@ public class portController {
         ports.remove(portToDelete);
         // Save the updated ports back to the file
         savePortsToFile(ports);
-        System.out.println("Port deleted successfully!");
+        System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+        System.out.println("╟" + ANSI_CYAN + "                 UPDATE CONTAINER SUCCESSFULLY" + "              ║");
+        System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+        System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+        System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+        System.out.print("Press any key to return...");
+        scanner.next();  // Wait for the user to press Enter
+        return;
     }
 
 }

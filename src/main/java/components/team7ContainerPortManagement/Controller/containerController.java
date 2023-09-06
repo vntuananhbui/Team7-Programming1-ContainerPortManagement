@@ -18,6 +18,13 @@ import static src.main.java.components.team7ContainerPortManagement.utils.Contai
 
 public class containerController {
     public static void createContainer(Port currentPort) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
         FileWriter containerWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt", true);
 
@@ -50,14 +57,34 @@ public class containerController {
             System.out.println("Port capacity: " + currentPort.getStoringCapacity());
             return;
         }
+        System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+        System.out.println("╟" + ANSI_CYAN + "                 CREATE CONTAINER SUCCESSFULLY" + "             ║");
+        System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+        System.out.println( "            Container ID: " + containerID);
+        System.out.println( "            Container Weight: " + weight);
+        System.out.println( "            Container Type: " + selectedType);
+        System.out.println( "            Container Port: " + currentPort.getID());
+        System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+        System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+
         currentPort.addContainer(newContainer);
         // Write the input values to the file
         containerWriter.write(newContainer + "\n");
         writeContainerToPort(currentPort, newContainer); //write to port_containers.txt
         containerWriter.close();
+        System.out.print("Press any key to return...");
+        scanner.nextLine();  // Wait for the user to press Enter
+
     }
     //Update
     public static void updateContainer(String portID) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
         List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
 
@@ -89,12 +116,27 @@ public class containerController {
 
             // Save the updated list of containers back to the file
             saveContainersToFile(containers);
-            System.out.println("Container weight updated successfully!");
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 UPDATE CONTAINER SUCCESSFULLY" + "              ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            Container Weight: " + newWeight);
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.print("Press any key to return...");
+            scanner.nextLine();  // Wait for the user to press Enter
+            return;
         } else {
             System.out.println("Invalid selection!");
         }
     }
     public static void deleteContainer(String portID) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
         List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
 
@@ -126,7 +168,13 @@ public class containerController {
 
             // Save the updated list of containers back to the file
             saveContainersToFile(containers);
-            System.out.println("Container deleted successfully!");
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 UPDATE CONTAINER SUCCESSFULLY" + "              ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.print("Press any key to return...");
+            scanner.next();  // Wait for the user to press Enter
         } else {
             System.out.println("Invalid selection!");
         }

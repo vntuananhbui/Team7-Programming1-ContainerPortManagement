@@ -146,7 +146,10 @@ public void updateStatusContainer(boolean isLoaded) throws IOException {
                 if (containerIDMatcher.find() && weightMatcher.find()) {
                     String containerID = containerIDMatcher.group(1);
                     double weight = Double.parseDouble(weightMatcher.group(1));
-
+                    if (containerIDs== null) {
+                        totalWeight+= 0;
+                        break;
+                    }
                     if (containerIDs.contains(containerID)) {
                         totalWeight += weight;
                     }

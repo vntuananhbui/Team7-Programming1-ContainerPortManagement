@@ -166,66 +166,6 @@ public abstract class Vehicle implements VehicleOperations {
 
     }
 
-
-//        double fuelRequired = 0;
-//
-//        double distance = currentPort.calculateDistanceTo(destination);
-//
-//        for (Container container : this.containers) {
-//            fuelRequired += getFuelConsumptionPerKm(container) * distance;
-//
-//        }
-//        System.out.println("Distance: " + distance);
-//        //Check if container is empty so use the consumption of vehicle if container is loaded it use container consumption
-//        if (this.containers.isEmpty()) {
-//            fuelRequired = this.fuelConsumtion * distance;
-//        } else {
-//            for (Container container : this.containers) {
-//                fuelRequired += getFuelConsumptionPerKm(container) * distance;
-//            }
-//        }
-//        System.out.println("Fuel Required: " +fuelRequired);
-//        if (canMoveTo(destination) && fuelRequired <= this.currentFuel) {
-//            // Start a new trip
-//            Trip trip = new Trip(this, this.currentPort, destination);
-//            trip.start();
-//            this.currentPort.addTrip(trip);
-//            this.currentFuel -= fuelRequired;
-//            // Move the vehicle to the destination port
-//            this.currentPort = destination;
-////            System.out.println("fuel require "+fuelRequired);
-//            // Complete the trip
-//            for (Container container : containers) {
-//                container.setPort(currentPort);
-//            }
-//            System.out.println("Vehicle move to " + destination.getName() + " successfully");
-//
-//            destination.addVehicle(this);
-//            destination.addTrip(trip);
-//
-//            trip.complete();
-//
-//        } else {
-//            System.out.println("Current fuel : " + currentFuel + " is not enough to move to destination , require are: " + fuelRequired);
-//        }
-
-
-//    @Override
-//    public void refuel(double amount) {
-//        this.currentFuel += Math.min(amount, this.fuelCapacity - this.currentFuel);
-//    }
-//    public void showLoadedContainers() {
-//        if(containers.isEmpty()) {
-//            System.out.println(this.name + " is currently not carrying any containers.");
-//            return;
-//        }
-//
-//        System.out.println(this.name + " is carrying the following containers:");
-//        for(Container container : containers) {
-//            System.out.println("Container ID: " + container.getID() + ", Type: " + container.getContainerType());
-//        }
-//    }
-
     @Override
     public String toString() {
         return "Vehicle{ID='" + ID + "', name='" + name + "', currentFuel=" + currentFuel
@@ -423,6 +363,7 @@ public abstract class Vehicle implements VehicleOperations {
         String ANSI_GREEN = "\u001B[32m";
         String ANSI_BLUE = "\u001B[34m";
         String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
         String yellow = "\u001B[33m";
         String VEHICLE_ICON = "\uD83D\uDE97";  // 🚗
         String VEHICLE_Truck = "\uD83D\uDE9A";
@@ -462,9 +403,9 @@ public abstract class Vehicle implements VehicleOperations {
         System.out.println("Available vehicle in port " + currentPort.getName());
         if (availableVehicleIDs == null || availableVehicleIDs.isEmpty()) {
 //            System.out.println("There is no Basic Truck in " + selectedPort.getID() + " port!");
-            System.out.println(red+"╔══════════════════════════════════════════════╗");
-            System.out.println(red+"║                    Error                     ║");
-            System.out.println(red+"║──────────────────────────────────────────────║" + reset);
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
             System.out.println("                                              ");
             System.out.println("          No Vehicle in " + selectedPort.getID() + " port!         ");
             System.out.println("                                              ");
@@ -495,7 +436,7 @@ public abstract class Vehicle implements VehicleOperations {
         double storageRequire = getTotalContainerWeightByPort(selectedPort.getID());
         double fuelRequire = calculateFuelConsumption(currentPort,selectedPort,selectedVehicle.getID(),selectedVehicle);
 //        if (selectedVehicle.canMoveTo(selectedPort) &&  fuelRequire <= selectedVehicle.getCurrentFuel()) {
-        if (selectedVehicle.canMoveTo(selectedPort)) {
+        if (selectedVehicle.canMoveTo(selectedPort) && fuelRequire <= selectedVehicle.getCurrentFuel()) {
 //        System.out.println("Vehicle current port: "+selectedVehicle.getCurrentPort());
 //        System.out.println("Destination port: " + selectedPort);
 //        selectedVehicle.setCurrentPort(selectedPort); //Change the file vehicle.txt
@@ -616,14 +557,14 @@ public abstract class Vehicle implements VehicleOperations {
             System.out.println();
 
             System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-            System.out.println("╟" + ANSI_CYAN + "                 VEHICLE MOVE CONFRIMATION" + "              ║" + ANSI_RESET);
-            System.out.println("╟────────────────────────────────────────────────────────╢");
+            System.out.println("╟" + ANSI_CYAN + "                 VEHICLE MOVE CONFRIMATION" + "              ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
             System.out.println( "            " + selectedVehicle.getID() + " " + VEHICLE_ship + yellow + " =======> " + ANSI_GREEN + selectedPort.getID() + " " + PORT_ICON + "   " + ANSI_RESET);
             System.out.println("  Fuel Consumption:    " + fuelRequire);
             System.out.println("  Time of Departure:   " + newTrip.getDepartureDate() + "        " );
             System.out.println("  Time of Arrival:     " + newTrip.getArrivalDate() + "        " );
             System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
-            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝");
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
 
             updateVehiclePort(selectedVehicle.getID(),selectedPort.getID());
             writeVehiclePortMapInFile(vehiclePortMap, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt");

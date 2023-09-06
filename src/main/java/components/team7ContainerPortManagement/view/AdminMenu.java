@@ -251,13 +251,19 @@ public class AdminMenu {
                 case 3:
                     //update Port
                     updatePort(selectPort());
+                    System.out.println("Press any key to return...");
+                    scanner.next();
+                    return;
                 case 4:
                     //View port
                     portController.displayAllPorts();
                     System.out.println("Press any key to return...");
-                    scanner.nextLine();
+                    scanner.next();
+                    return;
                 case 5:
                     adminPortOperation();
+                    System.out.println("Press any key to return...");
+                    scanner.next();
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");

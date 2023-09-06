@@ -1,1 +1,3 @@
-{sh-RMIT1: c-0, c-0}
+{sh-RMIT1: c-0, c-0, c-1}
+{sh-RMIT5: c-2, c-3, c-7}
+{sh-RMIT6: c-13}

@@ -133,6 +133,13 @@ public class shipController {
     public static void loadContainerShipMenu(Port selectedPort) throws IOException {
         String reset = "\u001B[0m";
         String red = "\u001B[31m";
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+
         Scanner scanner = new Scanner(System.in);
         List<String> availableShipIDs = selectedPort.getShipsInPort();
         if (availableShipIDs.isEmpty()) {
@@ -169,21 +176,37 @@ public class shipController {
 
         List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
         if (availableContainerIDs.isEmpty()) {
-            System.out.println("No available container!");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          No available container in " + selectedPort.getID() + " port!         ");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
             return;
         }
         System.out.println("Available container in port: " + selectedPort.getID());
-
+        System.out.println("debug: " + availableContainerIDs);
         int selectedContainerOrderNumber = -1;
         for (int i = 0; i < availableContainerIDs.size(); i++) {
             String containerID = availableContainerIDs.get(i);
             Container container = getContainerByID(containerID);
             String status = getStatusContainerbyID(containerID);
-
+            System.out.println("debug: " + status);
             if (status.equals("isLoaded=false")) {
-                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "|" + status);
+                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
             }
+            if (availableContainerIDs.isEmpty()) {
+                System.out.println("No available container");
+                System.out.println("Press any key to return...");
+                scanner.next();
+                return;
+            }
+
         }
+
         while (selectedContainerOrderNumber < 1 || selectedContainerOrderNumber > availableContainerIDs.size()) {
             System.out.println("Choose a container by order number: ");
             selectedContainerOrderNumber = scanner.nextInt();
@@ -204,6 +227,12 @@ public class shipController {
         if (selectedShip.loadContainer(selectedContainer) && totalWeight < selectedShip.getCarryingCapacity() && totalConweigthinPort < selectedPort.getStoringCapacity()) {
             System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedShip.getID());
 
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 LOAD CONTAINER SUCCESSFULLY" + "            ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "                   " + selectedShip.getID() + " LOAD ON  " + selectedContainer.getID() + " " + "   " + ANSI_RESET);
+            System.out.println(yellow + "                         ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(true);
             selectedContainer.setPort(selectedShip.getCurrentPort());
@@ -219,20 +248,55 @@ public class shipController {
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         } else if (totalWeight > selectedShip.getCarryingCapacity()) {
-            System.out.println("The total container weight in Ship is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedShip.getCarryingCapacity());
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          The total container weight in Tanker Truck is larger than it capacity");
+            System.out.println("         Total Weight: " + totalWeight +" | " + selectedShip.getCarryingCapacity());
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
         }
         else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
-            System.out.println("The total container weight in Port is larger than it capacity");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          The total container weight in Port is larger than it capacity");
+            System.out.println("          Total weight: "+ totalWeight + " Weight limit: " + selectedShip.getCarryingCapacity());
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
         }
         else{
-            System.out.println("Failed to load container.");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("                 Fail to load!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
         }
 
     }
     public static void unloadContainerShipMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        String red = "\u001B[31m";
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
         String reset = "\u001B[0m";
+        String red = "\u001B[31m";
+
         List<String> availableShipIDs = selectedPort.getShipsInPort();
         if (availableShipIDs.isEmpty()) {
             System.out.println("There is no Ship in " + selectedPort.getID() + " port!");
@@ -274,7 +338,16 @@ public class shipController {
         List<String> loadedContainerIDs = vehicleContainerMap.get(selectedShip.getID());
         // Filter the availableContainerIDs to keep only those that are loaded on the selected ship
         if (loadedContainerIDs == null) {
-            System.out.println("This vehicle not load any container!");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("               There is no container is loaded on this vehicle");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.print("Press any key to return...");
+            scanner.nextLine();  // Wait for the user to press Enter
+
             return;
         }
         List<String> availableContainerIDs = new ArrayList<>(loadedContainerIDs);
@@ -303,7 +376,12 @@ public class shipController {
 
         //Unload function
         if (selectedShip.unloadContainer(selectedContainer)) {
-            System.out.println("Successfully unloaded container " + selectedContainer.getID() + " onto vehicle " + selectedShip.getID());
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 UNLOAD CONTAINER SUCCESSFULLY" + "              ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            " + selectedShip.getID() + " UNLOAD ON  " + " =======> " + selectedContainer.getID() + " " + "   " + ANSI_RESET);
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
 
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(false);
@@ -324,6 +402,8 @@ public class shipController {
             writeShipToFile(Ship, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
+            System.out.println("Press any key to return...");
+            scanner.next();
         } else {
             System.out.println("Failed to unload container.");
         }

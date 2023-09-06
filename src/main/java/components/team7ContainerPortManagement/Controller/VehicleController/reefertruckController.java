@@ -114,6 +114,12 @@ public class reefertruckController {
     public static void loadContainerReeferTruckMenu(Port selectedPort) throws IOException {
         String red = "\u001B[31m";
         String reset = "\u001B[0m";
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
         Scanner scanner = new Scanner(System.in);
         List<String> availableReeferTruckIDs = selectedPort.getReeferTrucksInPort();
         if (availableReeferTruckIDs.isEmpty()) {
@@ -150,12 +156,23 @@ public class reefertruckController {
 
         List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
         if (availableContainerIDs.isEmpty()) {
-            System.out.println("No available container!");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          No available container in " + selectedPort.getID() + " port!         ");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
             return;
         }
+//        System.out.println("Debug: "+availableContainerIDs);
         System.out.println("Available container in port: " + selectedPort.getID());
         if (availableContainerIDs.isEmpty()) {
             System.out.println("No available container!");
+            System.out.print("Press any key to return...");
+            scanner.nextLine();  // Wait for the user to press Enter
             return;
         }
         int selectedContainerOrderNumber = -1;
@@ -163,9 +180,9 @@ public class reefertruckController {
             String containerID = availableContainerIDs.get(i);
             Container container = getContainerByID(containerID);
             String status = getStatusContainerbyID(containerID);
-
+//            System.out.println("Status: " + status);
             if (status.equals("isLoaded=false")) {
-                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + "|" + status);
+                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
             }
         }
         while (selectedContainerOrderNumber < 1 || selectedContainerOrderNumber > availableContainerIDs.size()) {
@@ -195,7 +212,12 @@ public class reefertruckController {
         if (selectedReeferTruck.loadContainer(selectedContainer) && totalConweigthinPort <= selectedPort.getStoringCapacity()&& selectedContainer.getContainerType().equals(ContainerType.REFRIGERATED))
         {
 
-            System.out.println("Successfully loaded container " + selectedContainer.getID() + " onto vehicle " + selectedReeferTruck.getID());
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 LOAD CONTAINER SUCCESSFULLY" + "              ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            " + selectedReeferTruck.getID() + " LOAD ON  " + " =======> " + selectedContainer.getID() + " " + "   " + ANSI_RESET);
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
 
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(true);
@@ -213,36 +235,114 @@ public class reefertruckController {
             writeReeferTruckToFile(reeferTrucks, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
+            System.out.println("Press any key to return...");
+            scanner.next();
         } else if (selectedContainer.getContainerType().equals(ContainerType.LIQUID)){
-            System.out.println("This Basic truck can not carry Liquid Container!");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          This Refrigerater Truck can not carry Liquid container!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
 
         } else if (selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE)) {
-            System.out.println("This Basic truck can not carry Open Side container!");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          This Refrigerater Truck can not carry Open Side container!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
         } else if (selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP)) {
-            System.out.println("This Basic truck can not carry Open Top container!");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          This Refrigerater Truck can not carry Open Top container!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
         }
         else if (selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)) {
-            System.out.println("This Basic truck can not carry Dry Storage container!");
-        }
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          This Refrigerater Truck can not carry Dry Storage container!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;        }
         else if (totalWeight > selectedReeferTruck.getCarryingCapacity()) {
-            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedReeferTruck.getCarryingCapacity());
-        }
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          The total container weight in Port is larger than it capacity");
+            System.out.println("          Total weight: "+ totalWeight + " Weight limit: " + selectedReeferTruck.getCarryingCapacity());
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;        }
         else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
-            System.out.println("The total container weight in Port is larger than it capacity");
-        }
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          The total container weight in Port is larger than it capacity");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;        }
         else {
-            System.out.println("Fail to load! ");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("                 Fail to load!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
         }
 
 
         // Define other methods (e.g., readPortsFromFile, displayAvailablePorts) here
     }
     public static void unloadContainerReeferTruckMenu(Port selectedPort) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
         List<String> availableReeferTruckIDs = selectedPort.getReeferTrucksInPort();
         if (availableReeferTruckIDs.isEmpty()) {
             System.out.println("There is no Reefer Truck in " + selectedPort.getID() + " port!");
-        }
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("      No Reefer Truck in " + selectedPort.getID() + " port!         ");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.print("Press any key to return...");
+            scanner.nextLine();  // Wait for the user to press Enter
+            return;        }
         System.out.println("Available reefer truck in port " + selectedPort.getName());
         for (int i = 0; i < availableReeferTruckIDs.size(); i++) {
             System.out.println((i + 1) + ": " + availableReeferTruckIDs.get(i));
@@ -267,13 +367,22 @@ public class reefertruckController {
         Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         List<String> loadedContainerIDs = vehicleContainerMap.get(selectedReeferTruck.getID());
         if (loadedContainerIDs == null) {
-            System.out.println("There is no container is loaded on this vehicle");
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("               There is no container is loaded on this vehicle");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.print("Press any key to return...");
+            scanner.nextLine();  // Wait for the user to press Enter
+            return;
         }
         // Filter the availableContainerIDs to keep only those that are loaded on the selected ship
         List<String> availableContainerIDs = new ArrayList<>(loadedContainerIDs);
 
 // Display only the containers that are loaded on the selected ship
-        System.out.println("Available containers loaded on ship " + selectedBasicTruckNumber + ":");
+        System.out.println("Available containers loaded on Basic truck " + selectedBasicTruckNumber + ":");
         for (int i = 0; i < loadedContainerIDs.size(); i++) {
             String containerID = loadedContainerIDs.get(i);
             String status = getStatusContainerbyID(containerID);
@@ -297,6 +406,12 @@ public class reefertruckController {
         //Unload function
         if (selectedReeferTruck.unloadContainer(selectedContainer)) {
             System.out.println("Successfully unloaded container " + selectedContainer.getID() + " onto vehicle " + selectedReeferTruck.getID());
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 UNLOAD CONTAINER SUCCESSFULLY" + "              ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            " + selectedReeferTruck.getID() + " UNLOAD ON  " + " =======> " + selectedContainer.getID() + " " + "   " + ANSI_RESET);
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
 
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(false);
@@ -317,6 +432,8 @@ public class reefertruckController {
             writeReeferTruckToFile(reeferTrucks, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
+            System.out.println("Press any key to return...");
+            scanner.next();
         } else {
             System.out.println("Failed to unload container.");
         }

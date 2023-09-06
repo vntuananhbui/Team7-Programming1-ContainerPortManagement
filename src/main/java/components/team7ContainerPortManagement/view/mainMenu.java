@@ -239,6 +239,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
                     break;
                 case 4:
                     loadContainerReeferTruckMenu(selectPort);
+                    break;
                 case 5:
                     return;
                 default:
