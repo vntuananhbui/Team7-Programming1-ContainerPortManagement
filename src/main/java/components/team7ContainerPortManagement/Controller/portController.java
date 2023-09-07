@@ -232,13 +232,13 @@ public class portController {
         }
         savePortsToFile(ports);
         System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-        System.out.println("╟" + ANSI_CYAN + "                 UPDATE PORT SUCCESSFULLY" + "              ║");
+        System.out.println("╟" + ANSI_CYAN + "                 UPDATE PORT SUCCESSFULLY" + "               ║");
         System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
-        System.out.println( "            Port Name: " + portName);
-        System.out.println( "            Port Latitude: " + latitude);
-        System.out.println( "            Port Longtitude: " + longitude);
-        System.out.println( "            Port Capacity: " + capacity);
-        System.out.println( "            Port Landing Ability: " + landingAbilityInput);
+        System.out.println( "            Port Name: " + portToUpdate.getName());
+        System.out.println( "            Port Latitude: " + portToUpdate.getLatitude());
+        System.out.println( "            Port Longtitude: " + portToUpdate.getLongitude());
+        System.out.println( "            Port Capacity: " + portToUpdate.getStoringCapacity());
+        System.out.println( "            Port Landing Ability: " + portToUpdate.isLandingAbility());
         System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
         System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
 

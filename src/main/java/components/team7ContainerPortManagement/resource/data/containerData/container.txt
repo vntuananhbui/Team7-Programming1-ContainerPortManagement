@@ -1,5 +1,5 @@
-Container{ID='c-0', weight=659.6, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
-Container{ID='c-1', weight=1416.8, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
+Container{ID='c-0', weight=245.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
+Container{ID='c-1', weight=696.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
 Container{ID='c-2', weight=1808.1, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
 Container{ID='c-3', weight=495.1, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
 Container{ID='c-4', weight=818.7, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}

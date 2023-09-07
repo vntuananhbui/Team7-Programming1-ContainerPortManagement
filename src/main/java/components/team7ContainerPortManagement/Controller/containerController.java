@@ -58,7 +58,7 @@ public class containerController {
             return;
         }
         System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-        System.out.println("╟" + ANSI_CYAN + "                 CREATE CONTAINER SUCCESSFULLY" + "             ║");
+        System.out.println("╟" + ANSI_CYAN + "                 CREATE CONTAINER SUCCESSFULLY" + "         ║");
         System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
         System.out.println( "            Container ID: " + containerID);
         System.out.println( "            Container Weight: " + weight);
@@ -117,13 +117,13 @@ public class containerController {
             // Save the updated list of containers back to the file
             saveContainersToFile(containers);
             System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-            System.out.println("╟" + ANSI_CYAN + "                 UPDATE CONTAINER SUCCESSFULLY" + "              ║");
+            System.out.println("╟" + ANSI_CYAN + "                 UPDATE CONTAINER SUCCESSFULLY" + "          ║");
             System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
             System.out.println( "            Container Weight: " + newWeight);
             System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
             System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
-            System.out.print("Press any key to return...");
-            scanner.nextLine();  // Wait for the user to press Enter
+            System.out.print("Press any key to return...\n");
+            scanner.next();  // Wait for the user to press Enter
             return;
         } else {
             System.out.println("Invalid selection!");

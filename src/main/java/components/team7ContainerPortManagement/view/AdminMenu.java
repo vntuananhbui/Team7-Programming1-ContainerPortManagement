@@ -52,7 +52,7 @@ public class AdminMenu {
                     adminPortController();
                     break;
                 case 2:
-                    vehicleControllerMenu(selectPort());
+                    vehicleControllerMenuAdmin(selectPort());
                     break;
                 case 3:
                     //container
@@ -171,7 +171,7 @@ public class AdminMenu {
                     break;
                 case 2:
                     // Call the function to create a ship
-                    vehicleControllerMenu(selectedPort);
+                    vehicleControllerMenuAdmin(selectedPort);
                     break;
                 case 3:
                     statisticOperationsMenu(selectedPort);
@@ -251,19 +251,16 @@ public class AdminMenu {
                 case 3:
                     //update Port
                     updatePort(selectPort());
-                    System.out.println("Press any key to return...");
-                    scanner.next();
+
                     return;
                 case 4:
                     //View port
                     portController.displayAllPorts();
-                    System.out.println("Press any key to return...");
-                    scanner.next();
+
                     return;
                 case 5:
                     adminPortOperation();
-                    System.out.println("Press any key to return...");
-                    scanner.next();
+
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
