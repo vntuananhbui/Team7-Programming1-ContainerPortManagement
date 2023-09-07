@@ -290,6 +290,8 @@ public class AdminController extends User {
         return null;
     }
 
+    // function 16: display all ports are available
+
     public static void displayPortToPortMana() throws IOException {
         String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt";
         String anotherFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_portmanager.txt";
@@ -365,21 +367,56 @@ public class AdminController extends User {
         String portFileName = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt";
         String managerFileName = "src/main/java/components/team7ContainerPortManagement/resource/data/userData/port_manager.txt";
 
+        String portNumber;
+        String portManagerUserName;
 
-        // Prompt user to choose a port
-        System.out.println("Please enter the port you want to assign (ex: p-port6): ");
-        String portNumber = scanner.nextLine();
+        // Check for valid port
+        while (true) {
+            System.out.println("Please enter the port you want to assign (ex: p-port6): ");
+            portNumber = scanner.nextLine();
+            if (checkIfExists(portFileName, "ID='(.*?)'", portNumber)) {
+                break;
+            } else {
+                System.out.println("Invalid port. Please try again.");
+            }
+
+        }
+
+        // Check for valid port manager
+        while (true) {
+            System.out.println("Please enter the port manager (ex: port manager 2): ");
+            portManagerUserName = scanner.nextLine();
+            if (checkIfExists(managerFileName, "username='(.*?)'", portManagerUserName)) {
+                break;
+            } else {
+                System.out.println("Invalid port manager. Please try again.");
+            }
+        }
 
 
-        // Prompt user to choose a port manager
-        System.out.println("Please enter the port manager (ex: port manager 2): ");
-        String portManagerUserName = scanner.nextLine();
+            Map<String, String> chosen = new HashMap<>();
+            chosen.put("chosenPortID", readValueInfo(portFileName, portNumber, "ID='(.*?)'"));
+            chosen.put("chosenManager", readValueInfo(managerFileName, portManagerUserName, "username='(.*?)'"));
 
-        Map<String, String> chosen = new HashMap<>();
-        chosen.put("chosenPortID", readValueInfo(portFileName, portNumber, "ID='(.*?)'"));
-        chosen.put("chosenManager", readValueInfo(managerFileName, portManagerUserName, "username='(.*?)'"));
+            return chosen;
+        }
 
-        return chosen;
+        // method to check whether the user type correct port and port manager information
+    public static boolean checkIfExists(String fileName, String regexPattern, String valueToCheck) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            Pattern pattern = Pattern.compile(regexPattern);
+            while ((line = br.readLine()) != null) {
+                Matcher matcher = pattern.matcher(line);
+                if (matcher.find()) {
+                    String extractedValue = matcher.group(1);
+                    if (extractedValue.equals(valueToCheck)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 

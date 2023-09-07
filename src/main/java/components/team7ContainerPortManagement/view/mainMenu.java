@@ -140,9 +140,9 @@ public class mainMenu {
                 case 7:
                     return;
                 case 8:
-
-                    System.out.println(selectedPort.getName());
-                    System.out.println(selectedPort.getLatitude());
+                    System.out.println("Testing assigning port to port manager: ");
+                    System.out.println("Port name: " + selectedPort.getName());
+                    System.out.println("Port latitude: "+ selectedPort.getLatitude());
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }

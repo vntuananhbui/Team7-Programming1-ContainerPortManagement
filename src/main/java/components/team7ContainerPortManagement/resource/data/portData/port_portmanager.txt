@@ -1,2 +1,2 @@
 {p-port6:port manager 2}
-{p-port8:port manager 1}
+{p-port2:port manager 1}
