@@ -1,5 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.view;
 
+import src.main.java.components.team7ContainerPortManagement.Controller.UserController.AdminController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController;
 import src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController;
@@ -10,6 +11,7 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Por
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.StatisticOperationAdmin.*;
@@ -72,7 +74,7 @@ public class AdminMenu {
                     portManagerMenuAdmin();
                     break;
                 case 0:
-                    mainLoop();
+//                    mainLoop();
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
@@ -233,6 +235,7 @@ public class AdminMenu {
             System.out.println("║  [3] Update Port                         ║");
             System.out.println("║  [4] View Current Port                   ║");
             System.out.println("║  [5] Port operation                      ║");
+            System.out.println("║  [6] Assign Portmanager                  ║");
             System.out.println("║  [0] Back to Main Menu                   ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
@@ -261,6 +264,12 @@ public class AdminMenu {
                 case 5:
                     adminPortOperation();
 
+                    return;
+                case 6:
+                    AdminController.displayPortToPortMana();
+                    AdminController.displayAllPortManager();
+                    Map<String, String> chosen = AdminController.assignPortToPortManager();
+                    AdminController.writePortAndPortManagerFile(chosen);
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");

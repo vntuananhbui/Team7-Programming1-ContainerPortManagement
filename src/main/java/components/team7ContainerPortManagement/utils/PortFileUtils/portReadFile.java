@@ -1,12 +1,11 @@
 package src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils;
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class portReadFile {
     //===================================================================================================================
@@ -57,6 +56,30 @@ public class portReadFile {
             }
         }
         return ports;
+    }
+//user login
+    public static Map<String, Port> readPortFile() throws FileNotFoundException {
+        Map<String, Port> portMap = new HashMap<>();
+        Scanner scanner = new Scanner(new File("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt"));
+        Pattern pattern = Pattern.compile("Port\\{ID='(.+)', name='(.+)', latitude=(.+), longitude=(.+), storingCapacity=(.+), landingAbility=(.+)\\}");
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            Matcher matcher = pattern.matcher(line);
+
+            if (matcher.find()) {
+                String ID = matcher.group(1);
+                String name = matcher.group(2);
+                double latitude = Double.parseDouble(matcher.group(3));
+                double longitude = Double.parseDouble(matcher.group(4));
+                int storingCapacity = Integer.parseInt(matcher.group(5));
+                boolean landingAbility = Boolean.parseBoolean(matcher.group(6));
+
+                Port port = new Port(ID, name, latitude, longitude, storingCapacity, landingAbility);
+                portMap.put(ID, port);
+            }
+        }
+        return portMap;
     }
     //===================================================================================================================
     //===================================================================================================================
@@ -145,4 +168,57 @@ public class portReadFile {
 
 
     }
+    public static Map<String, String> readPortUserMap(String filePath) throws IOException {
+        Map<String, String> portUserMap = new HashMap<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    String portID = parts[0].trim();
+                    String username = parts[1].trim();
+                    portUserMap.put(username, portID);
+                }
+            }
+        }
+//        System.out.println("Debug port user map: " + portUserMap);
+        return portUserMap;
+    }
+    public static Port findPortByUsername(String username, String portPortManagerFilePath, String portFilePath) throws IOException {
+        Map<String, String> portUserMap = readPortUserMap(portPortManagerFilePath);
+        Map<String, String> cleanedPortUserMap = new HashMap<>();
+        for (Map.Entry<String, String> entry : portUserMap.entrySet()) {
+            String key = entry.getKey();
+            if (key.endsWith("}")) {
+                key = key.substring(0, key.length() - 1);
+            }
+            cleanedPortUserMap.put(key, entry.getValue());
+        }
+
+
+        String portID = cleanedPortUserMap.get(username);
+        if (portID != null) {
+            portID = portID.replaceAll("[{}]", "");
+        }
+//        System.out.println("debug map: " + portUserMap);
+//        System.out.println("debug username: " + username);
+//        System.out.println("debug get portID: " + portID);
+//        for (String key : portUserMap.keySet()) {
+//            System.out.println("Key in portUserMap: " + key);
+//        }
+        if (portID != null) {
+            List<Port> ports = readPortsFromFile(portFilePath);
+            for (Port port : ports) {
+                if (port.getID().equals(portID)) {
+//                    System.out.println("debug findport: " + port);
+                    return port;
+                }
+            }
+        }
+//        System.out.println("debug: null"  );
+        return null; // Username not found or associated port not found
+    }
+
+
 }

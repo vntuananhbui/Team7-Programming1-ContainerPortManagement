@@ -28,3 +28,4 @@ Container{ID='c-26', weight=1431.6, containerType=LIQUID, isLoaded=false, port=P
 Container{ID='c-27', weight=592.1, containerType=LIQUID, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
 Container{ID='c-28', weight=323.1, containerType=LIQUID, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
 Container{ID='c-29', weight=180.8, containerType=LIQUID, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
+Container{ID='c-conhcm', weight=20.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port''''''''', latitude=222.200000, longitude=0.500000, storingCapacity=20000, landingAbility=true}}

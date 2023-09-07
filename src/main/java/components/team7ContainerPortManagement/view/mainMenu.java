@@ -1,6 +1,7 @@
 package src.main.java.components.team7ContainerPortManagement.view;
 
 import src.main.java.components.team7ContainerPortManagement.Controller.Operation.FileUtility;
+import src.main.java.components.team7ContainerPortManagement.Controller.UserController.PortManagerController;
 import src.main.java.components.team7ContainerPortManagement.Controller.portController;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 
@@ -24,6 +25,7 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.p
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.moveToMenu;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.adminMenu;
+import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.mainLoopUser;
 
 public class mainMenu {
     public static void displayBanner() {
@@ -88,7 +90,7 @@ public class mainMenu {
                     adminMenu();
                     break;
                 case 2:
-                    portManagerMenu();
+//                    portManagerMenu();
                     break;
                 case 3:
                     resetFileMenu();
@@ -107,37 +109,46 @@ public class mainMenu {
 
 
 
-    public static void portManagerMenu() throws IOException {
+    public static void portManagerMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
+        String red = "\u001B[31m";
+        String green = "\u001B[32m";
+        String yellow = "\u001B[33m";
+        String blue = "\u001B[34m";
+        String purple = "\u001B[35m";
+        String cyan = "\u001B[36m";
+        String white = "\u001B[37m";
+        String reset = "\u001B[0m";
 
-        // Load available ports from port.txt and display them here
-        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
-        portController.displayAllPorts();
-        System.out.print("Choose a port by order number: ");
-        int selectedPortOrderNumber;
+//        // Load available ports from port.txt and display them here
+//        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
+//        portController.displayAllPorts();
+//        System.out.print("Choose a port by order number: ");
+//        int selectedPortOrderNumber;
+//        while (true) {
+//            try {
+//                System.out.print("Choose a port by order number: ");
+//                selectedPortOrderNumber = scanner.nextInt();
+//                if (selectedPortOrderNumber >= 1 && selectedPortOrderNumber <= availablePorts.size()) {
+//                    break; // Exit the loop if a valid port is selected
+//                } else {
+//                    System.out.println("Invalid choice. Please select a number between 1 and " + availablePorts.size() + ".");
+//                }
+//            } catch (InputMismatchException e) {
+//                System.out.println("Please enter a valid number.");
+//                scanner.nextLine(); // Clear the invalid input
+//            }
+//        }
+//
+//// Get the selected port object
+//        Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
+
+
         while (true) {
-            try {
-                System.out.print("Choose a port by order number: ");
-                selectedPortOrderNumber = scanner.nextInt();
-                if (selectedPortOrderNumber >= 1 && selectedPortOrderNumber <= availablePorts.size()) {
-                    break; // Exit the loop if a valid port is selected
-                } else {
-                    System.out.println("Invalid choice. Please select a number between 1 and " + availablePorts.size() + ".");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a valid number.");
-                scanner.nextLine(); // Clear the invalid input
-            }
-        }
 
-// Get the selected port object
-        Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
-
-
-        while (true) {
-            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println(yellow+"╔══════════════════════════════════════════╗");
             System.out.println("║           PORT MANAGER MENU              ║");
-            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("╟──────────────────────────────────────────╢" + reset);
             System.out.println("║  [1] Container Controller                ║");
             System.out.println("║  [2] Vehicle Controller                  ║");
             System.out.println("║  [3] Port Operations                     ║");
@@ -145,7 +156,7 @@ public class mainMenu {
             System.out.println("║  [5] Update Port                         ║");
             System.out.println("║  [7] Change Port                         ║");
             System.out.println("║  [8] Port Vehicles                       ║");
-            System.out.println("║  [0] Back to Main Menu                   ║");
+            System.out.println("║  [0] LOGOUT                              ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
 
@@ -170,8 +181,8 @@ public class mainMenu {
                     updatePort(selectedPort);
                     break;
                 case 0:
-                    return;
-
+                    mainLoopUser();
+                    break;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }

@@ -50,15 +50,22 @@ public class portController {
 
     //DISPLAY ALL PORT IN FILE
     public static void displayAllPorts() throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String ANSI_yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         // Path to the ports file
         String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt";
 
         // Try-with-resources to automatically close BufferedReader
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            System.out.println("╔══════════════════════════════════════════╗");
+            System.out.println(ANSI_yellow+"╔══════════════════════════════════════════╗");
             System.out.println("║             CURRENT PORTS                ║");
-            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("╟──────────────────────────────────────────╢" + reset);
 
             int orderNumber = 1;
 
@@ -135,8 +142,11 @@ public class portController {
         FileWriter portWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt", true);
         String portID;
         boolean idExists;
-
+        System.out.println(ANSI_CYAN +"╔══════════════════════════════════════════╗");
+        System.out.println(ANSI_CYAN +"╟" +  "                CREATE PORT " + "              ║" + reset);
+        System.out.println();
         do {
+
             // Collect input values
             System.out.println("Enter port ID:");
             portID = "p-" + scanner.next();
@@ -146,7 +156,7 @@ public class portController {
             idExists = isPortIDAlreadyExists(portID);
 
             if (idExists) {
-                System.out.println("Error: Port ID already exists. Please enter a different ID.");
+                System.out.println(ANSI_RED + "Error: " + reset + "Port ID already exists. Retry!");
             }
         } while (idExists);
         System.out.println("Enter port name:");
@@ -169,7 +179,7 @@ public class portController {
         // Write the input values to the file
         portWriter.write(newPort.toStringAdd() + "\n");
         System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-        System.out.println("╟" + ANSI_CYAN + "                 CREATE PORT SUCCESSFULLY" + "             ║");
+        System.out.println("╟" + ANSI_CYAN + "                 CREATE PORT SUCCESSFULLY" + "               ║");
         System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
         System.out.println( "            Port ID: " + portID);
         System.out.println( "            Port Name: " + portName);
@@ -269,8 +279,9 @@ public class portController {
         // Save the updated ports back to the file
         savePortsToFile(ports);
         System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-        System.out.println("╟" + ANSI_CYAN + "                 UPDATE CONTAINER SUCCESSFULLY" + "              ║");
+        System.out.println("╟" + ANSI_CYAN + "                 DELETE PORT SUCCESSFULLY" + "               ║");
         System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+        System.out.println( "               Port " + portToDelete.getID() + " has been deleted!");
         System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
         System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
         System.out.print("Press any key to return...");

@@ -58,7 +58,7 @@ public class containerController {
             return;
         }
         System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-        System.out.println("╟" + ANSI_CYAN + "                 CREATE CONTAINER SUCCESSFULLY" + "         ║");
+        System.out.println("╟" + ANSI_CYAN + "                 CREATE CONTAINER SUCCESSFULLY" + "          ║");
         System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
         System.out.println( "            Container ID: " + containerID);
         System.out.println( "            Container Weight: " + weight);
@@ -72,8 +72,8 @@ public class containerController {
         containerWriter.write(newContainer + "\n");
         writeContainerToPort(currentPort, newContainer); //write to port_containers.txt
         containerWriter.close();
-        System.out.print("Press any key to return...");
-        scanner.nextLine();  // Wait for the user to press Enter
+        System.out.print("Press any key to return...\n");
+        scanner.next();  // Wait for the user to press Enter
 
     }
     //Update

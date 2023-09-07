@@ -3,12 +3,14 @@ package src.main.java.components.team7ContainerPortManagement;
 import java.io.IOException;
 
 import static src.main.java.components.team7ContainerPortManagement.view.mainMenu.*;
+import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.mainLoopUser;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
         displayBanner();
-        mainLoop();
+//        mainLoop();
+        mainLoopUser();
     }
 
 }//End bracket
