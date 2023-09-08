@@ -118,7 +118,10 @@ public class userMainMenu {
                 System.out.println("Password is valid!");
                 break;  // break the loop if password is valid
             } else {
-                System.out.println(ANSI_RED + "Error: "+"INVALID PASSWORD! PlEASE FOLLOW THE REQUIREMENTS.");
+                System.out.println();
+                System.out.println(ANSI_RED + "╔══════════════════════════════════════════════╗");
+                System.out.println("║ INVALID TYPE, PlEASE FOLLOW THE REQUIREMENTS.║");
+                System.out.println("╚══════════════════════════════════════════════╝"+ reset);
                 System.out.println();
             }
 
