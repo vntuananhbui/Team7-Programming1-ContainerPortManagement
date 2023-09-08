@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.generateRandomID;
+
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.getTotalContainerWeightByPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.getContainerByID;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
@@ -29,10 +31,11 @@ public class containerController {
         FileWriter containerWriter = new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt", true);
 
         // Collect input values
-        System.out.println("Enter container ID:");
-        String containerID = "c-" + scanner.next();
-        scanner.nextLine();
-
+//        System.out.println("Enter container ID:");
+        String containerID;
+//        scanner.nextLine();
+        containerID = "c-" + generateRandomID();
+        // Check if the port ID already exists in the file
         System.out.println("Enter container weight:");
         double weight = scanner.nextDouble();
 

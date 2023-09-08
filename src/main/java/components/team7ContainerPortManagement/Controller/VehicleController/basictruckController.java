@@ -2,7 +2,7 @@ package src.main.java.components.team7ContainerPortManagement.Controller.Vehicle
 
 import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Ship;
+
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 
 import static java.lang.Math.round;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.isShipIDAlreadyExists;
+
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.generateRandomID;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getContainerIDInPort;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.readVehiclesFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.BasicTruckFileUtils.basictruckReadFile.getBasicTruckTotalContainerWeight;
@@ -37,20 +38,21 @@ public class basictruckController {
         String basictruckID;
         boolean idExists;
 
-        do {
-            // Collect input values
-            System.out.println("Enter Basic Truck ID:");
-            basictruckID = "btr-" + scanner.next();
-            scanner.nextLine();
-
-            // Check if the ship ID already exists in the file
-            idExists = isShipIDAlreadyExists(basictruckID);
-
-            if (idExists) {
-                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
-            }
-        } while (idExists);
-        scanner.nextLine();
+//        do {
+//            // Collect input values
+//            System.out.println("Enter Basic Truck ID:");
+//            basictruckID = "btr-" + scanner.next();
+//            scanner.nextLine();
+//
+//            // Check if the ship ID already exists in the file
+//            idExists = isShipIDAlreadyExists(basictruckID);
+//
+//            if (idExists) {
+//                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
+//            }
+//        } while (idExists);
+        basictruckID = "btr-" + generateRandomID();
+//        scanner.nextLine();
         System.out.println("Enter Basic Truck name:");
         String BaiscTruckName = scanner.nextLine();
 
@@ -324,9 +326,7 @@ public class basictruckController {
                 break; // Exit the loop if a valid ship is selected
             }
         }
-
         List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
-
         System.out.println("Available container in port: " + selectedPort.getID());
         if (availableContainerIDs.isEmpty()) {
             System.out.println("No available container!");
@@ -379,7 +379,7 @@ public class basictruckController {
         {
 
             System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-            System.out.println("╟" + ANSI_CYAN + "                 LOAD CONTAINER SUCCESSFULLY" + "              ║");
+            System.out.println("╟" + ANSI_CYAN + "                 LOAD CONTAINER SUCCESSFULLY" + "            ║");
             System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
             System.out.println( "            " + selectedBasicTruck.getID() + " LOAD ON  " + " =======> " + selectedContainer.getID() + " " + "   " + ANSI_RESET);
             System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
@@ -389,7 +389,6 @@ public class basictruckController {
             selectedContainer.setLoaded(true);
             selectedContainer.setPort(selectedBasicTruck.getCurrentPort());
             selectedContainer.updateStatusContainer(true);
-
             // Update the vehicleContainerMap
             Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
             vehicleContainerMap.computeIfAbsent(selectedBasicTruck.getID(), k -> new ArrayList<>()).add(selectedContainer.getID());
@@ -412,8 +411,6 @@ public class basictruckController {
             System.out.println("Press any key to return...: ");
             scanner.next();
             return;
-
-
         } else if (selectedContainer.getContainerType().equals(ContainerType.LIQUID)) {
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
             System.out.println(ANSI_RED+"║                    Error                     ║");

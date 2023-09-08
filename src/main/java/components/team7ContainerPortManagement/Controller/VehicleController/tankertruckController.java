@@ -16,6 +16,7 @@ import static java.lang.Math.round;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.isShipIDAlreadyExists;
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.generateRandomID;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getContainerIDInPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
@@ -35,19 +36,20 @@ public class tankertruckController {
         String tankertruckID;
         boolean idExists;
 
-        do {
-            // Collect input values
-            System.out.println("Enter Tanker Truck ID:");
-            tankertruckID = "ttr-" + scanner.next();
-            scanner.nextLine();
-
-            // Check if the ship ID already exists in the file
-            idExists = isShipIDAlreadyExists(tankertruckID);
-
-            if (idExists) {
-                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
-            }
-        } while (idExists);
+//        do {
+//            // Collect input values
+//            System.out.println("Enter Tanker Truck ID:");
+//            tankertruckID = "ttr-" + scanner.next();
+//            scanner.nextLine();
+//
+//            // Check if the ship ID already exists in the file
+//            idExists = isShipIDAlreadyExists(tankertruckID);
+//
+//            if (idExists) {
+//                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
+//            }
+//        } while (idExists);
+        tankertruckID = "ttr-" + generateRandomID();
         System.out.println("Enter Tanker Truck name:");
         String shipName = scanner.nextLine();
 
@@ -338,7 +340,7 @@ public class tankertruckController {
         Scanner scanner = new Scanner(System.in);
 
 
-        List<String> availableTankerTruckIDs = selectedPort.getShipsInPort();
+        List<String> availableTankerTruckIDs = selectedPort.getTankerTrucksInPort();
         if (availableTankerTruckIDs.isEmpty()) {
             System.out.println("There is no Tanker Truck in " + selectedPort.getID() + " port!");
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");

@@ -29,8 +29,7 @@ public class PortManagerMenu {
             System.out.println("║  [1] Basic Truck Menu                    ║");
             System.out.println("║  [2] Tanker Truck Menu                   ║");
             System.out.println("║  [3] Reefer Truck Menu                   ║");
-            System.out.println("║  [4]                                     ║");
-            System.out.println("║  [5] Return to Port Manager Menu         ║");
+            System.out.println("║  [4] Return to Port Manager Menu         ║");
             System.out.println("║                                          ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("   Choose an option: ");

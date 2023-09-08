@@ -1,24 +1,2 @@
-Vehicle{ID='sh-RMIT1', name='RMIT Ship 1', currentFuel=-26843.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-HCM}
-Vehicle{ID='rtr-RMIT2', name='Reefer Truck RMIT 2', currentFuel=173137.5, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-HCM}
-Vehicle{ID='btr-RMIT3', name='Basic Truck RMIT 3', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='ttr-RMIT4', name='Tanker Truck RMIT 4', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='sh-RMIT5', name='Ship RMIT 5', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}
-Vehicle{ID='sh-RMIT6', name='Ship RMIT 6', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}
-Vehicle{ID='sh-RMIT7', name='Ship RMIT 7', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}
-Vehicle{ID='sh-RMIT8', name='Ship RMIT 8', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}
-Vehicle{ID='sh-RMIT9', name='Ship RMIT 9', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}
-Vehicle{ID='ttr-RMIT5', name='Tanker Truck RMIT 5', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='ttr-RMIT6', name='Tanker Truck RMIT 6', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='ttr-RMIT7', name='Tanker Truck RMIT 7', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='ttr-RMIT8', name='Tanker Truck RMIT 8', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='ttr-RMIT9', name='Tanker Truck RMIT 9', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='rtr-RMIT5', name='Reefer Truck RMIT 5', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='rtr-RMIT6', name='Reefer Truck RMIT 6', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='rtr-RMIT7', name='Reefer Truck RMIT 7', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='rtr-RMIT8', name='Reefer Truck RMIT 8', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='rtr-RMIT9', name='Reefer Truck RMIT 9', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='btr-RMIT5', name='Basic Truck RMIT 5', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='btr-RMIT6', name='Basic Truck RMIT 6', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='btr-RMIT7', name='Basic Truck RMIT 7', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='btr-RMIT8', name='Basic Truck RMIT 8', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='btr-RMIT9', name='Basic Truck RMIT 9', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
+Vehicle{ID='ttr-6Tzz', name='testruck', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
+Vehicle{ID='btr-6Lm9', name='testbasic', currentFuel=121212.0, carryingCapacity=1212.0, fuelCapacity=121212.0, currentPort=p-StartPort}

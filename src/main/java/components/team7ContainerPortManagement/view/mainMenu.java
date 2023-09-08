@@ -25,7 +25,7 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.p
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.moveToMenu;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.adminMenu;
-import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.mainLoopUser;
+import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.*;
 
 public class mainMenu {
     public static void displayBanner() {
@@ -362,20 +362,20 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
     public static void statisticOperationsMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("==============================================");
-            System.out.println("          Statistics Operations Menu          ");
-            System.out.println("==============================================");
-            System.out.println("|                                             |");
-            System.out.println("|  [1] Calculate Distance between Port       |");
-            System.out.println("║  [2] Fuel Use in specific Day               ║"); //operation 1
-            System.out.println("║  [3] Total Weight of Container Type         ║"); //operation 2
-            System.out.println("║  [4] List all ship in port                  ║");
-            System.out.println("║  [5] List all trip in specific Day          ║");
-            System.out.println("║  [6] List all trip from Day A to day B      ║");
-            System.out.println("║  [7] Calculate total weight of Container    ║");
-            System.out.println("|  [0] Back to Main Menu                     |");
-            System.out.println("|                                             |");
-            System.out.println("==============================================");
+            System.out.println(yellow+"╔══════════════════════════════════════════════╗");
+            System.out.println("║            Statistics Operations Menu        ║");
+            System.out.println("╟──────────────────────────────────────────────╢"+reset);
+            System.out.println("║                                              ║");
+            System.out.println("║  [1] Calculate Distance between Port         ║");
+            System.out.println("║  [2] Fuel Use in specific Day                ║"); //operation 1
+            System.out.println("║  [3] Total Weight of Container Type          ║"); //operation 2
+            System.out.println("║  [4] List all ship in port                   ║");
+            System.out.println("║  [5] List all trip in specific Day           ║");
+            System.out.println("║  [6] List all trip from Day A to day B       ║");
+            System.out.println("║  [7] Calculate total weight of Container     ║");
+            System.out.println("║  [0] Back to Main Menu                       ║");
+            System.out.println("║                                              ║");
+            System.out.println("╚══════════════════════════════════════════════╝");
             System.out.print("   Choose an option: ");
             int choice = scanner.nextInt();
 

@@ -7,7 +7,9 @@ import src.main.java.components.team7ContainerPortManagement.models.interfaces.P
 
 import java.io.*;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -145,20 +147,27 @@ public class portController {
         System.out.println(ANSI_CYAN +"╔══════════════════════════════════════════╗");
         System.out.println(ANSI_CYAN +"╟" +  "                CREATE PORT " + "              ║" + reset);
         System.out.println();
+//        do {
+//
+//            // Collect input values
+//            System.out.println("Enter port ID:");
+//            portID = "p-" + scanner.next();
+//            scanner.nextLine();
+//
+//            // Check if the port ID already exists in the file
+//            idExists = isPortIDAlreadyExists(portID);
+//
+//            if (idExists) {
+//                System.out.println(ANSI_RED + "Error: " + reset + "Port ID already exists. Retry!");
+//            }
+//        } while (idExists);
+
         do {
-
-            // Collect input values
-            System.out.println("Enter port ID:");
-            portID = "p-" + scanner.next();
-            scanner.nextLine();
-
+            portID = "p-" + generateRandomID();
             // Check if the port ID already exists in the file
             idExists = isPortIDAlreadyExists(portID);
-
-            if (idExists) {
-                System.out.println(ANSI_RED + "Error: " + reset + "Port ID already exists. Retry!");
-            }
         } while (idExists);
+
         System.out.println("Enter port name:");
         String portName = scanner.nextLine();
         System.out.println("Enter latitude:");
@@ -193,6 +202,17 @@ public class portController {
         portWriter.close();
         System.out.print("Press any key to return...\n");
         scanner.next();  // Wait for the user to press Enter
+    }
+    // Method to generate a random alphanumeric port ID
+    public static String generateRandomID() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder(4); // You can adjust the length here
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            int index = random.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+        return sb.toString();
     }
     public static void updatePort(Port portToUpdate) throws IOException {
         String ANSI_RESET = "\u001B[0m";

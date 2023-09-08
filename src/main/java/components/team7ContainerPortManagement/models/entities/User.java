@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class User {
@@ -126,6 +127,13 @@ public class User {
     // add admin object into adminList and write object into admin.txt
 
     public static void registerAdmin(List<User> userAdminList, String username, String password, String userType) {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Random randNum = new Random();
         int U_ID = randNum.nextInt(9999);
         String nextUid = "u-" + U_ID;
@@ -137,7 +145,18 @@ public class User {
             User newUser = userAdminList.get(userAdminList.size() - 1);
             writer.write(newUser.toString());
             writer.newLine();
-            System.out.println("Registration successful!");
+//            System.out.println("Registration successful!");
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "              CREATE ACCOUNT SUCCESSFULLY" + "               ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            USER ID: " + nextUid);
+            System.out.println( "            USER Name: " + username);
+            System.out.println( "            USER Type: " + userType);;
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.println("Type any key to return...");
+            Scanner scanner = new Scanner(System.in);
+            scanner.next();
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
@@ -160,6 +179,13 @@ public class User {
     // add port manager object into adminList and write object into port_manager.txt
 
     public static void registerPortManager(List<User> userPortManagerList, String username, String password, String userType) {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Random randNum = new Random();
         int U_ID = randNum.nextInt(9999);
         String nextUid = "u-" + U_ID;
@@ -171,7 +197,17 @@ public class User {
             User newUser = userPortManagerList.get(userPortManagerList.size() - 1);
             writer.write(newUser.toString());
             writer.newLine();
-            System.out.println("Registration successful!");
+            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "              CREATE ACCOUNT SUCCESSFULLY" + "               ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            USER ID: " + nextUid);
+            System.out.println( "            USER Name: " + username);
+            System.out.println( "            USER Type: " + userType);;
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.println("Type any key to return...");
+            Scanner scanner = new Scanner(System.in);
+            scanner.next();
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }

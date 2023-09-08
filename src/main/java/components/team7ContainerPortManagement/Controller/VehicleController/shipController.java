@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import static java.lang.Math.round;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.generateRandomID;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getContainerIDInPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
@@ -33,19 +34,20 @@ public class shipController {
         String shipID;
         boolean idExists;
 
-        do {
-            // Collect input values
-            System.out.println("Enter ship ID:");
-            shipID = "sh-" + scanner.next();
-            scanner.nextLine();
-
-            // Check if the ship ID already exists in the file
-            idExists = isShipIDAlreadyExists(shipID);
-
-            if (idExists) {
-                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
-            }
-        } while (idExists);
+//        do {
+//            // Collect input values
+//            System.out.println("Enter ship ID:");
+//            shipID = "sh-" + scanner.next();
+//            scanner.nextLine();
+//
+//            // Check if the ship ID already exists in the file
+//            idExists = isShipIDAlreadyExists(shipID);
+//
+//            if (idExists) {
+//                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
+//            }
+//        } while (idExists);
+        shipID = "sh-" + generateRandomID();
 
         System.out.println("Enter ship name:");
         String shipName = scanner.nextLine();
@@ -247,6 +249,8 @@ public class shipController {
             writeShipToFile(Ship, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
+            System.out.println("Press any key to return...");
+            scanner.next();
         } else if (totalWeight > selectedShip.getCarryingCapacity()) {
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
             System.out.println(ANSI_RED+"║                    Error                     ║");

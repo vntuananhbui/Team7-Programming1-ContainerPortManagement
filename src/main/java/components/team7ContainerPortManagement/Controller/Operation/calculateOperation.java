@@ -457,10 +457,6 @@ public class calculateOperation {
             System.out.println("Press any key to return...");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }

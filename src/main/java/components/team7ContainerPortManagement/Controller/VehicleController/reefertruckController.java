@@ -15,6 +15,7 @@ import java.util.Scanner;
 import static java.lang.Math.round;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.isShipIDAlreadyExists;
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.generateRandomID;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getContainerIDInPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
@@ -33,19 +34,21 @@ public class reefertruckController {
         Scanner scanner = new Scanner(System.in);
         String reefertruckID;
         boolean idExists;
-        do {
-            // Collect input values
-            System.out.println("Enter Tanker Truck ID:");
-            reefertruckID = "rtr-" + scanner.next();
-            scanner.nextLine();
+//        do {
+//            // Collect input values
+//            System.out.println("Enter Tanker Truck ID:");
+//            reefertruckID = "rtr-" + scanner.next();
+//            scanner.nextLine();
+//
+//            // Check if the ship ID already exists in the file
+//            idExists = isShipIDAlreadyExists(reefertruckID);
+//
+//            if (idExists) {
+//                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
+//            }
+//        } while (idExists);
 
-            // Check if the ship ID already exists in the file
-            idExists = isShipIDAlreadyExists(reefertruckID);
-
-            if (idExists) {
-                System.out.println("Error: Ship ID already exists. Please enter a different ID.");
-            }
-        } while (idExists);
+        reefertruckID = "rtr-" + generateRandomID();
         System.out.println("Enter Reefer Truck name:");
         String shipName = scanner.nextLine();
 

@@ -18,15 +18,19 @@ import static src.main.java.components.team7ContainerPortManagement.view.mainMen
 import static src.main.java.components.team7ContainerPortManagement.view.mainMenu.resetFileMenu;
 
 public class userMainMenu {
+    String red = "\u001B[31m";
+    String green = "\u001B[32m";
+    static String yellow = "\u001B[33m";
+    String blue = "\u001B[34m";
+    String purple = "\u001B[35m";
+    String cyan = "\u001B[36m";
+    String white = "\u001B[37m";
+    static String reset = "\u001B[0m";
     public static void mainLoopUser() throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Welcome to the Authentication System!");
-            System.out.println("Select an option:");
-            System.out.println("1. Register");
-            System.out.println("2. Login");
-            System.out.println("3. Stop system");
-            System.out.println("╔══════════════════════════════════════════╗");
+
+            System.out.println(yellow + "╔══════════════════════════════════════════╗");
             System.out.println("║                LOGIN MENU                ║");
             System.out.println("╟──────────────────────────────────────────╢");
             System.out.println("║  [1] REGISTER                            ║");
@@ -34,7 +38,7 @@ public class userMainMenu {
             System.out.println("║  [3] RESET AND ADD DEFAULT DATA          ║");
             System.out.println("║  [4] STOP SYSTEM                         ║");
             System.out.println("║                                          ║");
-            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.println("╚══════════════════════════════════════════╝" + reset);
             System.out.print("   Choose an option: ");
             int option = scanner.nextInt();
 
@@ -61,6 +65,9 @@ public class userMainMenu {
     }
 
     public static void register() {
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         AdminController admin = new AdminController();
         PortManagerController portManager1 = new PortManagerController();
         List<User> userAdminList = new ArrayList<>();
@@ -97,20 +104,21 @@ public class userMainMenu {
 
 
         while (true) {
-            System.out.print("Enter a new password \n" +
-                    "Password must contain at least one digit [0-9].\n" +
-                    "Password must contain at least one lowercase character [a-z].\n" +
-                    "Password must contain at least one uppercase character [A-Z].\n" +
-                    "Password must contain at least one special character [!@#$%^&*].\n" +
-                    "Password must contain a length of at least 8 characters and a maximum of 20 characters): ");
-
+            System.out.print(
+                    "🔐Enter a new password that meets these criteria 🔐:\n" +
+                    "🔒 At least one digit [0-9]\n" +
+                    "🔒 At least one lowercase character [a-z]\n" +
+                    "🔒 At least one uppercase character [A-Z]\n" +
+                    "🔒 At least one special character [!@#$%^&*]\n" +
+                    "🔒 Length of at least 8 characters and a maximum of 20 characters\n" +
+                    "Your password is your fortress! Make it strong: ");
             newPassword = scanner.nextLine();
 
             if (User.isValidPassword(newPassword)) {
                 System.out.println("Password is valid!");
                 break;  // break the loop if password is valid
             } else {
-                System.out.println("INVALID PASSWORD! PlEASE FOLLOW THE REQUIREMENTS.");
+                System.out.println(ANSI_RED + "Error: "+"INVALID PASSWORD! PlEASE FOLLOW THE REQUIREMENTS.");
                 System.out.println();
             }
 
@@ -145,7 +153,7 @@ public class userMainMenu {
 
 
         if (admin.checkAdminCredentials(username, password)) {
-            System.out.println("Login successful");
+            System.out.println(ANSI_cyan+"||  Login successful  ||" + reset);
             adminMenu();
         } else if (portManager1.checkPortManagerCredentials(username, password)) {
             if (checkPortManagerBelongPort(username)) {
