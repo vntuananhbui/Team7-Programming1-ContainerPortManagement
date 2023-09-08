@@ -299,15 +299,23 @@ public class AdminMenu {
             case 2:
                 //remove port
                 getTotalTypeContainerWeightAdmin();
+                System.out.println("Press any key to return...");
+                scanner.next();
                 break;
             case 3:
                 listAllShipInPortAdmin();
+                System.out.println("Press any key to return...");
+                scanner.next();
                 break;
             case 4:
                 ListTripInDayAdmin();
+                System.out.println("Press any key to return...");
+                scanner.next();
                 break;
             case 5:
                 listTripsBetweenDatesAdmin();
+                System.out.println("Press any key to return...");
+                scanner.next();
                 break;
             default:
                 System.out.println("Invalid choice. Please select a valid option.");

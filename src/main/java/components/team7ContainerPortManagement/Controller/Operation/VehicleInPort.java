@@ -48,7 +48,7 @@ public class VehicleInPort {
         // Get the list of available ports
         List<String> availablePorts = getAvailablePorts();
         if (availablePorts.isEmpty()) {
-            System.out.println("No ports found in the data.");
+            System.out.println("No ship in ports found!");
             return;
         }
 
