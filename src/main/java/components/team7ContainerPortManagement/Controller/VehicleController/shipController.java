@@ -190,6 +190,7 @@ public class shipController {
             return;
         }
         System.out.println("Available container in port: " + selectedPort.getID());
+        System.out.println(ANSI_RED + "isLoaded = true is UNAVAILABLE "+ ANSI_GREEN+" | ISLOADED = FALSE IS AVAILABLE" + reset);
 //        System.out.println("debug: " + availableContainerIDs);
         int selectedContainerOrderNumber = -1;
         for (int i = 0; i < availableContainerIDs.size(); i++) {
@@ -198,7 +199,7 @@ public class shipController {
             String status = getStatusContainerbyID(containerID);
 //            System.out.println("debug: " + status);
             if (status.equals("isLoaded=false")) {
-                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
+//                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
             }
             if (container == null) {
                 System.out.println("No available container");
@@ -254,19 +255,20 @@ public class shipController {
             writeVehicleContainerMapToFile(vehicleContainerMap, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
             System.out.println("Press any key to return...");
             scanner.next();
-        } else if (totalWeight > selectedShip.getCarryingCapacity()) {
-            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-            System.out.println(ANSI_RED+"║                    Error                     ║");
-            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-            System.out.println("                                              ");
-            System.out.println("          The total container weight in Tanker Truck is larger than it capacity");
-            System.out.println("         Total Weight: " + totalWeight +" | " + selectedShip.getCarryingCapacity());
-            System.out.println("                                              ");
-            System.out.println("╚══════════════════════════════════════════════╝");
-            System.out.println("Press any key to return...: ");
-            scanner.next();
-            return;
         }
+//        else if (totalWeight > selectedShip.getCarryingCapacity()) {
+//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+//            System.out.println(ANSI_RED+"║                    Error                     ║");
+//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+//            System.out.println("                                              ");
+//            System.out.println("          The total container weight in Tanker Truck is larger than it capacity");
+//            System.out.println("         Total Weight: " + totalWeight +" | " + selectedShip.getCarryingCapacity());
+//            System.out.println("                                              ");
+//            System.out.println("╚══════════════════════════════════════════════╝");
+//            System.out.println("Press any key to return...: ");
+//            scanner.next();
+//            return;
+//        }
         else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
             System.out.println(ANSI_RED+"║                    Error                     ║");
@@ -345,16 +347,15 @@ public class shipController {
         List<String> loadedContainerIDs = vehicleContainerMap.get(selectedShip.getID());
         // Filter the availableContainerIDs to keep only those that are loaded on the selected ship
         if (loadedContainerIDs == null) {
-            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-            System.out.println(ANSI_RED+"║                    Error                     ║");
-            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println(ANSI_RED+"╔═══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                      ║");
+            System.out.println(ANSI_RED+"║───────────────────────────────────────────────║" + reset);
             System.out.println("                                              ");
-            System.out.println("               There is no container is loaded on this vehicle");
+            System.out.println("There is no container is loaded on this vehicle");
             System.out.println("                                              ");
-            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("╚═══════════════════════════════════════════════╝");
             System.out.print("Press any key to return...");
-            scanner.nextLine();  // Wait for the user to press Enter
-
+            scanner.next();  // Wait for the user to press Enter
             return;
         }
         List<String> availableContainerIDs = new ArrayList<>(loadedContainerIDs);

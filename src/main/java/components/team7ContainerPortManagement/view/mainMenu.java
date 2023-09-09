@@ -22,6 +22,8 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.V
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.unloadContainerTankerTruckMenu;
 import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
+
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.viewContainerInPort;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.moveToMenu;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.adminMenu;
@@ -298,6 +300,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             }
         }
     }
+
     public static void containerMenu(Port selectPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -319,6 +322,9 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
                     createContainer(selectPort);
                     break;
                 case 2:
+                    viewContainerInPort(selectPort.getID());
+
+                    System.out.println("test");
                     break;
                 case 3:
                     updateContainer(selectPort.getID());

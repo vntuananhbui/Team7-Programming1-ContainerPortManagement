@@ -69,7 +69,7 @@ public class AdminMenu {
                     portController.displayAllPorts();
                     System.out.println("Press any key to return...");
                     scanner.next();
-                    return;
+                    break;
                 case 6:
                     portManagerMenuAdmin();
                     break;
@@ -258,7 +258,8 @@ public class AdminMenu {
                 case 4:
                     //View port
                     portController.displayAllPorts();
-
+                    System.out.println("Press any key to return...");
+                    scanner.next();
                     return;
                 case 5:
                     adminPortOperation();
@@ -364,10 +365,10 @@ public class AdminMenu {
             System.out.println("║         PORT OPERATIONS MENU             ║");
             System.out.println("╟──────────────────────────────────────────╢");
             System.out.println("║  [1] Create Ship                         ║");
-            System.out.println("║  [2] Remove Ship                         ║");
-            System.out.println("║  [3] Load Container on Ship              ║");
-            System.out.println("║  [4] Unload Container on Ship            ║");
-            System.out.println("║  [5] Return                              ║");
+//            System.out.println("║  [2] Remove Ship                         ║");
+            System.out.println("║  [2] Load Container on Ship              ║");
+            System.out.println("║  [3] Unload Container on Ship            ║");
+            System.out.println("║  [0] Return                              ║");
             System.out.println("║                                          ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("   Choose an option: ");
@@ -377,13 +378,13 @@ public class AdminMenu {
                 case 1:
                     shipController.createShip(selectedPort);
                     break;
-                case 3:
+                case 2:
                     loadContainerShipMenu(selectedPort);
                     break;
-                case 4:
+                case 3:
                     unloadContainerShipMenu(selectedPort);
                     break;
-                case 5:
+                case 0:
                     return;
             }
 
@@ -397,10 +398,10 @@ public class AdminMenu {
             System.out.println("║           BASIC TRUCK MENU               ║");
             System.out.println("╟──────────────────────────────────────────╢");
             System.out.println("║  [1] Create Basic Truck                  ║");
-            System.out.println("║  [2] Remove Basic Truck                  ║");
-            System.out.println("║  [3] Load Container on Basic Truck       ║");
-            System.out.println("║  [4] Unload Container on Basic Truck     ║");
-            System.out.println("║  [5] Return                              ║");
+//            System.out.println("║  [2] Remove Basic Truck                  ║");
+            System.out.println("║  [2] Load Container on Basic Truck       ║");
+            System.out.println("║  [3] Unload Container on Basic Truck     ║");
+            System.out.println("║  [0] Return                              ║");
             System.out.println("║                                          ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("   Choose an option: ");
@@ -410,13 +411,13 @@ public class AdminMenu {
                 case 1:
                     basictruckController.createBasicTruck(selectedPort);
                     break;
-                case 3:
+                case 2:
                     loadContainerBasicTruckMenu(selectedPort);
                     break;
-                case 4:
+                case 3:
                     unloadContainerBasicTruckMenu(selectedPort);
                     break;
-                case 5:
+                case 0:
                     return;
             }
 
@@ -430,10 +431,10 @@ public class AdminMenu {
             System.out.println("║           TANKER TRUCK MENU              ║");
             System.out.println("╟──────────────────────────────────────────╢");
             System.out.println("║  [1] Create Tanker Truck                 ║");
-            System.out.println("║  [2] Remove Tanker Truck                 ║");
-            System.out.println("║  [3] Load Container on Tanker Truck      ║");
-            System.out.println("║  [4] Unload Container on Tanker Truck    ║");
-            System.out.println("║  [5] Return                              ║");
+//            System.out.println("║  [2] Remove Tanker Truck                 ║");
+            System.out.println("║  [2] Load Container on Tanker Truck      ║");
+            System.out.println("║  [3] Unload Container on Tanker Truck    ║");
+            System.out.println("║  [0] Return                              ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
 
@@ -443,13 +444,13 @@ public class AdminMenu {
                 case 1:
                     tankertruckController.createTankerTruck(selectedPort);
                     break;
-                case 3:
+                case 2:
                     loadContainerTankerTruckMenu(selectedPort);
                     break;
-                case 4:
+                case 3:
                     unloadContainerTankerTruckMenu(selectedPort);
                     break;
-                case 5:
+                case 0:
                     return;
             }
 
@@ -462,10 +463,10 @@ public class AdminMenu {
             System.out.println("║           REEFER TRUCK MENU              ║");
             System.out.println("╟──────────────────────────────────────────╢");
             System.out.println("║  [1] Create Reefer Truck                 ║");
-            System.out.println("║  [2] Remove Reefer Truck                 ║");
-            System.out.println("║  [3] Load Container on Reefer Truck      ║");
-            System.out.println("║  [4] Unload Container on Reefer Truck    ║");
-            System.out.println("║  [5] Return                              ║");
+//            System.out.println("║  [2] Remove Reefer Truck                 ║");
+            System.out.println("║  [2] Load Container on Reefer Truck      ║");
+            System.out.println("║  [3] Unload Container on Reefer Truck    ║");
+            System.out.println("║  [0] Return                              ║");
             System.out.println("║                                          ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("   Choose an option: ");
@@ -475,13 +476,13 @@ public class AdminMenu {
                 case 1:
                     reefertruckController.createReeferTruck(selectedPort);
                     break;
-                case 3:
+                case 2:
                     loadContainerReeferTruckMenu(selectedPort);
                     break;
-                case 4:
+                case 3:
                     unloadContainerReeferTruckMenu(selectedPort);
                     break;
-                case 5:
+                case 0:
                     return;
             }
 

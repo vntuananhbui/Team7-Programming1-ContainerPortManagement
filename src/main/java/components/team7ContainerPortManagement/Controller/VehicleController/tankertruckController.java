@@ -170,6 +170,7 @@ public class tankertruckController {
             return;
         }
         System.out.println("Available container in port: " + selectedPort.getID());
+        System.out.println(ANSI_RED + "isLoaded = true is UNAVAILABLE "+ ANSI_GREEN+" | ISLOADED = FALSE IS AVAILABLE" + reset);
         int selectedContainerOrderNumber = -1;
         System.out.println("╔═══════════════════════════════════════════════════╗");
         System.out.println("║                List of Container                  ║");

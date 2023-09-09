@@ -328,6 +328,7 @@ public class basictruckController {
         }
         List<String> availableContainerIDs = getContainerIDInPort(selectedPort);
         System.out.println("Available container in port: " + selectedPort.getID());
+        System.out.println(ANSI_RED + "isLoaded = true is UNAVAILABLE "+ ANSI_GREEN+" | ISLOADED = FALSE IS AVAILABLE" + reset);
         if (availableContainerIDs.isEmpty()) {
             System.out.println("No available container!");
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
@@ -348,7 +349,7 @@ public class basictruckController {
             String status = getStatusContainerbyID(containerID);
 
             if (status.equals("isLoaded=false")) {
-                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
+//                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
             }
             if (container == null) {
                 System.out.println("No available container");
@@ -434,20 +435,22 @@ public class basictruckController {
             System.out.println("Press any key to return...: ");
             scanner.next();
             return;
-        } else if (totalWeight > selectedBasicTruck.getCarryingCapacity()) {
-            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedBasicTruck.getCarryingCapacity());
-            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-            System.out.println(ANSI_RED+"║                    Error                     ║");
-            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-            System.out.println("                                              ");
-            System.out.println("          The total container weight in Basic Truck is larger than it capacity");
-            System.out.println("         Total Weight: " + totalWeight +" | Capacity: " + selectedBasicTruck.getCarryingCapacity() );
-            System.out.println("                                              ");
-            System.out.println("╚══════════════════════════════════════════════╝");
-            System.out.println("Press any key to return...: ");
-            scanner.next();
-            return;
-        }else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
+        }
+//        else if (totalWeight > selectedBasicTruck.getCarryingCapacity()) {
+//            System.out.println("The total container weight in Basic Truck is larger than it capacity | " + "Total weight: "+ totalWeight + " Weight limit: " + selectedBasicTruck.getCarryingCapacity());
+//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+//            System.out.println(ANSI_RED+"║                    Error                     ║");
+//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+//            System.out.println("                                              ");
+//            System.out.println("          The total container weight in Basic Truck is larger than it capacity");
+//            System.out.println("         Total Weight: " + totalWeight +" | Capacity: " + selectedBasicTruck.getCarryingCapacity() );
+//            System.out.println("                                              ");
+//            System.out.println("╚══════════════════════════════════════════════╝");
+//            System.out.println("Press any key to return...: ");
+//            scanner.next();
+//            return;
+//        }
+        else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
             System.out.println(ANSI_RED+"║                    Error                     ║");
             System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);

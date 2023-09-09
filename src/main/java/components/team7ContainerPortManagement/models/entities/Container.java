@@ -5,12 +5,15 @@ import src.main.java.components.team7ContainerPortManagement.models.enums.Contai
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
+import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.writeContainersToFile;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class Container {
     private final String ID;
@@ -86,6 +89,49 @@ public class Container {
                 ", port=" + port +
                 '}';
     }
+    public static List<String> readoutContainerInPort(String portID) {
+        List<String> containerIDs = new ArrayList<>();
+        String portContainerFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(portContainerFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Example format: {Port :p-HCM, Container: c-8dSF, c-eltl}
+                String[] parts = line.split("[,:}]");
+                System.out.println("debug parts: " + Arrays.toString(parts));
+                boolean inContainerSection = false;
+
+                for (String part : parts) {
+                    part = part.trim();
+                    if (part.equals("Port") && inContainerSection) {
+                        // End of the container section
+                        break;
+                    }
+                    if (part.equals("Container")) {
+                        inContainerSection = true;
+                    } else if (inContainerSection && !part.isEmpty()) {
+                        // Add the non-empty parts as container IDs
+                        containerIDs.add(part);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return containerIDs;
+    }
+    public static void viewContainerInPort(String portID) throws IOException {
+        List<String> containerIDs = readoutContainerInPort(portID);
+
+        for (int i = 0; i < containerIDs.size(); i++) {
+            String containerID = containerIDs.get(i);
+            Container container = getContainerByID(containerID);
+            System.out.println("[" + (i+ 1) + "]" +" ContainerID: " +container.getID() + " | Type: " + container.getContainerType() + " | Weight: " + container.getWeight());
+        }
+    }
+
+
+
 
 //Special method
 public void updateStatusContainer(boolean isLoaded) throws IOException {

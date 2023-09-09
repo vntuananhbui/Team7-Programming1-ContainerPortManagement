@@ -172,6 +172,7 @@ public class reefertruckController {
         }
 //        System.out.println("Debug: "+availableContainerIDs);
         System.out.println("Available container in port: " + selectedPort.getID());
+        System.out.println(ANSI_RED + "isLoaded = true is UNAVAILABLE "+ ANSI_GREEN+" | ISLOADED = FALSE IS AVAILABLE" + reset);
         if (availableContainerIDs.isEmpty()) {
             System.out.println("No available container!");
             System.out.print("Press any key to return...");
@@ -185,7 +186,7 @@ public class reefertruckController {
             String status = getStatusContainerbyID(containerID);
 //            System.out.println("Status: " + status);
             if (status.equals("isLoaded=false")) {
-                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
+//                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
             }
             if (container == null) {
                 System.out.println("No available container");
