@@ -70,7 +70,25 @@ public class basictruckController {
             newBasicTruck.setCurrentPort(selectedPort);
             shipWriter.write(newBasicTruck +"\n");
             writeVehicleToPort(selectedPort, newBasicTruck);
-            System.out.println("Ship created and added to selected port.");
+            String ANSI_RESET = "\u001B[0m";
+            String ANSI_GREEN = "\u001B[32m";
+            String ANSI_BLUE = "\u001B[34m";
+            String ANSI_CYAN = "\u001B[36m";
+            String ANSI_RED = "\u001B[31m";
+            String yellow = "\u001B[33m";
+            String reset = "\u001B[0m";
+            System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 CREATE BASIC TRUCK SUCCESSFULLY" + "        ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            ID            : " + basictruckID);
+            System.out.println( "            NAME          : " + BaiscTruckName);
+            System.out.println( "            CARRY CAPACITY: " + carryingCapacity);
+            System.out.println( "            FUEL CAPACITY : " + fuelCapacity);
+            System.out.println( "            PORT          : " + selectedPort.getID());
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.println("Press any key to return...");
+            scanner.next();
         } else {
             System.out.println("Invalid port choice.");
         }

@@ -1,2 +1,0 @@
-Container{ID='c-p2My', weight=20000.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
-Container{ID='c-8Cl2', weight=20.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}

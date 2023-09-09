@@ -3,7 +3,7 @@ package src.main.java.components.team7ContainerPortManagement.Controller.Vehicle
 import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
+
 import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
 
 import java.io.*;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 import static java.lang.Math.round;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.shipController.isShipIDAlreadyExists;
+
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.generateRandomID;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getContainerIDInPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.*;
@@ -66,7 +66,25 @@ public class reefertruckController {
             newReeferTruck.setCurrentPort(selectedPort);
             shipWriter.write(newReeferTruck.toString() + "\n");
             writeVehicleToPort(selectedPort, newReeferTruck);
-            System.out.println("Reefer Truck created and added to selected port.");
+            String ANSI_RESET = "\u001B[0m";
+            String ANSI_GREEN = "\u001B[32m";
+            String ANSI_BLUE = "\u001B[34m";
+            String ANSI_CYAN = "\u001B[36m";
+            String ANSI_RED = "\u001B[31m";
+            String yellow = "\u001B[33m";
+            String reset = "\u001B[0m";
+            System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 CREATE REEFER TRUCK SUCCESSFULLY" + "       ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            ID            : " + reefertruckID);
+            System.out.println( "            NAME          : " + shipName);
+            System.out.println( "            CARRY CAPACITY: " + carryingCapacity);
+            System.out.println( "            FUEL CAPACITY : " + fuelCapacity);
+            System.out.println( "            PORT          : " + selectedPort.getID());
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.println("Press any key to return...");
+            scanner.next();
         } else {
             System.out.println("Invalid port choice.");
         }

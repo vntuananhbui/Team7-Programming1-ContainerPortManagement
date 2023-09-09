@@ -1,2 +1,0 @@
-Vehicle{ID='sh-WKtD', name='testship', currentFuel=20000.0, carryingCapacity=2000.0, fuelCapacity=20000.0, currentPort=p-StartPort}
-Vehicle{ID='btr-tjgz', name='aa', currentFuel=20000.0, carryingCapacity=2.0, fuelCapacity=20000.0, currentPort=p-StartPort}

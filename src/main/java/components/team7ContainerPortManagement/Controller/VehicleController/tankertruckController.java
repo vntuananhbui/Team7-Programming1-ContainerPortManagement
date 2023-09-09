@@ -62,12 +62,31 @@ public class tankertruckController {
         scanner.nextLine();
         double currentFuel = fuelCapacity;
         if (selectedPort != null) {
-            BasicTruck newTankerTruck = new BasicTruck(tankertruckID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
+            TankerTruck newTankerTruck = new TankerTruck(tankertruckID, shipName, currentFuel, carryingCapacity, fuelCapacity, 3.5,selectedPort);
             selectedPort.addVehicle(newTankerTruck);
             newTankerTruck.setCurrentPort(selectedPort);
             shipWriter.write(newTankerTruck.toString() +"\n");
             writeVehicleToPort(selectedPort, newTankerTruck);
-            System.out.println("Tanker Truck created and added to selected port.");
+//            System.out.println("Tanker Truck created and added to selected port.");
+            String ANSI_RESET = "\u001B[0m";
+            String ANSI_GREEN = "\u001B[32m";
+            String ANSI_BLUE = "\u001B[34m";
+            String ANSI_CYAN = "\u001B[36m";
+            String ANSI_RED = "\u001B[31m";
+            String yellow = "\u001B[33m";
+            String reset = "\u001B[0m";
+            System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 CREATE TANKER TRUCK SUCCESSFULLY" + "       ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println( "            ID            : " + tankertruckID);
+            System.out.println( "            NAME          : " + shipName);
+            System.out.println( "            CARRY CAPACITY: " + carryingCapacity);
+            System.out.println( "            FUEL CAPACITY : " + fuelCapacity);
+            System.out.println( "            PORT          : " + selectedPort.getID());
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.println("Press any key to return...");
+            scanner.next();
         } else {
             System.out.println("Invalid port choice.");
         }
