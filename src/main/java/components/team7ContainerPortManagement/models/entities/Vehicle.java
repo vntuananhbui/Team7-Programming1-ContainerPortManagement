@@ -400,11 +400,16 @@ public abstract class Vehicle implements VehicleOperations {
         availablePorts = readAvailablePortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt", currentPort);
         System.out.println("Choose a port by order number: ");
         int selectedPortOrderNumber = 1;
+        System.out.println("╔═══════════════════════════════════════════════════╗");
+        System.out.println("║                 List of Port                      ║");
+        System.out.println("╚═══════════════════════════════════════════════════╝");
         for (Port port : availablePorts) {
             if (!port.equals(currentPort)) {
-                System.out.println((selectedPortOrderNumber++) + ". Port ID: '" + port.getID() + "', Port Name: '" + port.getName() + "'");
+                System.out.println(" ["+(selectedPortOrderNumber++) + "]"+". Port ID: '" + port.getID() + "'| Name: '" + port.getName() + "'");
+
             }
         }
+        System.out.println("╚═══════════════════════════════════════════════════╝");
         // Handling invalid port choice
         int selectedPortIndex;
         while (true) {

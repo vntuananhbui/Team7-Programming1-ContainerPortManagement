@@ -171,18 +171,22 @@ public class tankertruckController {
         }
         System.out.println("Available container in port: " + selectedPort.getID());
         int selectedContainerOrderNumber = -1;
+        System.out.println("╔═══════════════════════════════════════════════════╗");
+        System.out.println("║                List of Container                  ║");
+        System.out.println("╚═══════════════════════════════════════════════════╝");
         for (int i = 0; i < availableContainerIDs.size(); i++) {
             String containerID = availableContainerIDs.get(i);
             Container container = getContainerByID(containerID);
             String status = getStatusContainerbyID(containerID);
             if (container == null) {
-                System.out.println("No available container");
+
+                System.out.println(ANSI_RED+"Error! "+reset+"No available container");
                 System.out.println("Press any key to return...");
                 scanner.next();
                 return;
             }
 //            if (status.equals("isLoaded=false")) {
-                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType() + " | " + status);
+                System.out.println(" ["+(i + 1) + "]" + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType() + " | " + status);
 //            }
 
 //            else if (container.isLoaded()) {
@@ -192,6 +196,7 @@ public class tankertruckController {
 //                return;
 //            }
         }
+        System.out.println("╚═══════════════════════════════════════════════════╝");
         while (selectedContainerOrderNumber < 1 || selectedContainerOrderNumber > availableContainerIDs.size()) {
             System.out.println("Choose a container by order number: ");
             selectedContainerOrderNumber = scanner.nextInt();

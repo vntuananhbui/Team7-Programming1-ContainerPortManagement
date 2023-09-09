@@ -39,18 +39,23 @@ public class mainMenu {
                 String cyan = "\u001B[36m";
                 String white = "\u001B[37m";
                 String reset = "\u001B[0m";
-                System.out.println(red + "====================================");
-                System.out.println(cyan + "  " + cyan + "#####   " + purple + "######  " + yellow + "#     #   " + blue + "#####   " + reset);
-                System.out.println(cyan + "#     #  " + purple + "#     #  " + yellow + "##   ##  " + blue + "#     #  " + reset);
-                System.out.println(cyan + "#        " + purple + "#     #  " + yellow + "# # # #  " + blue + "#        " + reset);
-                System.out.println(cyan + "#        " + purple + "######   " + yellow + "#  #  #   " + blue + "#####   " + reset);
-                System.out.println(cyan + "#        " + purple + "#        " + yellow + "#     #  " + blue + "      #  " + reset);
-                System.out.println(cyan + "#     #  " + purple + "#        " + yellow + "#     #  " + blue + "#     #  " + reset);
-                System.out.println(cyan + " #####   " + purple + "#        " + yellow + "#     #   " + blue + "#####   " + reset);
-                System.out.println(red + "====================================");
-                System.out.println(red + "  TEAM 7 CONTAINER PORT MANAGEMENT  ");
-                System.out.println("           SYSTEM 2023              ");
-                System.out.println(red + "====================================");
+                System.out.println(green + "===============================================");
+                System.out.println(cyan + "  " + cyan + "#####   " + purple + "    ######  " + yellow + "    #     #   " + blue + "    #####   " + reset);
+                System.out.println(cyan + "#     #  " + purple + "    #     #  " + yellow + "    ##   ##  " + blue + "    #     #  " + reset);
+                System.out.println(cyan + "#        " + purple + "    #     #  " + yellow + "    # # # #  " + blue + "    #        " + reset);
+                System.out.println(cyan + "#        " + purple + "    ######   " + yellow + "    #  #  #   " + blue + "    #####   " + reset);
+                System.out.println(cyan + "#        " + purple + "    #        " + yellow + "    #     #  " + blue + "          #  " + reset);
+                System.out.println(cyan + "#     #  " + purple + "    #        " + yellow + "    #     #  " + blue + "    #     #  " + reset);
+                System.out.println(cyan + " #####   " + purple + "    #        " + yellow + "    #     #   " + blue + "    #####   " + reset);
+                System.out.println(green + "===============================================");
+                System.out.println(yellow+"          BUI TUAN ANH      | S3970375");
+                System.out.println("          LAO VINH KHANG    | S3891925");
+                System.out.println("          TON NU NGOC KHANH | S3932105");
+                System.out.println("          NGUYEN TIEN DUNG  | S3999561"+reset);
+                System.out.println(green + "===============================================");
+                System.out.println(yellow + "        TEAM 7 CONTAINER PORT MANAGEMENT  ");
+                System.out.println("                SYSTEM 2023              ");
+                System.out.println(green + "===============================================");
                 System.out.println(reset);
             }
 

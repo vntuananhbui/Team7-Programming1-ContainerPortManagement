@@ -1,3 +1,1 @@
-Vehicle{ID='ttr-6Tzz', name='testruck', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}
-Vehicle{ID='btr-6Lm9', name='testbasic', currentFuel=121212.0, carryingCapacity=1212.0, fuelCapacity=121212.0, currentPort=p-StartPort}
-Vehicle{ID='sh-ysot', name='bong', currentFuel=211221.0, carryingCapacity=2121.0, fuelCapacity=211221.0, currentPort=p-StartPort}
+Vehicle{ID='btr-SdOC', name='test', currentFuel=148577.5, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}

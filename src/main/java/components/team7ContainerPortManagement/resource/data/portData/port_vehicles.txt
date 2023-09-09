@@ -1,1 +1,1 @@
-{Port :p-StartPort, Vehicles: ttr-6Tzz, btr-6Lm9, sh-ysot}
+{Port :p-StartPort, Vehicles: btr-SdOC}
