@@ -350,6 +350,15 @@ public class basictruckController {
             if (status.equals("isLoaded=false")) {
                 System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
             }
+            if (container == null) {
+                System.out.println("No available container");
+                System.out.println("Press any key to return...");
+                scanner.next();
+                return;
+            }
+//            if (status.equals("isLoaded=false")) {
+            System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType() + " | " + status);
+//            }
         }
         while (selectedContainerOrderNumber < 1 || selectedContainerOrderNumber > availableContainerIDs.size()) {
             System.out.println("Choose a container by order number: ");
@@ -373,9 +382,12 @@ public class basictruckController {
         //Load function
 
         double totalWeight = round(getBasicTruckTotalContainerWeight(selectedBasicTruck,selectedPort) + selectedContainer.getWeight());
+//        System.out.println("debug totalweight: " + totalWeight);
+//        System.out.println("debug: container weight: " + selectedContainer.getWeight());
+//        System.out.println("debug : truck capacity: " + selectedBasicTruck.getCarryingCapacity()) ;
         double totalConweigthinPort = round(calculateTotalWeightContainerPort(selectedPort)) + selectedContainer.getWeight();
 
-        if (selectedBasicTruck.loadContainer(selectedContainer) && totalConweigthinPort <= selectedPort.getStoringCapacity() &&selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP) || selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE) || selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE))
+        if (selectedBasicTruck.loadContainer(selectedContainer) && totalWeight <= selectedBasicTruck.getCarryingCapacity() && totalConweigthinPort <= selectedPort.getStoringCapacity() && (selectedContainer.getContainerType().equals(ContainerType.OPEN_TOP) || selectedContainer.getContainerType().equals(ContainerType.OPEN_SIDE) || selectedContainer.getContainerType().equals(ContainerType.DRY_STORAGE)))
         {
 
             System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
@@ -429,7 +441,7 @@ public class basictruckController {
             System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
             System.out.println("                                              ");
             System.out.println("          The total container weight in Basic Truck is larger than it capacity");
-            System.out.println("         Total Weight: " + totalWeight +" | " + selectedBasicTruck.getCarryingCapacity() );
+            System.out.println("         Total Weight: " + totalWeight +" | Capacity: " + selectedBasicTruck.getCarryingCapacity() );
             System.out.println("                                              ");
             System.out.println("╚══════════════════════════════════════════════╝");
             System.out.println("Press any key to return...: ");
@@ -447,22 +459,21 @@ public class basictruckController {
             scanner.next();
             return;
         }
-        else {
+//        else {
+//
+//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+//            System.out.println(ANSI_RED+"║                    Error                     ║");
+//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+//            System.out.println("                                              ");
+//            System.out.println("                  Fail to load!               ");
+//            System.out.println("                                              ");
+//            System.out.println("╚══════════════════════════════════════════════╝");
+//            System.out.println("Press any key to return...: ");
+//            scanner.next();
+//            return;
+//        }
 
-            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-            System.out.println(ANSI_RED+"║                    Error                     ║");
-            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-            System.out.println("                                              ");
-            System.out.println("                  Fail to load!               ");
-            System.out.println("                                              ");
-            System.out.println("╚══════════════════════════════════════════════╝");
-            System.out.println("Press any key to return...: ");
-            scanner.next();
-            return;
-        }
 
-
-        // Define other methods (e.g., readPortsFromFile, displayAvailablePorts) here
     }
     public static void unloadContainerBasicTruckMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);

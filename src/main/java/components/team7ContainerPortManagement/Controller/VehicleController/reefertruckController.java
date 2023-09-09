@@ -187,6 +187,15 @@ public class reefertruckController {
             if (status.equals("isLoaded=false")) {
                 System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
             }
+            if (container == null) {
+                System.out.println("No available container");
+                System.out.println("Press any key to return...");
+                scanner.next();
+                return;
+            }
+//            if (status.equals("isLoaded=false")) {
+            System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType() + " | " + status);
+//            }
         }
         while (selectedContainerOrderNumber < 1 || selectedContainerOrderNumber > availableContainerIDs.size()) {
             System.out.println("Choose a container by order number: ");
@@ -286,17 +295,6 @@ public class reefertruckController {
             System.out.println("Press any key to return...: ");
             scanner.next();
             return;        }
-        else if (totalWeight > selectedReeferTruck.getCarryingCapacity()) {
-            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-            System.out.println(ANSI_RED+"║                    Error                     ║");
-            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-            System.out.println("                                              ");
-            System.out.println("          The total container weight in Port is larger than it capacity");
-            System.out.println("          Total weight: "+ totalWeight + " Weight limit: " + selectedReeferTruck.getCarryingCapacity());
-            System.out.println("╚══════════════════════════════════════════════╝");
-            System.out.println("Press any key to return...: ");
-            scanner.next();
-            return;        }
         else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
             System.out.println(ANSI_RED+"║                    Error                     ║");
@@ -308,18 +306,18 @@ public class reefertruckController {
             System.out.println("Press any key to return...: ");
             scanner.next();
             return;        }
-        else {
-            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-            System.out.println(ANSI_RED+"║                    Error                     ║");
-            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-            System.out.println("                                              ");
-            System.out.println("                 Fail to load!");
-            System.out.println("                                              ");
-            System.out.println("╚══════════════════════════════════════════════╝");
-            System.out.println("Press any key to return...: ");
-            scanner.next();
-            return;
-        }
+//        else {
+//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+//            System.out.println(ANSI_RED+"║                    Error                     ║");
+//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+//            System.out.println("                                              ");
+//            System.out.println("                 Fail to load!");
+//            System.out.println("                                              ");
+//            System.out.println("╚══════════════════════════════════════════════╝");
+//            System.out.println("Press any key to return...: ");
+//            scanner.next();
+//            return;
+//        }
 
 
         // Define other methods (e.g., readPortsFromFile, displayAvailablePorts) here

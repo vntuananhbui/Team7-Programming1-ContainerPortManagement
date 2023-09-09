@@ -1,2 +1,1 @@
-Container{ID='c-c6GE', weight=67.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
-Container{ID='c-EBqx', weight=22.0, containerType=DRY_STORAGE, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}
+Container{ID='c-8dSF', weight=2.0, containerType=LIQUID, isLoaded=true, port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}

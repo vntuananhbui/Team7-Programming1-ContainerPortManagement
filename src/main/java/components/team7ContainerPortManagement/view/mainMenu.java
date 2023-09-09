@@ -226,7 +226,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("╔══════════════════════════════════════════╗");
-            System.out.println("║            CONTAINER MENU                ║");
+            System.out.println("║           LOAD CONTAINER MENU            ║");
             System.out.println("╟──────────────────────────────────────────╢");
             System.out.println("║  [1] Load on Ship                        ║");
             System.out.println("║  [2] Load on Basic Truck                 ║");
@@ -261,16 +261,16 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
     public static void unloadContainerMenu(Port selectPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("╔══════════════════════════════════════════╗");
-            System.out.println("║            CONTAINER MENU                ║");
-            System.out.println("╟──────────────────────────────────────────╢");
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║            Unload Container MENU           ║");
+            System.out.println("╟────────────────────────────────────────────╢");
             System.out.println("║  [1] UnLoad on Ship                        ║");
             System.out.println("║  [2] UnLoad on Basic Truck                 ║");
             System.out.println("║  [3] UnLoad on Tanker Truck                ║");
             System.out.println("║  [4] UnLoad on Refregerator Truck          ║");
-            System.out.println("║  [5] Return to Port Manager Menu         ║");
-            System.out.println("║                                          ║");
-            System.out.println("╚══════════════════════════════════════════╝");
+            System.out.println("║  [5] Return to Port Manager Menu           ║");
+            System.out.println("║                                            ║");
+            System.out.println("╚════════════════════════════════════════════╝");
             System.out.print("   Choose an option: ");
             int choiceTruck = scanner.nextInt();
 

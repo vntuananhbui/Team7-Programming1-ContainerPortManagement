@@ -90,15 +90,34 @@ public abstract class Vehicle implements VehicleOperations {
 //    }
 
     public boolean loadContainer(Container container) {
-
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
+        Scanner scanner = new Scanner(System.in);
 
         if (container.isLoaded()) {
-            System.out.println("This container is already loaded onto another vehicle.");
+            System.out.println(ANSI_RED+"╔═══════════════════════════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                                          ║");
+            System.out.println(ANSI_RED+"║───────────────────────────────────────────────────────────────────║" + reset);
+            System.out.println(" This container is already loaded onto another vehicle.");
+            System.out.println("╚════════════════════════════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
             return false;
         }
         if (this.currentLoad + container.getWeight() > this.carryingCapacity) {
-            System.out.println("Loading this container would exceed the vehicle's carrying capacity.");
-            return false;
+            System.out.println(ANSI_RED+"╔═══════════════════════════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                                          ║");
+            System.out.println(ANSI_RED+"║───────────────────────────────────────────────────────────────────║" + reset);
+            System.out.println(" The total container weight in Vehicle is larger than it capacity");
+            System.out.println("╚════════════════════════════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+                return false;
         }
 
 

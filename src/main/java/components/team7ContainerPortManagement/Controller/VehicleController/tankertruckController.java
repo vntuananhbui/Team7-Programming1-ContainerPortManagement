@@ -175,14 +175,19 @@ public class tankertruckController {
             String containerID = availableContainerIDs.get(i);
             Container container = getContainerByID(containerID);
             String status = getStatusContainerbyID(containerID);
-
-            if (status.equals("isLoaded=false")) {
-                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType());
+            if (container == null) {
+                System.out.println("No available container");
+                System.out.println("Press any key to return...");
+                scanner.next();
+                return;
             }
-//            if (!container.isLoaded()) {
-//                System.out.println((i+1) + container.getID());
-//                System.out.println("No available container!");
-//                System.out.println("Press any key to return!");
+//            if (status.equals("isLoaded=false")) {
+                System.out.println((i + 1) + ": " + availableContainerIDs.get(i) + " |" + " Type: " + container.getContainerType() + " | " + status);
+//            }
+
+//            else if (container.isLoaded()) {
+//                System.out.println("No available container");
+//                System.out.println("Press any key to return...");
 //                scanner.next();
 //                return;
 //            }
@@ -210,7 +215,8 @@ public class tankertruckController {
 
         double totalWeight = round(getTankerTruckTotalContainerWeight(selectedTankerTruck,selectedPort) + selectedContainer.getWeight());
         double totalConweigthinPort = round(calculateTotalWeightContainerPort(selectedPort)) + selectedContainer.getWeight();
-
+        System.out.println("Debug total weight: " + totalWeight);
+        System.out.println("Debug vehicle capacity: " + selectedTankerTruck.getCarryingCapacity());
         if (selectedTankerTruck.loadContainer(selectedContainer) && totalConweigthinPort <= selectedPort.getStoringCapacity() && selectedContainer.getContainerType().equals(ContainerType.LIQUID))
         {
 
@@ -267,7 +273,7 @@ public class tankertruckController {
             System.out.println(ANSI_RED+"║                    Error                     ║");
             System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
             System.out.println("                                              ");
-            System.out.println("          This Basic truck can not carry Open Top container!");
+            System.out.println("          This Tanker truck can not carry Open Top container!");
             System.out.println("                                              ");
             System.out.println("╚══════════════════════════════════════════════╝");
             System.out.println("Press any key to return...: ");
@@ -280,26 +286,26 @@ public class tankertruckController {
             System.out.println(ANSI_RED+"║                    Error                     ║");
             System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
             System.out.println("                                              ");
-            System.out.println("          This Basic truck can not carry Dry Storage container!");
+            System.out.println("          This Tanker truck can not carry Dry Storage container!");
             System.out.println("                                              ");
             System.out.println("╚══════════════════════════════════════════════╝");
             System.out.println("Press any key to return...: ");
             scanner.next();
             return;
         }
-        else if (totalWeight > selectedTankerTruck.getCarryingCapacity()) {
-
-            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-            System.out.println(ANSI_RED+"║                    Error                     ║");
-            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-            System.out.println("                                              ");
-            System.out.println("          The total container weight in Port is larger than it capacity");
-            System.out.println("          Total weight: "+ totalWeight + " Weight limit: " + selectedTankerTruck.getCarryingCapacity());
-            System.out.println("╚══════════════════════════════════════════════╝");
-            System.out.println("Press any key to return...: ");
-            scanner.next();
-            return;
-        }
+//        else if (totalWeight > selectedTankerTruck.getCarryingCapacity()) {
+//
+//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+//            System.out.println(ANSI_RED+"║                    Error                     ║");
+//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+//            System.out.println("                                              ");
+//            System.out.println("          The total container weight in Vehicle is larger than it capacity");
+//            System.out.println("          Total weight: "+ totalWeight + " Weight limit: " + selectedTankerTruck.getCarryingCapacity());
+//            System.out.println("╚══════════════════════════════════════════════╝");
+//            System.out.println("Press any key to return...: ");
+//            scanner.next();
+//            return;
+//        }
         else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
             System.out.println(ANSI_RED+"║                    Error                     ║");
@@ -312,19 +318,19 @@ public class tankertruckController {
             scanner.next();
             return;
         }
-        else {
-
-            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-            System.out.println(ANSI_RED+"║                    Error                     ║");
-            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-            System.out.println("                                              ");
-            System.out.println("                 Fail to load!");
-            System.out.println("                                              ");
-            System.out.println("╚══════════════════════════════════════════════╝");
-            System.out.println("Press any key to return...: ");
-            scanner.next();
-            return;
-        }
+//        else {
+//
+//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+//            System.out.println(ANSI_RED+"║                    Error                     ║");
+//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+//            System.out.println("                                              ");
+//            System.out.println("                 Fail to load!");
+//            System.out.println("                                              ");
+//            System.out.println("╚══════════════════════════════════════════════╝");
+//            System.out.println("Press any key to return...: ");
+//            scanner.next();
+//            return;
+//        }
 
 
 

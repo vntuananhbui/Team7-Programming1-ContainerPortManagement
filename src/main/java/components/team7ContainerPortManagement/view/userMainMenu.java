@@ -95,7 +95,13 @@ public class userMainMenu {
             newUsername = scanner.nextLine();
 
             if (!User.checkUserName(newUsername)) {
-                System.out.println("Username has been already exist. Please re-enter again!");
+//                System.out.println("Username has been already exist. Please re-enter again!");
+                System.out.println();
+                System.out.println(ANSI_RED + "╔══════════════════════════════════════════════╗");
+                System.out.println("║          USERNAME EXIST, TRY AGAIN           ║");
+                System.out.println("╚══════════════════════════════════════════════╝"+ reset);
+                System.out.println();
+
             } else {
                 break;
             }
@@ -131,7 +137,14 @@ public class userMainMenu {
         String userType = scanner.nextLine();
         if (userType.equalsIgnoreCase("admin")) {
             if (!User.checkUserTypeAdmin(userType)) {
-                System.out.println("Admin already exists! There is only one admin in system.");
+//                System.out.println("Admin already exists! There is only one admin in system.");
+                System.out.println();
+                System.out.println(ANSI_RED + "╔══════════════════════════════════════════════╗");
+                System.out.println("║ ADMIN EXISTS, ONLY ONE ADMIN IN SYSTEM.      ║");
+                System.out.println("╚══════════════════════════════════════════════╝"+ reset);
+                System.out.println();
+                System.out.println("Press any key to return Login menu...");
+                scanner.next();
             } else {
                 User.registerAdmin(userAdminList, newUsername, newPassword, userType);
             }
@@ -142,6 +155,7 @@ public class userMainMenu {
     }
 
     public static void login() throws IOException {
+        String ANSI_RED = "\u001B[31m";
         String ANSI_cyan = "\u001B[36m";
         String reset = "\u001B[0m";
         String portPortManagerFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_portmanager.txt";
@@ -170,9 +184,23 @@ public class userMainMenu {
                 portManagerMenu(selectedPort);
             } else {
                 System.out.println(username + " is not associated with any port.");
+                System.out.println();
+                System.out.println(ANSI_RED+"╔══════════════════════════════════════════════════════════════╗");
+                System.out.println("║ ACCOUNT NOT ASSOCIATED WITH ANY PORT, PLEASE CONTACT ADMIN   ║");
+                System.out.println("╚══════════════════════════════════════════════════════════════╝"+ reset);
+                System.out.println();
+                System.out.println("Press any key to return Login menu...");
+                scanner.next();
             }
         } else {
-            System.out.println("Login failed");
+//            System.out.println("Login failed");
+            System.out.println();
+            System.out.println(ANSI_RED + "╔══════════════════════════════════════════════╗");
+            System.out.println("║ LOGIN FAIL: WRONG USERNAME OR PASSWORD!      ║");
+            System.out.println("╚══════════════════════════════════════════════╝"+ reset);
+            System.out.println();
+            System.out.println("Press any key to return Login menu...");
+            scanner.next();
         }
     }
 }

@@ -187,7 +187,6 @@ public class AdminMenu {
                     break;
                 case 0:
                     return;
-
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
@@ -236,7 +235,7 @@ public class AdminMenu {
             System.out.println("║  [4] View Current Port                   ║");
             System.out.println("║  [5] Port operation                      ║");
             System.out.println("║  [6] Assign Portmanager                  ║");
-            System.out.println("║  [0] Back to Main Menu                   ║");
+            System.out.println("║  [0] Log out                             ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
 
@@ -270,6 +269,8 @@ public class AdminMenu {
                     AdminController.displayAllPortManager();
                     Map<String, String> chosen = AdminController.assignPortToPortManager();
                     AdminController.writePortAndPortManagerFile(chosen);
+                    return;
+                case 0:
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
@@ -327,13 +328,12 @@ public class AdminMenu {
 
         while (true) {
             System.out.println("╔══════════════════════════════════════════╗");
-            System.out.println("║            CONTAINER MENU                ║");
+            System.out.println("║                TRUCK MENU                ║");
             System.out.println("╟──────────────────────────────────────────╢");
             System.out.println("║  [1] Basic Truck Menu                    ║");
             System.out.println("║  [2] Tanker Truck Menu                   ║");
             System.out.println("║  [3] Reefer Truck Menu                   ║");
-            System.out.println("║  [4]                                     ║");
-            System.out.println("║  [5] Return to Port Manager Menu         ║");
+            System.out.println("║  [4] Return to Port Manager Menu         ║");
             System.out.println("║                                          ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("   Choose an option: ");
