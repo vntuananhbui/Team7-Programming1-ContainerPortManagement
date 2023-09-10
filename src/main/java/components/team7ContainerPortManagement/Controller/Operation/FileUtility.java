@@ -25,102 +25,109 @@ public class FileUtility {
 
     // Writes to vehicle.txt
     private void writeToVehicleFile() throws IOException {
-        String content = "Vehicle{ID='sh-RMIT1', name='RMIT Ship 1', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}\n" +
-                // Add other vehicles here...
-                "Vehicle{ID='rtr-RMIT2', name='Reefer Truck RMIT 2', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" + "Vehicle{ID='btr-RMIT3', name='Basic Truck RMIT 3', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" + "Vehicle{ID='ttr-RMIT4', name='Tanker Truck RMIT 4', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +"Vehicle{ID='sh-RMIT5', name='Ship RMIT 5', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='sh-RMIT6', name='Ship RMIT 6', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='sh-RMIT7', name='Ship RMIT 7', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='sh-RMIT8', name='Ship RMIT 8', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='sh-RMIT9', name='Ship RMIT 9', currentFuel=400000.0, carryingCapacity=80000.0, fuelCapacity=400000.0, currentPort=p-StartPort}\n" +
-
-                "Vehicle{ID='ttr-RMIT5', name='Tanker Truck RMIT 5', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='ttr-RMIT6', name='Tanker Truck RMIT 6', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='ttr-RMIT7', name='Tanker Truck RMIT 7', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='ttr-RMIT8', name='Tanker Truck RMIT 8', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='ttr-RMIT9', name='Tanker Truck RMIT 9', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-
-                "Vehicle{ID='rtr-RMIT5', name='Reefer Truck RMIT 5', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='rtr-RMIT6', name='Reefer Truck RMIT 6', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='rtr-RMIT7', name='Reefer Truck RMIT 7', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='rtr-RMIT8', name='Reefer Truck RMIT 8', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='rtr-RMIT9', name='Reefer Truck RMIT 9', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-
-                "Vehicle{ID='btr-RMIT5', name='Basic Truck RMIT 5', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='btr-RMIT6', name='Basic Truck RMIT 6', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='btr-RMIT7', name='Basic Truck RMIT 7', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='btr-RMIT8', name='Basic Truck RMIT 8', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n" +
-                "Vehicle{ID='btr-RMIT9', name='Basic Truck RMIT 9', currentFuel=200000.0, carryingCapacity=20000.0, fuelCapacity=200000.0, currentPort=p-StartPort}\n"
-                ;
+        String content = "Vehicle{ID='sh-BxW9', name='ShipStart', currentFuel=150000.0, carryingCapacity=10000.0, fuelCapacity=150000.0, currentPort=p-StartPort}\n" +
+                "Vehicle{ID='btr-p7k3', name='BTruckStart', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-StartPort}\n" +
+                "Vehicle{ID='ttr-QnFO', name='TTruckStart', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-StartPort}\n" +
+                "Vehicle{ID='rtr-tK1Z', name='BTruckStart', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-StartPort}\n" +
+                "Vehicle{ID='sh-6SGz', name='BigShipStart', currentFuel=170000.0, carryingCapacity=15000.0, fuelCapacity=170000.0, currentPort=p-StartPort}\n" +
+                "Vehicle{ID='sh-bcgw', name='ShipHCM', currentFuel=150000.0, carryingCapacity=10000.0, fuelCapacity=150000.0, currentPort=p-HCM}\n" +
+                "Vehicle{ID='sh-UyAv', name='BigShipHCM', currentFuel=170000.0, carryingCapacity=15000.0, fuelCapacity=170000.0, currentPort=p-HCM}\n" +
+                "Vehicle{ID='btr-oyeM', name='BTruckHCM', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HCM}\n" +
+                "Vehicle{ID='ttr-Ipjr', name='TTruckHCM', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HCM}\n" +
+                "Vehicle{ID='rtr-rIOb', name='RTruckHCM', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HCM}\n" +
+                "Vehicle{ID='sh-yFNi', name='ShipDN', currentFuel=150000.0, carryingCapacity=10000.0, fuelCapacity=150000.0, currentPort=p-DN}\n" +
+                "Vehicle{ID='sh-9Aad', name='BigShipDN', currentFuel=170000.0, carryingCapacity=15000.0, fuelCapacity=170000.0, currentPort=p-DN}\n" +
+                "Vehicle{ID='btr-DTCQ', name='BTruckDN', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-DN}\n" +
+                "Vehicle{ID='ttr-ySNy', name='TTruckDN', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-DN}\n" +
+                "Vehicle{ID='rtr-stmf', name='RTruckDN', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-DN}\n" +
+                "Vehicle{ID='sh-2pr3', name='ShipHP', currentFuel=100000.0, carryingCapacity=10000.0, fuelCapacity=100000.0, currentPort=p-HP}\n" +
+                "Vehicle{ID='sh-DEpg', name='BigShipHP', currentFuel=170000.0, carryingCapacity=15000.0, fuelCapacity=170000.0, currentPort=p-HP}\n" +
+                "Vehicle{ID='btr-3yiG', name='BTruckHP', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HP}\n" +
+                "Vehicle{ID='ttr-hT1s', name='TTruckHP', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HP}\n" +
+                "Vehicle{ID='rtr-yIna', name='RTruckHP', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HP}\n" +
+                "Vehicle{ID='sh-1rZN', name='ShipKG', currentFuel=150000.0, carryingCapacity=10000.0, fuelCapacity=150000.0, currentPort=p-KG}\n" +
+                "Vehicle{ID='btr-kSFX', name='BTruckKG', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-KG}\n" +
+                "Vehicle{ID='ttr-1NQq', name='TTruckKG', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-KG}\n" +
+                "Vehicle{ID='rtr-gdys', name='RTruckKG', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-KG}\n";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(vehicleFile, false))) {
             writer.write(content);
         }
     }
+    private void writeToportvehicleFile() throws IOException {
+        String content = "{Port :p-StartPort, Vehicles: sh-BxW9, btr-p7k3, ttr-QnFO, rtr-tK1Z, sh-6SGz}\n" +
+                "{Port :p-HCM, Vehicles: sh-bcgw, sh-UyAv, btr-oyeM, ttr-Ipjr, rtr-rIOb}\n" +
+                "{Port :p-DN, Vehicles: sh-yFNi, sh-9Aad, btr-DTCQ, ttr-ySNy, rtr-stmf}\n" +
+                "{Port :p-HP, Vehicles: sh-2pr3, sh-DEpg, btr-3yiG, ttr-hT1s, rtr-yIna}\n" +
+                "{Port :p-KG, Vehicles: sh-1rZN, btr-kSFX, ttr-1NQq, rtr-gdys}\n";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(port_vehicleFile, false))) {
+            writer.write(content);
+        }
+    }
+    private void writeTocontainerFile() throws IOException {
+        String content = "Container{ID='c-bxDh', weight=3000.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-R8dQ', weight=2500.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-1u5g', weight=4100.0, containerType=OPEN_SIDE, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-mET1', weight=1800.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-VV3b', weight=3200.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-YqMK', weight=3250.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port', latitude=222.200000, longitude=2.500000, storingCapacity=20000, landingAbility=true}}\n" +
+                "Container{ID='c-qmhB', weight=2870.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port', latitude=222.200000, longitude=2.500000, storingCapacity=20000, landingAbility=true}}\n" +
+                "Container{ID='c-wlet', weight=4010.0, containerType=OPEN_SIDE, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port', latitude=222.200000, longitude=2.500000, storingCapacity=20000, landingAbility=true}}\n" +
+                "Container{ID='c-Qocy', weight=1950.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port', latitude=222.200000, longitude=2.500000, storingCapacity=20000, landingAbility=true}}\n" +
+                "Container{ID='c-hSuu', weight=3015.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-HCM', name='Ho Chi Minh Port', latitude=222.200000, longitude=2.500000, storingCapacity=20000, landingAbility=true}}\n" +
+                "Container{ID='c-up4N', weight=4500.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-DN', name='Da Nang Port', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}}\n" +
+                "Container{ID='c-Et47', weight=2100.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='p-DN', name='Da Nang Port', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}}\n" +
+                "Container{ID='c-oyWy', weight=2950.0, containerType=OPEN_SIDE, isLoaded=false, port=Port{ID='p-DN', name='Da Nang Port', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}}\n" +
+                "Container{ID='c-PRx0', weight=1000.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-DN', name='Da Nang Port', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}}\n" +
+                "Container{ID='c-7rJx', weight=500.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-DN', name='Da Nang Port', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}}\n" +
+                "Container{ID='c-5Y0r', weight=4000.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-HP', name='Hai Phong Port', latitude=1080.800000, longitude=60.800000, storingCapacity=114000, landingAbility=true}}\n" +
+                "Container{ID='c-p2rN', weight=3000.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='p-HP', name='Hai Phong Port', latitude=1080.800000, longitude=60.800000, storingCapacity=114000, landingAbility=true}}\n" +
+                "Container{ID='c-ZEJo', weight=2000.0, containerType=OPEN_SIDE, isLoaded=false, port=Port{ID='p-HP', name='Hai Phong Port', latitude=1080.800000, longitude=60.800000, storingCapacity=114000, landingAbility=true}}\n" +
+                "Container{ID='c-8U7r', weight=1500.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-HP', name='Hai Phong Port', latitude=1080.800000, longitude=60.800000, storingCapacity=114000, landingAbility=true}}\n" +
+                "Container{ID='c-dg4P', weight=4000.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-HP', name='Hai Phong Port', latitude=1080.800000, longitude=60.800000, storingCapacity=114000, landingAbility=true}}\n" +
+                "Container{ID='c-iExm', weight=4500.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-KG', name='Kien Giang Port', latitude=808.800000, longitude=60.600000, storingCapacity=111400, landingAbility=true}}\n" +
+                "Container{ID='c-Mkbw', weight=3200.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='p-KG', name='Kien Giang Port', latitude=808.800000, longitude=60.600000, storingCapacity=111400, landingAbility=true}}\n" +
+                "Container{ID='c-YdQZ', weight=2100.0, containerType=OPEN_SIDE, isLoaded=false, port=Port{ID='p-KG', name='Kien Giang Port', latitude=808.800000, longitude=60.600000, storingCapacity=111400, landingAbility=true}}\n" +
+                "Container{ID='c-kcBV', weight=1200.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-KG', name='Kien Giang Port', latitude=808.800000, longitude=60.600000, storingCapacity=111400, landingAbility=true}}\n" +
+                "Container{ID='c-95Qd', weight=3290.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-KG', name='Kien Giang Port', latitude=808.800000, longitude=60.600000, storingCapacity=111400, landingAbility=true}}\n" +
+                "Container{ID='c-qOCv', weight=1000.0, containerType=DRY_STORAGE, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-n6mV', weight=2000.0, containerType=OPEN_TOP, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-WHuo', weight=3000.0, containerType=OPEN_SIDE, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-mNBq', weight=4000.0, containerType=REFRIGERATED, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n" +
+                "Container{ID='c-gUPR', weight=5000.0, containerType=LIQUID, isLoaded=false, port=Port{ID='p-StartPort', name='Start Port', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}}\n";
 
-    private static final String[] FRUITS = {
-            "Apple", "Banana", "Orange", "Mango", "Strawberry", "Pineapple",
-            "Grapes", "Cherry", "Peach", "Watermelon", "Lemon", "Kiwi"
-    };
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(containerFile, false))) {
+            writer.write(content);
+        }
+    }
 
-    private static final String[] FOODS = {
-            "Carrot", "Broccoli", "Potato", "Tomato", "Cucumber", "Eggplant",
-            "Lettuce", "Onion", "Pepper", "Spinach", "Cabbage", "Corn"
-    };
+    private void writeToportcontainerFile() throws IOException {
+        String content = "{Port :p-StartPort, Container: c-bxDh, c-R8dQ, c-1u5g, c-mET1, c-VV3b, c-qOCv, c-n6mV, c-WHuo, c-mNBq, c-gUPR}\n" +
+                "{Port :p-HCM, Container: c-YqMK, c-qmhB, c-wlet, c-Qocy, c-hSuu}\n" +
+                "{Port :p-DN, Container: c-up4N, c-Et47, c-oyWy, c-PRx0, c-7rJx}\n" +
+                "{Port :p-HP, Container: c-5Y0r, c-p2rN, c-ZEJo, c-8U7r, c-dg4P}\n" +
+                "{Port :p-KG, Container: c-iExm, c-Mkbw, c-YdQZ, c-kcBV, c-95Qd}\n";
 
-    private static final String[] CONTAINER_TYPES = {
-            "DRY_STORAGE", "OPEN_TOP", "OPEN_SIDE", "REFRIGERATED", "LIQUID"
-    };
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(port_containerFile, false))) {
+            writer.write(content);
+        }
+    }
 
-    private static final Random random = new Random();
-    private static int containerCounter = 0; // Maintain a counter for container IDs
+
+
+
+
+
 
     // Define a constant port information
-    private static final String PORT_INFO = "port=Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=112.900000, storingCapacity=500000, landingAbility=true}";
 
 
-    private static void writeToContainerFile() throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt", false))) {
-            for (String containerType : CONTAINER_TYPES) {
-                for (int i = 0; i < 6; i++) {
-                    String containerId = "c-" + containerCounter;
-                    double weight = generateRandomWeightLessThan2000(); // Generate weight less than 2000
-                    boolean isLoaded = false; // Set isLoaded to false
 
-                    String content = String.format("Container{ID='%s', weight=%.1f, containerType=%s, isLoaded=%s, %s}",
-                            containerId, weight, containerType, isLoaded, PORT_INFO);
 
-                    writer.write(content);
-                    writer.newLine();
 
-                    containerCounter++; // Increment the container counter
-                }
-            }
-        }
-    }
 
-    private static double generateRandomWeightLessThan2000() {
-        return random.nextDouble() * 2000; // Weight less than 2000
-    }
 
-    public static void addLineToPortVehiclesFile() {
-        String line = "{Port :p-StartPort, Vehicles: sh-RMIT1, rtr-RMIT2, btr-RMIT3, ttr-RMIT4, sh-RMIT5, sh-RMIT6, sh-RMIT7, sh-RMIT8, sh-RMIT9, ttr-RMIT5, ttr-RMIT6, ttr-RMIT7, ttr-RMIT8, ttr-RMIT9, rtr-RMIT5, rtr-RMIT6, rtr-RMIT7, rtr-RMIT8, rtr-RMIT9, btr-RMIT5, btr-RMIT6, btr-RMIT7, btr-RMIT8, btr-RMIT9}\n";
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_vehicles.txt", false))) {
-            writer.write(line);
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static void addPortContainerFile() {
-        String line  = "{Port :p-StartPort, Container: c-0, c-1, c-2, c-3, c-4, c-5, c-6, c-7, c-8, c-9, c-10, c-11, c-12, c-13, c-14, c-15, c-16, c-17, c-18, c-19, c-20, c-21, c-22, c-23, c-24, c-25, c-26, c-27, c-28, c-29}\n\n";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt", false))) {
-            writer.write(line);
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     // Clears content of a file
     private void clearFileContent(String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false))) {

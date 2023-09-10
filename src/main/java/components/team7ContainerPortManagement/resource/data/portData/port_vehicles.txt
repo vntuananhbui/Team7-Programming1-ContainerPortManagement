@@ -1,0 +1,5 @@
+{Port :p-StartPort, Vehicles: sh-BxW9, btr-p7k3, ttr-QnFO, rtr-tK1Z, sh-6SGz}
+{Port :p-HCM, Vehicles: sh-bcgw, sh-UyAv, btr-oyeM, ttr-Ipjr, rtr-rIOb}
+{Port :p-DN, Vehicles: sh-yFNi, sh-9Aad, btr-DTCQ, ttr-ySNy, rtr-stmf}
+{Port :p-HP, Vehicles: sh-2pr3, sh-DEpg, btr-3yiG, ttr-hT1s, rtr-yIna}
+{Port :p-KG, Vehicles: sh-1rZN, btr-kSFX, ttr-1NQq, rtr-gdys}
