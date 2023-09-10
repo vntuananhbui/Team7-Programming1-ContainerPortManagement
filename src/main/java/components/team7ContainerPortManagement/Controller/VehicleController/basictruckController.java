@@ -182,6 +182,13 @@ public class basictruckController {
     }
 
     public static void refuelVehicle(String portID) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
         List<Vehicle> vehicles = readVehiclesFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
 
@@ -207,7 +214,11 @@ public class basictruckController {
             Vehicle selectedVehicle = filteredVehicles.get(selectedIndex);
             selectedVehicle.setCurrentFuel(selectedVehicle.getFuelCapacity());
             saveVehiclesToFile(vehicles);
+
             System.out.println("Vehicle refueled successfully!");
+            System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 Refuel SUCCESSFULLY" + "                ║");
+            System.out.println(      ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
         } else {
             System.out.println("Invalid selection!");
         }

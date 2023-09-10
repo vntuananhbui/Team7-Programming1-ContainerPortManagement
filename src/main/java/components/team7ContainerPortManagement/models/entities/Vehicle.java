@@ -615,6 +615,18 @@ public abstract class Vehicle implements VehicleOperations {
             System.out.println("Fail to move");
             System.out.println("Fuel require: " + fuelRequire);
             System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("       Fail to move!");
+            System.out.println("       Fuel require: " + fuelRequire);
+            System.out.println("       Current fuel: " + selectedVehicle.getCurrentFuel());
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
 
         }
     }
