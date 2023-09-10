@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.isPortIDAlreadyExists;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.savePortsToFile;
@@ -264,6 +266,33 @@ public class Port implements PortOperations {
         this.landingAbility = landingAbility;
     }
 
+//    public static List<String> getContainerIDInPort(Port port) throws IOException {
+//        List<String> containerIDs = new ArrayList<>();
+//
+//        // Path to the port_containers file
+//        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+//
+//        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                if (line.contains("Port :" + port.getID())) {
+//                    String containerSegment = line.split("Container: ")[1];
+//                    containerSegment = containerSegment.replace("}", "").trim();
+//                    String[] containers = containerSegment.split(", ");
+//                    Collections.addAll(containerIDs, containers);
+//                    break;
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Port containers file not found.");
+//            e.printStackTrace();
+//        }
+//
+//        return containerIDs;
+//    }
+
+// ...
+
     public static List<String> getContainerIDInPort(Port port) throws IOException {
         List<String> containerIDs = new ArrayList<>();
 
@@ -277,7 +306,14 @@ public class Port implements PortOperations {
                     String containerSegment = line.split("Container: ")[1];
                     containerSegment = containerSegment.replace("}", "").trim();
                     String[] containers = containerSegment.split(", ");
-                    Collections.addAll(containerIDs, containers);
+
+                    for (String container : containers) {
+                        container = container.trim();
+                        if (!container.isEmpty()) {  // Add only valid non-empty container IDs
+                            containerIDs.add(container);
+                        }
+                    }
+
                     break;
                 }
             }
@@ -288,6 +324,10 @@ public class Port implements PortOperations {
 
         return containerIDs;
     }
+
+
+
+
 
     public void setName(String name) {
         this.name = name;

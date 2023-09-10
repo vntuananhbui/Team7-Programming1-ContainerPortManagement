@@ -82,6 +82,7 @@ public class calculateOperation {
         System.out.println("Available vehicle in port: " + availableVehicleIDs);
         for (String vehicle : availableVehicleIDs) {
             Vehicle selectedVehicle = getVehicleByVehicleID(vehicle);
+
             List<String> containerIDs = vehicleContainerMap.get(selectedVehicle.getID());
             if (containerIDs == null || containerIDs.isEmpty()) {
                 totalWeightContainerInPort += 0;

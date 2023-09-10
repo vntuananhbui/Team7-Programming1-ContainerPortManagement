@@ -507,11 +507,12 @@ public abstract class Vehicle implements VehicleOperations {
                 // Check if the port already exists in the map
                 for (String containerID : containerIDs) {
                     currentPortContainers.remove(containerID);
+//                    writePortContainersToFile(currentPort.getID(), currentPortContainers);//HERE
                 }
 //                System.out.println("*****After remove!"+currentPortContainers);
 //                System.out.println("Before Container Port map: " + containerPortMap);
 
-                writePortContainersToFile(currentPort.getID(), currentPortContainers);
+
                 // Add containers to the new port's container list
                 if (containerPortMap.containsKey(selectedPort.getID())) {
                     List<String> existingContainers = containerPortMap.get(selectedPort.getID());
