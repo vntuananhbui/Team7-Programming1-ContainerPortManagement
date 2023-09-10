@@ -1,1 +1,0 @@
-Vehicle{ID='sh-Hufl', name='shipstart', currentFuel=180776.0, carryingCapacity=22222.0, fuelCapacity=222222.0, currentPort=p-StartPort}

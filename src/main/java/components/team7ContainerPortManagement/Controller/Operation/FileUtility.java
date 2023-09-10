@@ -135,10 +135,10 @@ public class FileUtility {
             clearFileContent(port_vehicleFile);
             clearFileContent(port_containerFile);
             writeToPortFile();
-            writeToVehicleFile();
-            writeToContainerFile();
-            addLineToPortVehiclesFile();
-            addPortContainerFile();
+//            writeToVehicleFile();
+//            writeToContainerFile();
+//            addLineToPortVehiclesFile();
+//            addPortContainerFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
