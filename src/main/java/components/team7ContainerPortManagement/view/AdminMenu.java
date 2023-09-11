@@ -311,8 +311,8 @@ public class AdminMenu {
                 break;
             case 4:
                 ListTripInDayAdmin();
-                System.out.println("Press any key to return...");
-                scanner.next();
+//                System.out.println("Press any key to return...");
+//                scanner.next();
                 break;
             case 5:
                 listTripsBetweenDatesAdmin();

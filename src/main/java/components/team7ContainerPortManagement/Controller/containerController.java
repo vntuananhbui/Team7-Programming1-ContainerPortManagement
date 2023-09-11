@@ -171,8 +171,8 @@ public class containerController {
 
             // Save the updated list of containers back to the file
             saveContainersToFile(containers);
-            System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
-            System.out.println("╟" + ANSI_CYAN + "                 UPDATE CONTAINER SUCCESSFULLY" + "              ║");
+            System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 DELETE CONTAINER SUCCESSFULLY" + "          ║");
             System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
             System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
             System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);

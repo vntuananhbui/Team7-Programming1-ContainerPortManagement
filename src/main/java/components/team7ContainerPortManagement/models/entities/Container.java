@@ -89,29 +89,40 @@ public class Container {
                 ", port=" + port +
                 '}';
     }
+
+
     public static List<String> readoutContainerInPort(String portID) {
         List<String> containerIDs = new ArrayList<>();
         String portContainerFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+        boolean inContainerSection = false;
+
         try (BufferedReader reader = new BufferedReader(new FileReader(portContainerFilePath))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                // Example format: {Port :p-HCM, Container: c-8dSF, c-eltl}
-                String[] parts = line.split("[,:}]");
-                System.out.println("debug parts: " + Arrays.toString(parts));
-                boolean inContainerSection = false;
 
-                for (String part : parts) {
-                    part = part.trim();
-                    if (part.equals("Port") && inContainerSection) {
-                        // End of the container section
-                        break;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim(); // Trim leading/trailing whitespace
+                System.out.println("Debug line: " + line);
+                if (line.startsWith("{Port :")) {
+                    int portIndex = line.indexOf("Port :");
+                    int containerIndex = line.indexOf("Container:");
+
+                    if (portIndex != -1) {
+
+                        String currentPort = line.substring(portIndex + "Port :".length(), containerIndex).trim();
+                        if (currentPort.endsWith(",")) {
+                            currentPort = currentPort.substring(0, currentPort.length() - 1);
+                        }
+                        System.out.println("Debug current port: " + currentPort);
+                        System.out.println("Debug portID: " + portID);
+                        inContainerSection = currentPort.equals(portID);
+                        System.out.println("Debug inContainerSection: " + inContainerSection);
+
                     }
-                    if (part.equals("Container")) {
-                        inContainerSection = true;
-                    } else if (inContainerSection && !part.isEmpty()) {
-                        // Add the non-empty parts as container IDs
-                        containerIDs.add(part);
-                    }
+                }
+                if (inContainerSection && line.startsWith("c-")) {
+                    // Check if the line starts with "c-", indicating a container ID
+                    containerIDs.add(line);
+
                 }
             }
         } catch (IOException e) {
@@ -120,6 +131,41 @@ public class Container {
 
         return containerIDs;
     }
+
+
+
+
+    //    public static List<String> readoutContainerInPort(String portID) {
+//        List<String> containerIDs = new ArrayList<>();
+//        String portContainerFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+//        try (BufferedReader reader = new BufferedReader(new FileReader(portContainerFilePath))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                // Example format: {Port :p-HCM, Container: c-8dSF, c-eltl}
+//                String[] parts = line.split("[,:}]");
+//                System.out.println("debug parts: " + Arrays.toString(parts));
+//                boolean inContainerSection = false;
+//
+//                for (String part : parts) {
+//                    part = part.trim();
+//                    if (part.equals("Port") && inContainerSection) {
+//                        // End of the container section
+//                        break;
+//                    }
+//                    if (part.equals("Container")) {
+//                        inContainerSection = true;
+//                    } else if (inContainerSection && !part.isEmpty()) {
+//                        // Add the non-empty parts as container IDs
+//                        containerIDs.add(part);
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return containerIDs;
+//    }
     public static void viewContainerInPort(String portID) throws IOException {
         List<String> containerIDs = readoutContainerInPort(portID);
 
