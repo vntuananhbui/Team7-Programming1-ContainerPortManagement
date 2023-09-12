@@ -430,7 +430,7 @@ public class basictruckController {
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(true);
             selectedContainer.setPort(selectedBasicTruck.getCurrentPort());
-            selectedContainer.updateStatusContainer(true);
+            selectedContainer.updateStatusContainer(true,selectedPort);
             // Update the vehicleContainerMap
             Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
             vehicleContainerMap.computeIfAbsent(selectedBasicTruck.getID(), k -> new ArrayList<>()).add(selectedContainer.getID());
@@ -605,7 +605,7 @@ public class basictruckController {
 
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(false);
-            selectedContainer.updateStatusContainer(false);
+            selectedContainer.updateStatusContainer(false,selectedPort);
 
             // Update the vehicleContainerMap
             vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");

@@ -241,6 +241,7 @@ public class shipController {
         }
         String selectedContainerNumber = availableContainerIDs.get(selectedContainerOrderNumber - 1);
         System.out.println();
+
         String containerLine = getContainerLineByContainerID(selectedContainerNumber, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
         Container selectedContainer = getContainerByLine(containerLine);
         //Load function
@@ -259,14 +260,16 @@ public class shipController {
             System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(true);
-            selectedContainer.setPort(selectedShip.getCurrentPort());
-            selectedContainer.updateStatusContainer(true);
+            selectedContainer.setPort(selectedPort);
+            selectedContainer.updateStatusContainer(true,selectedPort);
 
             // Update the vehicleContainerMap
+            List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
             Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
             vehicleContainerMap.computeIfAbsent(selectedShip.getID(), k -> new ArrayList<>()).add(selectedContainer.getID());
             List<Ship> Ship = readShipFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
-            List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
+//            System.out.println("debug readbefore: " + containers);
+
             // Write the updated data back to the files
             writeShipToFile(Ship, "src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle.txt");
             writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
@@ -411,7 +414,7 @@ public class shipController {
 
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(false);
-            selectedContainer.updateStatusContainer(false);
+            selectedContainer.updateStatusContainer(false,selectedPort);
 
             // Update the vehicleContainerMap
             vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");

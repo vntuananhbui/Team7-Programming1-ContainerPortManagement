@@ -2,6 +2,7 @@ package src.main.java.components.team7ContainerPortManagement.view;
 
 import src.main.java.components.team7ContainerPortManagement.Controller.UserController.AdminController;
 import src.main.java.components.team7ContainerPortManagement.Controller.UserController.PortManagerController;
+import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 import src.main.java.components.team7ContainerPortManagement.models.entities.User;
 import src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.UserController.userController.checkPortManagerBelongPort;
+import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.findPortByUsername;
 import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.adminMenu;
 import static src.main.java.components.team7ContainerPortManagement.view.mainMenu.portManagerMenu;
@@ -57,7 +59,6 @@ public class userMainMenu {
                     System.out.println("Exiting the program. Goodbye!");
                     scanner.close();
                     return;
-
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }

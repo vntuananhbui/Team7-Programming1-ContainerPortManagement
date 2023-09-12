@@ -20,7 +20,7 @@ public class Container {
     private double weight;
     private ContainerType containerType;  // Use the enum instead of String
     private boolean isLoaded;
-    private static Port port;
+    private Port port;
     private String portID;
 
     //Use for calculate
@@ -117,13 +117,21 @@ public class Container {
                         inContainerSection = currentPort.equals(portID);
                         System.out.println("Debug inContainerSection: " + inContainerSection);
 
+                    }else if (inContainerSection) {
+                        // Check if the line contains container IDs
+                        String[] containerParts = line.split(", ");
+                        for (String containerPart : containerParts) {
+                            if (containerPart.startsWith("c-")) {
+                                containerIDs.add(containerPart.trim());
+                            }
+                        }
                     }
-                }
-                if (inContainerSection && line.startsWith("c-")) {
-                    // Check if the line starts with "c-", indicating a container ID
-                    containerIDs.add(line);
+//                    boolean check = line.startsWith("c-");
+//                    System.out.println(line);
+//                    System.out.println(check);
 
                 }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -180,25 +188,34 @@ public class Container {
 
 
 //Special method
-public void updateStatusContainer(boolean isLoaded) throws IOException {
+public void updateStatusContainer(boolean isLoaded, Port selectedPort) throws IOException {
     setLoaded(isLoaded);
-
-    // Assuming you have a method to update the container data in the file
+    setPort(selectedPort);
     updateContainerInFile();
 }
 
     private void updateContainerInFile() throws IOException {
-        // Assuming you have methods to read, update, and write the container data to the file
         List<Container> containers = readContainersFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
 
+        int containerIndex = -1;
         for (int i = 0; i < containers.size(); i++) {
             if (containers.get(i).getID().equals(this.getID())) {
-                containers.set(i, this);
+                containerIndex = i;
                 break;
             }
         }
 
-        writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
+        // Update the selected container if found
+        if (containerIndex != -1) {
+            Container updatedContainer = this; // Use the updated container
+            containers.set(containerIndex, updatedContainer);
+
+            // Write the entire updated list of containers back to the file
+            writeContainersToFile(containers, "src/main/java/components/team7ContainerPortManagement/resource/data/containerData/container.txt");
+        } else {
+            System.out.println("Container not found."); // Handle the case where the container is not found
+        }
+
     }
     private static final Pattern PORT_ID_PATTERN = Pattern.compile("port=Port\\{ID='(.*?)'");
     private static final Pattern WEIGHT_PATTERN = Pattern.compile("weight=(.*?),");

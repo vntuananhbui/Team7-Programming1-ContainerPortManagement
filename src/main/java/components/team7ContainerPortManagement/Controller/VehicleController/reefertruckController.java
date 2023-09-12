@@ -253,7 +253,7 @@ public class reefertruckController {
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(true);
             selectedContainer.setPort(selectedReeferTruck.getCurrentPort());
-            selectedContainer.updateStatusContainer(true);
+            selectedContainer.updateStatusContainer(true,selectedPort);
 
             // Update the vehicleContainerMap
             //Read map
@@ -435,7 +435,7 @@ public class reefertruckController {
 
             // Update the container's isLoaded status and port
             selectedContainer.setLoaded(false);
-            selectedContainer.updateStatusContainer(false);
+            selectedContainer.updateStatusContainer(false,selectedPort);
 
             // Update the vehicleContainerMap
             vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
