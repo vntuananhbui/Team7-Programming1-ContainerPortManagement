@@ -102,7 +102,7 @@ public class Container {
 
             while ((line = reader.readLine()) != null) {
                 line = line.trim(); // Trim leading/trailing whitespace
-                System.out.println("Debug line: " + line);
+//                System.out.println("Debug line: " + line);
                 if (line.startsWith("{Port :")) {
                     int portIndex = line.indexOf("Port :");
                     int containerIndex = line.indexOf("Container:");
@@ -113,10 +113,10 @@ public class Container {
                         if (currentPort.endsWith(",")) {
                             currentPort = currentPort.substring(0, currentPort.length() - 1);
                         }
-                        System.out.println("Debug current port: " + currentPort);
-                        System.out.println("Debug portID: " + portID);
+//                        System.out.println("Debug current port: " + currentPort);
+//                        System.out.println("Debug portID: " + portID);
                         inContainerSection = currentPort.equals(portID);
-                        System.out.println("Debug inContainerSection: " + inContainerSection);
+//                        System.out.println("Debug inContainerSection: " + inContainerSection);
 
                     }
                     if (inContainerSection) {
