@@ -324,7 +324,6 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
                 case 2:
                     viewContainerInPort(selectPort.getID());
 
-                    System.out.println("test");
                     break;
                 case 3:
                     updateContainer(selectPort.getID());

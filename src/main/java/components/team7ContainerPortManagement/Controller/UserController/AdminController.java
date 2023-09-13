@@ -6,6 +6,7 @@ import src.main.java.components.team7ContainerPortManagement.models.entities.Use
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
 
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -421,11 +422,26 @@ public class AdminController extends User {
 
 
     public static void writePortAndPortManagerFile(Map<String, String> chosen) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
+        Scanner scanner = new Scanner(System.in);
         String outputFileName = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_portmanager.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName, true))) {
             writer.write("{" + chosen.get("chosenPortID") + ":" + chosen.get("chosenManager") + "}");
             writer.newLine();
-            System.out.println("Assign port to port manager successful!");
+            System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 ASSIGN SUCCESSFULLY" + "                    ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.print("Press any key to return...");
+            scanner.next();  // Wait for the user to press Enter
+//            System.out.println("Assign port to port manager successful!");
         }
     }
     //-----------------------------------------------------------------------------------

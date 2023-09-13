@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -117,18 +118,31 @@ public class Container {
                         inContainerSection = currentPort.equals(portID);
                         System.out.println("Debug inContainerSection: " + inContainerSection);
 
-                    }else if (inContainerSection) {
+                    }
+                    if (inContainerSection) {
                         // Check if the line contains container IDs
-                        String[] containerParts = line.split(", ");
-                        for (String containerPart : containerParts) {
-                            if (containerPart.startsWith("c-")) {
-                                containerIDs.add(containerPart.trim());
-                            }
+//                        int startIndex = line.indexOf("Container:");
+//                        String containerSection = line.substring(startIndex + "Container:".length());
+//                        containerSection = containerSection.replace("{", "").replace("}", "");
+//                        String[] containerParts = containerSection.split(", ");
+//                        for (String containerPart : containerParts) {
+//                            if (containerPart.startsWith("c-")) {
+//                                System.out.println(containerPart);
+//                                containerIDs.add(containerPart.trim());
+//                            }
+//                        }
+                        String regex = "c-\\w+";
+
+                        // Create a pattern and matcher to find matches in the input string
+                        Pattern pattern = Pattern.compile(regex);
+                        Matcher matcher = pattern.matcher(line);
+
+                        // Find and collect all matching container IDs
+                        while (matcher.find()) {
+                            String containerID = matcher.group();
+                            containerIDs.add(containerID);
                         }
                     }
-//                    boolean check = line.startsWith("c-");
-//                    System.out.println(line);
-//                    System.out.println(check);
 
                 }
 
@@ -143,39 +157,76 @@ public class Container {
 
 
 
-    //    public static List<String> readoutContainerInPort(String portID) {
-//        List<String> containerIDs = new ArrayList<>();
-//        String portContainerFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
-//        try (BufferedReader reader = new BufferedReader(new FileReader(portContainerFilePath))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                // Example format: {Port :p-HCM, Container: c-8dSF, c-eltl}
-//                String[] parts = line.split("[,:}]");
-//                System.out.println("debug parts: " + Arrays.toString(parts));
-//                boolean inContainerSection = false;
-//
-//                for (String part : parts) {
-//                    part = part.trim();
-//                    if (part.equals("Port") && inContainerSection) {
-//                        // End of the container section
-//                        break;
-//                    }
-//                    if (part.equals("Container")) {
-//                        inContainerSection = true;
-//                    } else if (inContainerSection && !part.isEmpty()) {
-//                        // Add the non-empty parts as container IDs
-//                        containerIDs.add(part);
-//                    }
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return containerIDs;
-//    }
+        public static List<String> readoutContainerInPortAdmin(String portID) {
+        List<String> containerIDs = new ArrayList<>();
+        String portContainerFilePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(portContainerFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Example format: {Port :p-HCM, Container: c-8dSF, c-eltl}
+                String[] parts = line.split("[,:}]");
+                System.out.println("debug parts: " + Arrays.toString(parts));
+                boolean inContainerSection = false;
+
+                for (String part : parts) {
+                    part = part.trim();
+                    if (part.equals("Port") && inContainerSection) {
+                        // End of the container section
+                        break;
+                    }
+                    if (part.equals("Container")) {
+                        inContainerSection = true;
+                    } else if (inContainerSection && !part.isEmpty()) {
+                        // Add the non-empty parts as container IDs
+                        containerIDs.add(part);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return containerIDs;
+    }
     public static void viewContainerInPort(String portID) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
+        Scanner scanner = new Scanner(System.in);
         List<String> containerIDs = readoutContainerInPort(portID);
+        if (containerIDs == null) {
+            System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                 CONTAINER LIST IS EMPTY" + "                ║");
+            System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+            System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+            System.out.print("Press any key to return...");
+            scanner.next();  // Wait for the user to press Enter
+        }
+        System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
+        System.out.println("╟" + ANSI_CYAN + "                 All CONTAINER DISPLAY" + "                  ║");
+        System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);
+        System.out.println();
+        for (int i = 0; i < containerIDs.size(); i++) {
+            String containerID = containerIDs.get(i);
+            Container container = getContainerByID(containerID);
+
+            System.out.println("[" + (i+ 1) + "]" +" ContainerID: " +container.getID() + " | Type: " + container.getContainerType() + " | Weight: " + container.getWeight());
+
+
+        }
+        System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+        System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+        System.out.println("Press any key to return...");
+
+        scanner.next();
+    }
+    public static void viewContainerInPortAdmin(String portID) throws IOException {
+        List<String> containerIDs = readoutContainerInPortAdmin(portID);
 
         for (int i = 0; i < containerIDs.size(); i++) {
             String containerID = containerIDs.get(i);
