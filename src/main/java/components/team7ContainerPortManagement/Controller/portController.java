@@ -243,16 +243,17 @@ public class portController {
         System.out.println("Enter new longitude (type -1 to skip):");
         double longitude = scanner.nextDouble();
         scanner.nextLine();
-        System.out.println("Enter new storing capacity (type -1 to skip):");
-        int capacity = scanner.nextInt();
-        scanner.nextLine();
+        int capacity = portToUpdate.getStoringCapacity();
+//        System.out.println("Enter new storing capacity (type -1 to skip):");
+//        int capacity = scanner.nextInt();
+//        scanner.nextLine();
         System.out.println("Enter new landing ability (true, false or leave empty to skip):");
         String landingAbilityInput = scanner.nextLine();
 
         if (!portName.isEmpty()) portToUpdate.setName(portName);
         if (latitude != -1) portToUpdate.setLatitude(latitude);
         if (longitude != -1) portToUpdate.setLongitude(longitude);
-        if (capacity != -1) portToUpdate.setStoringCapacity(capacity);
+        portToUpdate.setStoringCapacity(capacity);
         if (!landingAbilityInput.isEmpty()) {
             try {
                 portToUpdate.setLandingAbility(Boolean.parseBoolean(landingAbilityInput));

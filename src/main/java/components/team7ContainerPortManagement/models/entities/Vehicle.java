@@ -11,6 +11,8 @@ import java.util.*;
 
 import static java.awt.Color.red;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateFuelConsumption;
+import static src.main.java.components.team7ContainerPortManagement.Controller.UserController.PortManagerController.addCashToUser;
+import static src.main.java.components.team7ContainerPortManagement.Controller.UserController.PortManagerController.findUsernameByPortID;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.getReeferTruckByLine;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.getTotalContainerWeightByPort;
@@ -547,14 +549,11 @@ public abstract class Vehicle implements VehicleOperations {
                     }
                 }
             }
-//            System.out.println("currentport vehicle: " + currentPortVehicles);
-//                System.out.println("selected vehicle: "+selectedVehicle.getID());
+
             currentPortVehicles.remove(selectedVehicle.getID());
-//            System.out.println("Map1 :" + vehiclePortMap);
-//            System.out.println("After remove port vehicle: " + currentPortVehicles);
+
             vehiclePortMap.put(currentPort.getID(),currentPortVehicles);
-//            System.out.println("Map2 :" + vehiclePortMap);
-//            System.out.println("After remove port vehicle: " + currentPortVehicles);
+
             if (vehiclePortMap.get(currentPort.getID()).isEmpty()) {
                 vehiclePortMap.remove(currentPort.getID());
             }
@@ -562,12 +561,10 @@ public abstract class Vehicle implements VehicleOperations {
                 selectedPortIDs = new ArrayList<>();
                 selectedPortIDs.add(selectedVehicle.getID());
                 vehiclePortMap.put(selectedPort.getID(), selectedPortIDs);
-//                System.out.println("in if vehicleport : " + currentPortVehicles);
-//                System.out.println("IF: Selected Port ID: "+selectedPortIDs);
+
             } else {
                 try {
                     selectedPortIDs.add(selectedVehicle.getID());
-//                    System.out.println("ELSE: Selected Port ID: "+selectedPortIDs);
                 } catch (UnsupportedOperationException e) {
                     List<String> mutableList = new ArrayList<>(selectedPortIDs);
                     mutableList.add(selectedVehicle.getID());
@@ -578,10 +575,10 @@ public abstract class Vehicle implements VehicleOperations {
 
 
 
-//            Trip newTrip = new Trip(selectedVehicle, selectedVehicle.getCurrentPort(), selectedPort);
             Trip newTrip = new Trip(selectedVehicle,selectedVehicle.getCurrentPort(),selectedPort,fuelRequire);
             newTrip.start();
             newTrip.tripComplete();
+
 //            System.out.println("After map: " + vehiclePortMap);
             System.out.println();
             System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
@@ -602,6 +599,16 @@ public abstract class Vehicle implements VehicleOperations {
 //            System.out.println("Fuel require: " + fuelRequire);
 //            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
             updateFuel(selectedVehicle.getID(),afterMoveFuel);
+            String userName = findUsernameByPortID(selectedPort.getID());
+            double amountToAdd;
+
+            if (currentContainerVehicle != null) {
+                amountToAdd = totalWeightInVehicle * 100;
+            } else {
+                amountToAdd = 1000;
+            }
+            System.out.println("User name: "+userName);
+            addCashToUser(userName, amountToAdd);
             System.out.println("Press any key to return...");
             scanner.next();
         }

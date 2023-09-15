@@ -26,6 +26,7 @@ public class Port implements PortOperations {
     private List<Trip> trips = new ArrayList<>();
 
 
+
     public Port(String ID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility) {
 
         this.ID = ID;

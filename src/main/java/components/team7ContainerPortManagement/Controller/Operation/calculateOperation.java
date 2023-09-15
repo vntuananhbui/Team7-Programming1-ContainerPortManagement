@@ -98,51 +98,7 @@ public class calculateOperation {
     }
 
 
-    public static void trafficOfPort(String port) {
-        System.out.println("Traffic for port: " + port);
-        System.out.println("Arrivals:");
-        System.out.println("Ship ID | Arrival Date | Fuel Consumption");
-        System.out.println("-----------------------------------------");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("trip.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(", ");
-                String shipID = parts[0];
-                String arrivalPort = parts[4];
-                String departurePort = parts[3];
-                String arrivalDate = parts[2];
-                String fuelConsumption = parts[6];
-
-                if (arrivalPort.equals(port)) {
-                    System.out.println(shipID + " | " + arrivalDate + " | " + fuelConsumption);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("\nDepartures:");
-        System.out.println("Ship ID | Departure Date | Fuel Consumption");
-        System.out.println("-------------------------------------------");
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("trip.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(", ");
-                String shipID = parts[0];
-                String departurePort = parts[3];
-                String departureDate = parts[1];
-                String fuelConsumption = parts[6];
-
-                if (departurePort.equals(port)) {
-                    System.out.println(shipID + " | " + departureDate + " | " + fuelConsumption);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 

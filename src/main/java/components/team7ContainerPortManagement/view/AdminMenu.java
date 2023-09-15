@@ -25,6 +25,7 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.V
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.unloadContainerTankerTruckMenu;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.deletePort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
+import static src.main.java.components.team7ContainerPortManagement.models.entities.CapacityPrice.manageCapacityPrices;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.viewContainerInPortAdmin;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.moveToMenu;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
@@ -43,6 +44,7 @@ public class AdminMenu {
             System.out.println("║  [4] Admin Statistic Operation           ║");
             System.out.println("║  [5] Port List                           ║");
             System.out.println("║  [6] Port Manager Functions              ║");
+            System.out.println("║  [7] Manage Update Port Operation        ║");
             System.out.println("║  [0] Back to Main Menu                   ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
@@ -73,6 +75,9 @@ public class AdminMenu {
                     break;
                 case 6:
                     portManagerMenuAdmin();
+                    break;
+                case 7:
+                    manageCapacityPrices();
                     break;
                 case 0:
 //                    mainLoop();

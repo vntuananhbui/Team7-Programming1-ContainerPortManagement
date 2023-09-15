@@ -3,15 +3,18 @@ package src.main.java.components.team7ContainerPortManagement.view;
 import src.main.java.components.team7ContainerPortManagement.Controller.Operation.FileUtility;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
+import src.main.java.components.team7ContainerPortManagement.models.entities.User;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.StatisticOperation.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.VehicleInPort.listAllShipInPort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
+import static src.main.java.components.team7ContainerPortManagement.Controller.UserController.PortManagerController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.loadContainerReeferTruckMenu;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.reefertruckController.unloadContainerReeferTruckMenu;
@@ -22,6 +25,8 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.V
 import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
 
+import static src.main.java.components.team7ContainerPortManagement.models.entities.CapacityPrice.upgradePortCapacity;
+import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.getTotalWeightOfContainersInVehicle;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.viewContainerInPort;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.moveToMenu;
 
@@ -161,8 +166,7 @@ public class mainMenu {
             System.out.println("║  [3] Port Operations                     ║");
             System.out.println("║  [4] Vehicle Movement                    ║");
             System.out.println("║  [5] Update Port                         ║");
-            System.out.println("║  [7] Change Port                         ║");
-            System.out.println("║  [8] Port Vehicles                       ║");
+            System.out.println("║  [6] Upgrade Port Capacity               ║");
             System.out.println("║  [0] LOGOUT                              ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
@@ -190,6 +194,15 @@ public class mainMenu {
                 case 0:
                     mainLoopUser();
                     break;
+                case 6:
+                    String userName = findUsernameByPortID(selectedPort.getID());
+                    upgradePortCapacity(selectedPort,userName);
+
+
+
+                    break;
+                // Handle other menu options
+            // Close the scanner when done
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }

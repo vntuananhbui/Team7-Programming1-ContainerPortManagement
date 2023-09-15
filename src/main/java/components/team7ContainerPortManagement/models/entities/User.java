@@ -14,12 +14,49 @@ public class User {
     private String username;
     private String Password;
     private String userType;
+    private double amountCash;  // New attribute
+
+
+
+//    public User(String U_ID, String username, String Password, String userType) {
+//        this.U_ID = U_ID;
+//        this.username = username;
+//        this.Password = hashing(Password);
+//        this.userType = userType;
+//
+//    }
+
+    public double getAmountCash() {
+        return amountCash;
+    }
+
+    public void setAmountCash(double amountCash) {
+        this.amountCash = amountCash;
+    }
 
     public User(String U_ID, String username, String Password, String userType) {
         this.U_ID = U_ID;
         this.username = username;
         this.Password = hashing(Password);
         this.userType = userType;
+        if (userType.equalsIgnoreCase("port manager")) {
+            this.amountCash = 0.0;  // Initialize to 0 for port managers
+        }
+    }
+    public User(String U_ID, String username, String Password, String userType, double amountCash) {
+        this.U_ID = U_ID;
+        this.username = username;
+        this.Password = Password;
+        this.userType = userType;
+
+        this.amountCash = 0.0;  // Initialize to 0 for port managers
+    }
+    public void addCash(double amount) {
+        if (this.userType.equalsIgnoreCase("port manager")) {
+            this.amountCash += amount;
+        } else {
+            System.out.println("Operation not allowed. This user is not a port manager.");
+        }
     }
 
     public User() {
@@ -114,14 +151,28 @@ public class User {
         return portManagerCredentials;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "U_ID='" + U_ID + '\'' +
-                ", username='" + username + '\'' +
-                ", Password='" + Password + '\'' +
-                ", userType='" + userType + '\'' +
-                '}';
+        if (this.userType.equalsIgnoreCase("port manager")) {
+            return "User{" +
+                    "U_ID='" + U_ID + '\'' +
+                    ", username='" + username + '\'' +
+                    ", Password='" + Password + '\'' +
+                    ", userType='" + userType + '\'' +
+                    ", amountCash=" + amountCash +
+                    '}';
+        } else {
+            return "User{" +
+                    "U_ID='" + U_ID + '\'' +
+                    ", username='" + username + '\'' +
+                    ", Password='" + Password + '\'' +
+                    ", userType='" + userType + '\'' +
+                    '}';
+        }
     }
 
     // add admin object into adminList and write object into admin.txt
@@ -255,6 +306,18 @@ public class User {
             return false;
         }
         return true;
+    }
+
+    public static void saveUsersToFile(List<User> userList, String filename) {
+        try (FileWriter fw = new FileWriter(filename, false);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+            for (User user : userList) {
+                out.println(user.toString());
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
     }
 
