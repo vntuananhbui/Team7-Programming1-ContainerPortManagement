@@ -33,8 +33,10 @@ import static src.main.java.components.team7ContainerPortManagement.models.entit
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
 import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.adminMenu;
 import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.*;
+import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.yellow;
 
 public class mainMenu {
+
     public static void displayBanner() {
 
 
@@ -46,7 +48,16 @@ public class mainMenu {
                 String cyan = "\u001B[36m";
                 String white = "\u001B[37m";
                 String reset = "\u001B[0m";
-                System.out.println(green + "===============================================");
+
+        String[] colors = {red, green, yellow, blue, purple, cyan, white};
+
+        String bannerLine = "===============================================\n";
+
+        for (int i = 0; i < bannerLine.length(); i++) {
+            int colorIndex = i % colors.length;
+            System.out.print(colors[colorIndex] + bannerLine.charAt(i));
+        }
+//                System.out.println(green + "===============================================");
                 System.out.println(cyan + "  " + cyan + "#####   " + purple + "    ######  " + yellow + "    #     #   " + blue + "    #####   " + reset);
                 System.out.println(cyan + "#     #  " + purple + "    #     #  " + yellow + "    ##   ##  " + blue + "    #     #  " + reset);
                 System.out.println(cyan + "#        " + purple + "    #     #  " + yellow + "    # # # #  " + blue + "    #        " + reset);
@@ -54,17 +65,36 @@ public class mainMenu {
                 System.out.println(cyan + "#        " + purple + "    #        " + yellow + "    #     #  " + blue + "          #  " + reset);
                 System.out.println(cyan + "#     #  " + purple + "    #        " + yellow + "    #     #  " + blue + "    #     #  " + reset);
                 System.out.println(cyan + " #####   " + purple + "    #        " + yellow + "    #     #   " + blue + "    #####   " + reset);
-                System.out.println(green + "===============================================");
+        String bannerLine1 = "===============================================\n";
+
+        for (int i = 0; i < bannerLine1.length(); i++) {
+            int colorIndex = i % colors.length;
+            System.out.print(colors[colorIndex] + bannerLine1.charAt(i));
+        }
                 System.out.println(yellow+"          BUI TUAN ANH      | S3970375");
                 System.out.println("          LAO VINH KHANG    | S3891925");
                 System.out.println("          TON NU NGOC KHANH | S3932105");
                 System.out.println("          NGUYEN TIEN DUNG  | S3999561"+reset);
-                System.out.println(green + "===============================================");
+        String bannerLine3 = "===============================================\n";
+
+        for (int i = 0; i < bannerLine3.length(); i++) {
+            int colorIndex = i % colors.length;
+            System.out.print(colors[colorIndex] + bannerLine3.charAt(i));
+        }
                 System.out.println(yellow + "        TEAM 7 CONTAINER PORT MANAGEMENT  ");
                 System.out.println("                SYSTEM 2023              ");
-                System.out.println(green + "===============================================");
+        String bannerLine4 = "===============================================\n";
+
+        for (int i = 0; i < bannerLine4.length(); i++) {
+            int colorIndex = i % colors.length;
+            System.out.print(colors[colorIndex] + bannerLine4.charAt(i));
+        }
                 System.out.println(reset);
-            }
+        System.out.println("Press any key to Login Menu!..");
+        Scanner scanner = new Scanner(System.in);
+        scanner.next();
+
+    }
 
 
 

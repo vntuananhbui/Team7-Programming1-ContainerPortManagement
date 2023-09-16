@@ -49,44 +49,48 @@ public class AdminMenu {
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
 
+            try {
+                int choice = scanner.nextInt();
 
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    adminPortController();
-                    break;
-                case 2:
-                    vehicleControllerMenuAdmin(selectPort());
-                    break;
-                case 3:
-                    //container
-                    containerMenu(selectPort());
-                    break;
-                case 4:
-                    adminPortOperation();
-                    break;
-                case 5:
-                    List<Port> ports = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
-                    System.out.println("Current Ports:");
-                    portController.displayAllPorts();
-                    System.out.println("Press any key to return...");
-                    scanner.next();
-                    break;
-                case 6:
-                    portManagerMenuAdmin();
-                    break;
-                case 7:
-                    manageCapacityPrices();
-                    break;
-                case 0:
-//                    mainLoop();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
+                switch (choice) {
+                    case 1:
+                        adminPortController();
+                        break;
+                    case 2:
+                        vehicleControllerMenuAdmin(selectPort());
+                        break;
+                    case 3:
+                        // container
+                        containerMenu(selectPort());
+                        break;
+                    case 4:
+                        adminPortOperation();
+                        break;
+                    case 5:
+                        List<Port> ports = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
+                        System.out.println("Current Ports:");
+                        portController.displayAllPorts();
+                        System.out.println("Press any key to return...");
+                        scanner.next();
+                        break;
+                    case 6:
+                        portManagerMenuAdmin();
+                        break;
+                    case 7:
+                        manageCapacityPrices();
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        System.out.println("Invalid choice. Please select a valid option.");
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.nextLine(); // Consume the invalid input
             }
         }
     }
+
     public static void vehicleControllerMenuAdmin(Port selectedPort) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -241,7 +245,7 @@ public class AdminMenu {
             System.out.println("║  [4] View Current Port                   ║");
             System.out.println("║  [5] Port operation                      ║");
             System.out.println("║  [6] Assign Portmanager                  ║");
-            System.out.println("║  [0] Log out                             ║");
+            System.out.println("║  [0] Return main menu                    ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
 

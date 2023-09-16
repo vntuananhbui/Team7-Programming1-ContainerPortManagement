@@ -31,7 +31,6 @@ public class userMainMenu {
     public static void mainLoopUser() throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-
             System.out.println(yellow + "╔══════════════════════════════════════════╗");
             System.out.println("║                LOGIN MENU                ║");
             System.out.println("╟──────────────────────────────────────────╢");
@@ -42,28 +41,35 @@ public class userMainMenu {
             System.out.println("║                                          ║");
             System.out.println("╚══════════════════════════════════════════╝" + reset);
             System.out.print("   Choose an option: ");
-            int option = scanner.nextInt();
 
-            scanner.nextLine(); // Consume newline
-            switch (option) {
-                case 1:
-                    register();
-                    break;
-                case 2:
-                    login();
-                    break;
-                case 3:
-                    resetFileMenu();
-                    break;
-                case 4:
-                    System.out.println("Exiting the program. Goodbye!");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
+            try {
+                int option = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+
+                switch (option) {
+                    case 1:
+                        register();
+                        break;
+                    case 2:
+                        login();
+                        break;
+                    case 3:
+                        resetFileMenu();
+                        break;
+                    case 4:
+                        System.out.println("Exiting the program. Goodbye!");
+                        scanner.close();
+                        return;
+                    default:
+                        System.out.println("Invalid choice. Please select a valid option.");
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.nextLine(); // Consume the invalid input
             }
         }
     }
+
 
     public static void register() {
         String ANSI_RED = "\u001B[31m";

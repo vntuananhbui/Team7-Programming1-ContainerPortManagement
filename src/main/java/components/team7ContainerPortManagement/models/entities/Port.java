@@ -6,13 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static src.main.java.components.team7ContainerPortManagement.Controller.portController.isPortIDAlreadyExists;
-import static src.main.java.components.team7ContainerPortManagement.Controller.portController.savePortsToFile;
-import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class Port implements PortOperations {
     private String ID;
