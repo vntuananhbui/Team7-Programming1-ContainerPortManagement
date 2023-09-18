@@ -201,6 +201,7 @@ public class mainMenu {
             System.out.println("║  [4] Vehicle Movement                    ║");
             System.out.println("║  [5] Update Port                         ║");
             System.out.println("║  [6] Upgrade Port Capacity               ║");
+            System.out.println("║  [7] Recommend Route                     ║");
             System.out.println("║  [0] LOGOUT                              ║");
             System.out.println("╚══════════════════════════════════════════╝");
             System.out.print("  Choose an option: ");
