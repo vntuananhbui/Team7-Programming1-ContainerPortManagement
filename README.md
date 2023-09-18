@@ -2,6 +2,7 @@
 
 # Project file
 UML DRIAGRAM: https://drive.google.com/file/d/1XQal3Jv4b2wrsqM0Hp8xhQUr6fKyB86r/view?usp=sharing
+REPORT: https://docs.google.com/document/d/1FaGOPAJO7O8iopQ83AJkvImcN2CtLalF50WXY0H32Qw/edit
 <br />
 <hr>
 - Project start date: 12/08/2023
