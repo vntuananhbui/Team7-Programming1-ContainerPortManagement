@@ -124,6 +124,15 @@ public class CapacityPrice {
                 System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
             } else {
                 System.out.println("Insufficient funds to upgrade capacity.");
+                System.out.println("Port capacity upgraded successfully!");
+                System.out.println(ANSI_RED + "╔════════════════════════════════════════════════════════╗");
+                System.out.println("╟" + ANSI_RED + "                 UPDATE PORT UNSUCCESSFULLY" + "             ║");
+                System.out.println("╟────────────────────────────────────────────────────────╢" + ANSI_RESET);
+                System.out.println("      Your Account Not Have Enough Cash To Upgrade ");
+                System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET);
+                System.out.println(ANSI_RED + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
+                System.out.println("Press any key to return...");
+                scanner.next();
             }
         } else if (choice != 0) {
             System.out.println("Invalid choice.");
