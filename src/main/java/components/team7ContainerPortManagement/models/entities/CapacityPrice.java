@@ -9,6 +9,15 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.U
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.savePortsToFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import static src.main.java.components.team7ContainerPortManagement.Controller.UserController.PortManagerController.*;
+import static src.main.java.components.team7ContainerPortManagement.Controller.portController.savePortsToFile;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
+
 public class CapacityPrice {
     private int capacity;
     private double price;
@@ -172,6 +181,7 @@ public class CapacityPrice {
     }
 
     public static void addNewCapacityPriceEntry(List<CapacityPrice> entries, Scanner scanner) {
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/capacity_cash.txt";
         System.out.print("Enter Capacity (tons): ");
         int capacity = scanner.nextInt();
         System.out.print("Enter Price ($): ");
@@ -180,6 +190,7 @@ public class CapacityPrice {
 
         CapacityPrice newEntry = new CapacityPrice(capacity, price);
         entries.add(newEntry);
+        saveCapacityPrices(filePath,entries);
         System.out.println("New entry added.");
     }
 
@@ -192,6 +203,7 @@ public class CapacityPrice {
     }
 
     public static void updateCapacityPriceEntry(List<CapacityPrice> entries, Scanner scanner) {
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/capacity_cash.txt";
         System.out.print("Enter Capacity to update (tons): ");
         int capacityToUpdate = scanner.nextInt();
         scanner.nextLine(); // Consume the newline
@@ -204,6 +216,7 @@ public class CapacityPrice {
             scanner.nextLine(); // Consume the newline
 
             existingEntry.setPrice(newPrice);
+            saveCapacityPrices(filePath,entries);
             System.out.println("Entry updated.");
         } else {
             System.out.println("Entry not found.");
@@ -211,6 +224,7 @@ public class CapacityPrice {
     }
 
     public static void removeCapacityPriceEntry(List<CapacityPrice> entries, Scanner scanner) {
+        String filePath = "src/main/java/components/team7ContainerPortManagement/resource/data/portData/capacity_cash.txt";
         System.out.print("Enter Capacity to remove (tons): ");
         int capacityToRemove = scanner.nextInt();
         scanner.nextLine(); // Consume the newline
@@ -220,10 +234,42 @@ public class CapacityPrice {
         if (existingEntry != null) {
             entries.remove(existingEntry);
             System.out.println("Entry removed.");
+            removeCapacityPriceFromFile(capacityToRemove,filePath);
         } else {
             System.out.println("Entry not found.");
         }
     }
+
+    public static void removeCapacityPriceFromFile(int capacityToRemove, String filePath) {
+        List<String> lines = new ArrayList<>();
+
+        // Read the file and store lines in a list
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length > 0) {
+                    int capacity = Integer.parseInt(parts[0].trim());
+                    if (capacity != capacityToRemove) {
+                        lines.add(line);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Write the updated lines back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static CapacityPrice findCapacityPriceEntry(List<CapacityPrice> entries, int capacity) {
         for (CapacityPrice entry : entries) {
@@ -241,7 +287,6 @@ public class CapacityPrice {
                 writer.newLine();
             }
             System.out.println("Capacity and Price entries saved to " + filePath);
-            System.out.println("debug push");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -252,3 +297,4 @@ public class CapacityPrice {
 
 
 }
+
