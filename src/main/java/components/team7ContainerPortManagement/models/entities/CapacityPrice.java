@@ -241,6 +241,7 @@ public class CapacityPrice {
                 writer.newLine();
             }
             System.out.println("Capacity and Price entries saved to " + filePath);
+            System.out.println("debug push");
         } catch (IOException e) {
             e.printStackTrace();
         }
