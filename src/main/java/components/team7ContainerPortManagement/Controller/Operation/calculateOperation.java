@@ -44,14 +44,14 @@ public class calculateOperation {
 //            System.out.println("container in vehiclecontainermap: " + containerIDs);
 
 //            System.out.println("All container " + containers);
-            System.out.println("Distance from: " + currentPort.getID() + " to " + selectedPort.getID() + " is: " + distancePort);
+//            System.out.println("Distance from: " + currentPort.getID() + " to " + selectedPort.getID() + " is: " + distancePort);
             double finalConsumption = getFinalShipConsumption(containerIDs);
 
-            System.out.println("Consumption: " + finalConsumption);
+//            System.out.println("Consumption: " + finalConsumption);
             fuelConsumption = round(finalConsumption * distancePort);
-            System.out.println("Fuel Consumption: " + fuelConsumption);
+//            System.out.println("Fuel Consumption: " + fuelConsumption);
         } else {
-            System.out.println("Selected Vehicle: " + selectedVehicle.getID());
+//            System.out.println("Selected Vehicle: " + selectedVehicle.getID());
             Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
             double distancePort = currentPort.calculateDistanceTo(selectedPort);
             List<String> containerIDs = vehicleContainerMap.get(selectedVehicle.getID());
@@ -63,13 +63,13 @@ public class calculateOperation {
 //            System.out.println("container in vehiclecontainermap: " + containerIDs);
 
 //            System.out.println("All container " + containers);
-            System.out.println("Distance from: " + currentPort.getID() + " to " + selectedPort.getID() + " is: " + distancePort);
+//            System.out.println("Distance from: " + currentPort.getID() + " to " + selectedPort.getID() + " is: " + distancePort);
 
             double finalConsumption = getFinalTruckConsumption(containerIDs);
 
-            System.out.println("Consumption: " + finalConsumption);
+//            System.out.println("Consumption: " + finalConsumption);
             fuelConsumption = round(finalConsumption * distancePort);
-            System.out.println("Fuel Consumption: " + fuelConsumption);
+//            System.out.println("Fuel Consumption: " + fuelConsumption);
 
         }
         return fuelConsumption;
