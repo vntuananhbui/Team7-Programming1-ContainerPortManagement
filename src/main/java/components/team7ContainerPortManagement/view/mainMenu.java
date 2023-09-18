@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.RouteOptimization.calculateDistancePort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.RouteOptimization.selectPortsAndOptimizeRoute;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.StatisticOperation.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.VehicleInPort.listAllShipInPort;
@@ -82,8 +83,10 @@ public class mainMenu {
             int colorIndex = i % colors.length;
             System.out.print(colors[colorIndex] + bannerLine3.charAt(i));
         }
-                System.out.println(yellow + "        TEAM 7 CONTAINER PORT MANAGEMENT  ");
-                System.out.println("                SYSTEM 2023              ");
+                System.out.println(yellow + "           COSC2081 GROUP ASSIGNMENT  ");
+                System.out.println(yellow + "     CONTAINER PORT MANAGEMENT SYSTEM 2023");
+                System.out.println(yellow + "                    GROUP 7");
+                System.out.println(yellow + "     Instructor: Mr. Minh Vu & Dr.Phong Ngo  ");
         String bannerLine4 = "===============================================\n";
 
         for (int i = 0; i < bannerLine4.length(); i++) {
@@ -91,7 +94,7 @@ public class mainMenu {
             System.out.print(colors[colorIndex] + bannerLine4.charAt(i));
         }
                 System.out.println(reset);
-        System.out.println("Press any key to Login Menu!..");
+        System.out.println("Press any key to Start!..");
         Scanner scanner = new Scanner(System.in);
         scanner.next();
 
@@ -213,6 +216,7 @@ public class mainMenu {
                     vehicleControllerMenu(selectedPort);
                     break;
                 case 3:
+                    System.out.println();
                     statisticOperationsMenu(selectedPort);
                     break;
                 case 4:
@@ -420,7 +424,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             System.out.println("║            Statistics Operations Menu        ║");
             System.out.println("╟──────────────────────────────────────────────╢"+reset);
             System.out.println("║                                              ║");
-//            System.out.println("║  [1] Calculate Distance between Port         ║");
+            System.out.println("║  [1] Calculate Distance between Port         ║");
             System.out.println("║  [2] Fuel Use in specific Day                ║"); //operation 1
             System.out.println("║  [3] Total Weight of Container Type          ║"); //operation 2
             System.out.println("║  [4] List all ship in port                   ║");
@@ -436,7 +440,9 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             switch (choice) {
                 case 1:
                     //distance
-//                    calculateDistanceBetweenPorts(selectedPort.)
+                    calculateDistancePort(selectedPort);
+                    System.out.println("Press any key to return...");
+                    scanner.next();
                     break;
                 case 2:
                     //fuel in day

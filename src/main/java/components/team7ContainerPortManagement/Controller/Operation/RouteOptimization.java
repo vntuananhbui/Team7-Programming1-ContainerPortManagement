@@ -1,14 +1,18 @@
 package src.main.java.components.team7ContainerPortManagement.Controller.Operation;
 
+import src.main.java.components.team7ContainerPortManagement.Controller.portController;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.calculateDistanceBetweenPorts;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readAvailablePortsFromFile;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
+import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.selectPort;
 
 public class RouteOptimization {
     public static List<Port> selectPortRoute(Port selectPort) throws IOException {
@@ -73,6 +77,11 @@ public class RouteOptimization {
         }
     }
 
+    public static double calculateDistancePort(Port currentPort) throws IOException {
+        Port selectedPort = selectPort();
+        System.out.println("Distance from " + currentPort.getID() + " to " + selectedPort.getID() + " is: " + currentPort.calculateDistanceTo(selectedPort));
+        return currentPort.calculateDistanceTo(selectedPort);
+    }
     public static List<Port> selectPortsAndOptimizeRoute(Port selectPort) throws IOException {
         Port currentPort = selectPort; // Get the starting port
         List<Port> selectedPorts = selectPortRoute(selectPort); // Get the list of destination ports
