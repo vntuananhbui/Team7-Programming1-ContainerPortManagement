@@ -603,7 +603,7 @@ public abstract class Vehicle implements VehicleOperations {
             double amountToAdd;
 
             if (currentContainerVehicle != null) {
-                amountToAdd = totalWeightInVehicle * 100;
+                amountToAdd = totalWeightInVehicle * 10;
             } else {
                 amountToAdd = 1000;
             }

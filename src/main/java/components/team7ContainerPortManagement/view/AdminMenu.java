@@ -9,11 +9,9 @@ import src.main.java.components.team7ContainerPortManagement.Controller.portCont
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.RouteOptimization.selectPortsAndOptimizeRoute;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.StatisticOperationAdmin.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.VehicleInPort.listAllShipInPortAdmin;
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.*;
@@ -28,6 +26,7 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.p
 import static src.main.java.components.team7ContainerPortManagement.models.entities.CapacityPrice.manageCapacityPrices;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.viewContainerInPortAdmin;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.moveToMenu;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readAvailablePortsFromFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 import static src.main.java.components.team7ContainerPortManagement.view.mainMenu.*;
 
@@ -227,6 +226,7 @@ public class AdminMenu {
         Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
         return selectedPort;
     }
+
     public static void adminPortController() throws IOException {
         // Load available ports from port.txt and display them here
         Scanner scanner = new Scanner(System.in);

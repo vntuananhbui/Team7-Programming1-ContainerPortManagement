@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.RouteOptimization.selectPortsAndOptimizeRoute;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.StatisticOperation.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.VehicleInPort.listAllShipInPort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.calculateOperation.calculateTotalWeightContainerPort;
@@ -227,12 +228,12 @@ public class mainMenu {
                 case 6:
                     String userName = findUsernameByPortID(selectedPort.getID());
                     upgradePortCapacity(selectedPort,userName);
-
-
-
                     break;
                 // Handle other menu options
             // Close the scanner when done
+                case 7:
+                    selectPortsAndOptimizeRoute(selectedPort);
+                    break;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
@@ -419,7 +420,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             System.out.println("║            Statistics Operations Menu        ║");
             System.out.println("╟──────────────────────────────────────────────╢"+reset);
             System.out.println("║                                              ║");
-            System.out.println("║  [1] Calculate Distance between Port         ║");
+//            System.out.println("║  [1] Calculate Distance between Port         ║");
             System.out.println("║  [2] Fuel Use in specific Day                ║"); //operation 1
             System.out.println("║  [3] Total Weight of Container Type          ║"); //operation 2
             System.out.println("║  [4] List all ship in port                   ║");
@@ -435,6 +436,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             switch (choice) {
                 case 1:
                     //distance
+//                    calculateDistanceBetweenPorts(selectedPort.)
                     break;
                 case 2:
                     //fuel in day
