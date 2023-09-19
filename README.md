@@ -45,7 +45,6 @@ tasks can be executed only by the persons in charge.
 
 #### Port Management System
 
-In this project, with Lazada's permission, you are working on a simplified and slightly modified version of the above system.
 
 ### Technologies used:
 
@@ -55,6 +54,13 @@ InteliJ
 
 - 
 
+###Account
+Admin:         admin   | Rmit2023@
+StartPort :    pmstart | Rmit2023@
+PortHCM:       pmhcm   | Rmit2023@
+PortDN:        pmdn    | Rmit2023@ 
+PortHP:        pmhp    | Rmit2023@
+PortKG:        pmkg    | Rmit2023@
 
 ## Build
 
