@@ -607,7 +607,7 @@ public abstract class Vehicle implements VehicleOperations {
             } else {
                 amountToAdd = 1000;
             }
-            System.out.println("User name: "+userName);
+//            System.out.println("User name: "+userName);
             addCashToUser(userName, amountToAdd);
             System.out.println("Press any key to return...");
             scanner.next();

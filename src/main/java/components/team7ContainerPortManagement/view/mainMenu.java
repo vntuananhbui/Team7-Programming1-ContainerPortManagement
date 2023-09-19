@@ -28,11 +28,9 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.c
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
 
 import static src.main.java.components.team7ContainerPortManagement.models.entities.CapacityPrice.upgradePortCapacity;
-import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.getTotalWeightOfContainersInVehicle;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.viewContainerInPort;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.moveToMenu;
 
-import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
 import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.adminMenu;
 import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.*;
 import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.yellow;
@@ -165,31 +163,6 @@ public class mainMenu {
         String cyan = "\u001B[36m";
         String white = "\u001B[37m";
         String reset = "\u001B[0m";
-
-//        // Load available ports from port.txt and display them here
-//        List<Port> availablePorts = readPortsFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
-//        portController.displayAllPorts();
-//        System.out.print("Choose a port by order number: ");
-//        int selectedPortOrderNumber;
-//        while (true) {
-//            try {
-//                System.out.print("Choose a port by order number: ");
-//                selectedPortOrderNumber = scanner.nextInt();
-//                if (selectedPortOrderNumber >= 1 && selectedPortOrderNumber <= availablePorts.size()) {
-//                    break; // Exit the loop if a valid port is selected
-//                } else {
-//                    System.out.println("Invalid choice. Please select a number between 1 and " + availablePorts.size() + ".");
-//                }
-//            } catch (InputMismatchException e) {
-//                System.out.println("Please enter a valid number.");
-//                scanner.nextLine(); // Clear the invalid input
-//            }
-//        }
-//
-//// Get the selected port object
-//        Port selectedPort = availablePorts.get(selectedPortOrderNumber - 1);
-
-
         while (true) {
 
             System.out.println(yellow+"╔══════════════════════════════════════════╗");
@@ -472,8 +445,6 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
-
-
             }
         }
     }

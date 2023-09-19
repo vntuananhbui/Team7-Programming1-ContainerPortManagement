@@ -252,7 +252,7 @@ public class PortManagerController extends User {
 //            System.out.println("Debug user: " + user);
 //            System.out.println("Debug password: " + user.getPassword());
             if (user.getUsername().equals(username)) {
-                System.out.println("CORRREEEEEE");
+//                System.out.println("CORRREEEEEE");
                 return user;
             }
         }
@@ -301,7 +301,7 @@ public class PortManagerController extends User {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (User user : userList) {
                 // Write each user as a line in the file
-                System.out.println("save check: " + user.getAmountCash());
+//                System.out.println("save check: " + user.getAmountCash());
                 writer.write(user.toString());
                 writer.newLine();
             }
@@ -314,9 +314,9 @@ public class PortManagerController extends User {
         User user = findUserByUsername(username);
         if (user != null) {
             double currentAmount = user.getAmountCash();
-            System.out.println("Before cash: " + currentAmount);
+//            System.out.println("Before cash: " + currentAmount);
             user.setAmountCash(currentAmount + amountToAdd);
-            System.out.println("After cash: " + user.getAmountCash());
+//            System.out.println("After cash: " + user.getAmountCash());
             for (int i = 0; i < userList.size(); i++) {
                 if (userList.get(i).getUsername().equals(username)) {
                     userList.set(i, user);
@@ -334,9 +334,9 @@ public class PortManagerController extends User {
         User user = findUserByUsername(username);
         if (user != null) {
             double currentAmount = user.getAmountCash();
-            System.out.println("Before cash: " + currentAmount);
+//            System.out.println("Before cash: " + currentAmount);
             user.setAmountCash(currentAmount - amountToMinus);
-            System.out.println("After cash: " + user.getAmountCash());
+//            System.out.println("After cash: " + user.getAmountCash());
             for (int i = 0; i < userList.size(); i++) {
                 if (userList.get(i).getUsername().equals(username)) {
                     userList.set(i, user);

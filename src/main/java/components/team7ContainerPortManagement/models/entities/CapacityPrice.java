@@ -9,14 +9,6 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.U
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.savePortsToFile;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import static src.main.java.components.team7ContainerPortManagement.Controller.UserController.PortManagerController.*;
-import static src.main.java.components.team7ContainerPortManagement.Controller.portController.savePortsToFile;
-import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortsFromFile;
 
 public class CapacityPrice {
     private int capacity;
@@ -299,11 +291,6 @@ public class CapacityPrice {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
-
-
 }
 
