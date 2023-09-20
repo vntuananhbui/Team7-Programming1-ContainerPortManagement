@@ -279,8 +279,14 @@ public class AdminMenu {
                     AdminController.displayPortToPortMana();
                     AdminController.displayAllPortManager();
                     Map<String, String> chosen = AdminController.assignPortToPortManager();
-                    AdminController.writePortAndPortManagerFile(chosen);
-                    return;
+                    if (chosen == null) {
+                        return;
+                    } else {
+                        AdminController.writePortAndPortManagerFile(chosen);
+                        return;
+                    }
+//                    AdminController.writePortAndPortManagerFile(chosen);
+//                    return;
                 case 0:
                     return;
                 default:

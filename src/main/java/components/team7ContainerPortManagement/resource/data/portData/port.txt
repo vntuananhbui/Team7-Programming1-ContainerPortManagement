@@ -1,5 +1,5 @@
-Port{ID='p-StartPort', name='Start Port'', latitude=291.500000, longitude=12.900000, storingCapacity=500000, landingAbility=true}
-Port{ID='p-HCM', name='Ho Chi Minh Port'', latitude=222.200000, longitude=2.500000, storingCapacity=26969, landingAbility=true}
-Port{ID='p-DN', name='Da Nang Port'', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}
-Port{ID='p-HP', name='Hai Phong Port'', latitude=1080.800000, longitude=60.800000, storingCapacity=114000, landingAbility=true}
-Port{ID='p-KG', name='Kien Giang Port'', latitude=808.800000, longitude=60.600000, storingCapacity=111400, landingAbility=true}
+Port{ID='p-StartPort', name='Start Port''', latitude=291.500000, longitude=2.900000, storingCapacity=500000, landingAbility=true}
+Port{ID='p-HCM', name='Ho Chi Minh Port''', latitude=222.200000, longitude=0.500000, storingCapacity=26969, landingAbility=true}
+Port{ID='p-DN', name='Da Nang Port''', latitude=980.800000, longitude=0.800000, storingCapacity=154000, landingAbility=false}
+Port{ID='p-HP', name='Hai Phong Port''', latitude=1080.800000, longitude=0.800000, storingCapacity=114000, landingAbility=true}
+Port{ID='p-KG', name='Kien Giang Port''', latitude=808.800000, longitude=0.600000, storingCapacity=111400, landingAbility=true}

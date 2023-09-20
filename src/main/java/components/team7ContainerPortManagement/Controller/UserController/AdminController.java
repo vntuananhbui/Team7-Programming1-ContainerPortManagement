@@ -373,20 +373,25 @@ public class AdminController extends User {
 
         // Check for valid port
         while (true) {
-            System.out.println("Please enter the port you want to assign (ex: p-port6): ");
+            System.out.println("Please enter the port you want to assign (ex: p-port6) or press 0 to exit: ");
             portNumber = scanner.nextLine();
+            if ("0".equals(portNumber)) {
+                return null; // Exit the method with a null map
+            }
             if (checkIfExists(portFileName, "ID='(.*?)'", portNumber)) {
                 break;
             } else {
                 System.out.println("Invalid port. Please try again.");
             }
-
         }
 
         // Check for valid port manager
         while (true) {
-            System.out.println("Please enter the port manager (ex: port manager 2): ");
+            System.out.println("Please enter the port manager (ex: port manager 2) or press 0 to exit: ");
             portManagerUserName = scanner.nextLine();
+            if ("0".equals(portManagerUserName)) {
+                return null; // Exit the method with a null map
+            }
             if (checkIfExists(managerFileName, "username='(.*?)'", portManagerUserName)) {
                 break;
             } else {
