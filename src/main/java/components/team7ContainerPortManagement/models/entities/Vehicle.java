@@ -437,7 +437,7 @@ public abstract class Vehicle implements VehicleOperations {
             System.out.println(ANSI_RED + "║                    Error                     ║");
             System.out.println(ANSI_RED + "║──────────────────────────────────────────────║" + reset);
             System.out.println("                                              ");
-            System.out.println("          No Vehicle in " + selectedPort.getID() + " port!         ");
+            System.out.println("          No Vehicle in " + currentPort.getID() + " port!         ");
             System.out.println("                                              ");
             System.out.println("╚══════════════════════════════════════════════╝");
             System.out.println("Press any key to return...: ");
@@ -578,8 +578,16 @@ public abstract class Vehicle implements VehicleOperations {
             Trip newTrip = new Trip(selectedVehicle,selectedVehicle.getCurrentPort(),selectedPort,fuelRequire);
             newTrip.start();
             newTrip.tripComplete();
-
+            double amountToAdd;
+            String userName = findUsernameByPortID(selectedPort.getID());
 //            System.out.println("After map: " + vehiclePortMap);
+            if (currentContainerVehicle != null) {
+                amountToAdd = totalWeightInVehicle * 10;
+            } else {
+                amountToAdd = 1000;
+            }
+//            System.out.println("User name: "+userName);
+            addCashToUser(userName, amountToAdd);
             System.out.println();
             System.out.println(ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
             System.out.println("╟" + ANSI_CYAN + "                 VEHICLE MOVE CONFIRMATION" + "              ║");
@@ -589,6 +597,7 @@ public abstract class Vehicle implements VehicleOperations {
             System.out.println("  Time of Departure:   " + newTrip.getDepartureDate() + "        " );
             System.out.println("  Time of Arrival:     " + newTrip.getArrivalDate() + "        " );
             System.out.println("  Remaining fuel:      " + afterMoveFuel + "        " );
+            System.out.println("  Pay fee:             " + amountToAdd);
             System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
             System.out.println(ANSI_CYAN + "╚════════════════════════════════════════════════════════╝" + ANSI_RESET);
 
@@ -599,16 +608,10 @@ public abstract class Vehicle implements VehicleOperations {
 //            System.out.println("Fuel require: " + fuelRequire);
 //            System.out.println("Current fuel: " + selectedVehicle.getCurrentFuel());
             updateFuel(selectedVehicle.getID(),afterMoveFuel);
-            String userName = findUsernameByPortID(selectedPort.getID());
-            double amountToAdd;
 
-            if (currentContainerVehicle != null) {
-                amountToAdd = totalWeightInVehicle * 10;
-            } else {
-                amountToAdd = 1000;
-            }
-//            System.out.println("User name: "+userName);
-            addCashToUser(userName, amountToAdd);
+
+
+
             System.out.println("Press any key to return...");
             scanner.next();
         }
