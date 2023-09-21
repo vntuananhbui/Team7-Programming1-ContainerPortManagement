@@ -99,10 +99,13 @@ public class StatisticOperation {
             return;
         }
 
+        listTripsBetweenSelectedDates(portID, selectedDate, selectedDate);
+
         displayListTripForDate(portID, selectedDate, arrivalSection, departureSection, arrivalFuelConsumption, departureFuelConsumption);
     }
 
     private static void displayListTripForDate(String portID, String selectedDate, StringBuilder arrivalSection, StringBuilder departureSection, double arrivalFuelConsumption, double departureFuelConsumption) {
+
     }
 
     //statistic 4

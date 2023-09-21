@@ -404,7 +404,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             System.out.println("║  [4] List all ship in port                   ║");
             System.out.println("║  [5] List all trip in specific Day           ║");
             System.out.println("║  [6] List all trip from Day A to day B       ║");
-            System.out.println("║  [7] Calculate total weight of Container     ║");
+//            System.out.println("║  [7] Calculate total weight of Container     ║");
             System.out.println("║  [0] Back to Main Menu                       ║");
             System.out.println("║                                              ║");
             System.out.println("╚══════════════════════════════════════════════╝");
@@ -437,9 +437,9 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
                     listTripsBetweenDates(selectedPort.getID());
                     break;
                 case 7:
-                    calculateTotalWeightContainerPort(selectedPort);
-                    System.out.println("Press any key to return...");
-                    scanner.next();
+//                    calculateTotalWeightContainerPort(selectedPort);
+//                    System.out.println("Press any key to return...");
+//                    scanner.next();
                     break;
                 case 0:
                     return;

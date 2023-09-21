@@ -22,6 +22,7 @@ import static src.main.java.components.team7ContainerPortManagement.models.entit
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.getVehicleByVehicleID;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.*;
 import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readAvailablePortsFromFile;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortContainerMapFromFile;
 
 public class calculateOperation {
     public calculateOperation() throws FileNotFoundException {
@@ -78,7 +79,7 @@ public class calculateOperation {
     public static double calculateTotalWeightContainerPort(Port currentPort) throws IOException {
         double totalWeightContainerInPort = 0;
         List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
-        Map<String, List<String>> vehicleContainerMap = readVehicleContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
+        Map<String, List<String>> vehicleContainerMap = readPortContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
         System.out.println("Available vehicle in port: " + availableVehicleIDs);
         for (String vehicle : availableVehicleIDs) {
             Vehicle selectedVehicle = getVehicleByVehicleID(vehicle);
