@@ -168,7 +168,7 @@ public class AdminMenu {
             System.out.println("║  [3] Port Operations                     ║");
             System.out.println("║  [4] Vehicle Movement                    ║");
             System.out.println("║  [5] Update Port                         ║");
-            System.out.println("║  [6] Change Port                         ║");
+//            System.out.println("║  [6] Change Port                         ║");
 //            System.out.println("║  [7] Port Vehicles                       ║");
             System.out.println("║  [0] Back to Main Menu                   ║");
             System.out.println("╚══════════════════════════════════════════╝");
@@ -194,9 +194,9 @@ public class AdminMenu {
                 case 5:
                     updatePort(selectedPort);
                     break;
-                case 6:
-                    adminPortController();
-                    break;
+//                case 6:
+//                    adminPortController();
+//                    break;
                 case 7:
 
                 case 0:
