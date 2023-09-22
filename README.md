@@ -13,7 +13,11 @@ REPORT: [https://docs.google.com/document/d/1FaGOPAJO7O8iopQ83AJkvImcN2CtLalF50W
 
 | Student Name      | Student ID | Contribution Score |
 | :---------------- | :--------- | :----------------: |
-| Bui Tuan Anh      | S-3970375  |         20         |
+| Bui Tuan Anh      | S-3970375  |         28         |
+| Lao Vinh Khang    | S-3891925  |         28         |
+| Ton Nu Ngoc Khanh | S-3932105  |         28         |
+| Nguyen Tien Dung  | S-3999561  |         16         |
+
 
 
 ## Project Structure
