@@ -77,24 +77,45 @@ public class calculateOperation {
     }
 
     public static double calculateTotalWeightContainerPort(Port currentPort) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
         double totalWeightContainerInPort = 0;
-        List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
-        Map<String, List<String>> vehicleContainerMap = readPortContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/vehicleData/vehicle_containerLoad.txt");
-        System.out.println("Available vehicle in port: " + availableVehicleIDs);
-        for (String vehicle : availableVehicleIDs) {
-            Vehicle selectedVehicle = getVehicleByVehicleID(vehicle);
+//        List<String> availableVehicleIDs = getVehiclesByPortID(currentPort.getID());
+        Map<String, List<String>> portContainerMap = readPortContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
+//        System.out.println("Debug portContainermap: "+portContainerMap);
+        if (portContainerMap.containsKey(currentPort.getID())) {
+            List<String> containerList = portContainerMap.get(currentPort.getID());
+            System.out.println(ANSI_CYAN + "╔══════════════════════════════════════════════════════════════╗");
+            System.out.println("╟" + ANSI_CYAN + "                    Total Container Weight" + "                     ║");
+            System.out.println("╟──────────────────────────────────────────────────────────────╢"+ANSI_RESET);
+            System.out.println("   Total Container in : " + currentPort.getName() +" : "+containerList);
+            for (String container : containerList) {
 
-            List<String> containerIDs = vehicleContainerMap.get(selectedVehicle.getID());
-            if (containerIDs == null || containerIDs.isEmpty()) {
-                totalWeightContainerInPort += 0;
-            } else {
-                for (String container : containerIDs) {
-                    Container ObjectContainerList = getContainerByID(container);
-                    totalWeightContainerInPort += ObjectContainerList.getWeight();
-                }
+                Container getContainer = getContainerByID(container);
+                totalWeightContainerInPort += getContainer.getWeight();
             }
         }
-        System.out.println("Total weight" + totalWeightContainerInPort);
+        //        System.out.println("Available vehicle in port: " + availableVehicleIDs);
+//        for (String vehicle : availableVehicleIDs) {
+//            Vehicle selectedVehicle = getVehicleByVehicleID(vehicle);
+//
+//            List<String> containerIDs = vehicleContainerMap.get(selectedVehicle.getID());
+//            if (containerIDs == null || containerIDs.isEmpty()) {
+//                totalWeightContainerInPort += 0;
+//            } else {
+//                for (String container : containerIDs) {
+//                    Container ObjectContainerList = getContainerByID(container);
+//                    totalWeightContainerInPort += ObjectContainerList.getWeight();
+//                }
+//            }
+//        }
+        System.out.println("   Total weight: " + totalWeightContainerInPort);
+        System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+        System.out.println(ANSI_CYAN + "╚══════════════════════════════════════════════════════════════╝" + ANSI_RESET);
         return totalWeightContainerInPort;
     }
 

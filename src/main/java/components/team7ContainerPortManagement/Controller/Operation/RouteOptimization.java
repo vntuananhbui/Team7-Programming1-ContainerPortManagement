@@ -83,12 +83,23 @@ public class RouteOptimization {
         return currentPort.calculateDistanceTo(selectedPort);
     }
     public static List<Port> selectPortsAndOptimizeRoute(Port selectPort) throws IOException {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RED = "\u001B[31m";
+        String yellow = "\u001B[33m";
         Port currentPort = selectPort; // Get the starting port
         List<Port> selectedPorts = selectPortRoute(selectPort); // Get the list of destination ports
         List<Port> optimizedRoute = optimizeRoute(currentPort, selectedPorts);
 
         // Print the optimized route
-        System.out.println("Optimized Route:");
+//        System.out.println("Optimized Route:");
+        System.out.println();
+        System.out.println(ANSI_CYAN + "╔══════════════════════════════════════════════════════════════╗");
+        System.out.println("╟" + ANSI_CYAN + "                    ROUTE OPTIMIZATION" + "                        ║");
+        System.out.println("╟──────────────────────────────────────────────────────────────╢"+ANSI_RESET);
+
         double totalDistance = 0;
         boolean isFirstPort = true;
 
@@ -99,19 +110,21 @@ public class RouteOptimization {
             if (distanceToPort > 0) {
                 totalDistance += distanceToPort;
 
-                if (!isFirstPort) {
-                    System.out.print(" ===> ");
-                } else {
-                    isFirstPort = false;
-                }
+//                if (!isFirstPort) {
+//                    System.out.print(" ===> ");
+//                } else {
+//                    isFirstPort = false;
+//                }
 
-                System.out.print(currentPort.getName() + " ===> " + destinationPort.getName() + " (" + distanceToPort + " km)");
+                System.out.print("  "+currentPort.getName() + " ===> " + destinationPort.getName() + " (" + distanceToPort + " km)\n");
 
                 currentPort = destinationPort;
             }
         }
         System.out.println();
-        System.out.println("Total Distance: " + totalDistance + " km");
+        System.out.println("  Total Distance: " + totalDistance + " km");
+        System.out.println(yellow + "                       ★ ★ ★ ★ ★" + ANSI_RESET );
+        System.out.println(ANSI_CYAN + "╚══════════════════════════════════════════════════════════════╝" + ANSI_RESET);
 
         return optimizedRoute;
     }

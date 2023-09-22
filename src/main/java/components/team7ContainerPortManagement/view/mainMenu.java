@@ -211,6 +211,8 @@ public class mainMenu {
             // Close the scanner when done
                 case 7:
                     selectPortsAndOptimizeRoute(selectedPort);
+                    System.out.println("Press any key to return...");
+                    scanner.next();
                     break;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
@@ -437,9 +439,9 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
                     listTripsBetweenDates(selectedPort.getID());
                     break;
                 case 7:
-//                    calculateTotalWeightContainerPort(selectedPort);
-//                    System.out.println("Press any key to return...");
-//                    scanner.next();
+                    calculateTotalWeightContainerPort(selectedPort);
+                    System.out.println("Press any key to return...");
+                    scanner.next();
                     break;
                 case 0:
                     return;
