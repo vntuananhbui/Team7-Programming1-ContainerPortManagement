@@ -59,12 +59,12 @@ InteliJ
 - 
 
 ###Account
-Admin:         admin   | Rmit2023@
-StartPort :    pmstart | Rmit2023@
-PortHCM:       pmhcm   | Rmit2023@
-PortDN:        pmdn    | Rmit2023@ 
-PortHP:        pmhp    | Rmit2023@
-PortKG:        pmkg    | Rmit2023@
+Admin:         admin   | Rmit2023@\n
+StartPort :    pmstart | Rmit2023@\n
+PortHCM:       pmhcm   | Rmit2023@\n
+PortDN:        pmdn    | Rmit2023@\n
+PortHP:        pmhp    | Rmit2023@\n
+PortKG:        pmkg    | Rmit2023@\n
 
 ## Build
 
