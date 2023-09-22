@@ -1,16 +1,10 @@
 package src.main.java.components.team7ContainerPortManagement.view;
 
 import src.main.java.components.team7ContainerPortManagement.Controller.Operation.FileUtility;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
+
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
-import src.main.java.components.team7ContainerPortManagement.models.entities.User;
-
 import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.RouteOptimization.calculateDistancePort;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.RouteOptimization.selectPortsAndOptimizeRoute;
 import static src.main.java.components.team7ContainerPortManagement.Controller.Operation.StatisticOperation.*;
@@ -26,11 +20,9 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.V
 import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.unloadContainerTankerTruckMenu;
 import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
 import static src.main.java.components.team7ContainerPortManagement.Controller.portController.updatePort;
-
 import static src.main.java.components.team7ContainerPortManagement.models.entities.CapacityPrice.upgradePortCapacity;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.viewContainerInPort;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.moveToMenu;
-
 import static src.main.java.components.team7ContainerPortManagement.view.AdminMenu.adminMenu;
 import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.*;
 import static src.main.java.components.team7ContainerPortManagement.view.userMainMenu.yellow;
@@ -406,7 +398,7 @@ public static void vehicleControllerMenu(Port selectedPort) throws IOException {
             System.out.println("║  [4] List all ship in port                   ║");
             System.out.println("║  [5] List all trip in specific Day           ║");
             System.out.println("║  [6] List all trip from Day A to day B       ║");
-//            System.out.println("║  [7] Calculate total weight of Container     ║");
+            System.out.println("║  [7] Calculate total weight of Container     ║");
             System.out.println("║  [0] Back to Main Menu                       ║");
             System.out.println("║                                              ║");
             System.out.println("╚══════════════════════════════════════════════╝");

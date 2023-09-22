@@ -3,20 +3,16 @@ package src.main.java.components.team7ContainerPortManagement.Controller.Operati
 import src.main.java.components.team7ContainerPortManagement.models.entities.Container;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Port;
 import src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle;
-import src.main.java.components.team7ContainerPortManagement.models.enums.ContainerType;
+
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.*;
 
 import static java.lang.Math.round;
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.basictruckController.getBasicTruckLineBybasictruckID;
-import static src.main.java.components.team7ContainerPortManagement.Controller.VehicleController.tankertruckController.getTankerTruckByLine;
 import static src.main.java.components.team7ContainerPortManagement.Controller.containerController.*;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Port.getVehiclesByPortID;
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Vehicle.getVehicleByVehicleID;
@@ -90,9 +86,9 @@ public class calculateOperation {
         if (portContainerMap.containsKey(currentPort.getID())) {
             List<String> containerList = portContainerMap.get(currentPort.getID());
             System.out.println(ANSI_CYAN + "╔══════════════════════════════════════════════════════════════╗");
-            System.out.println("╟" + ANSI_CYAN + "                    Total Container Weight" + "                     ║");
+            System.out.println("╟" + ANSI_CYAN + "                    Total Container Weight" + "                    ║");
             System.out.println("╟──────────────────────────────────────────────────────────────╢"+ANSI_RESET);
-            System.out.println("   Total Container in : " + currentPort.getName() +" : "+containerList);
+            System.out.println("   Total Container: "+containerList);
             for (String container : containerList) {
 
                 Container getContainer = getContainerByID(container);

@@ -110,6 +110,8 @@ public class StatisticOperation {
 
     //statistic 4
     public static void listTripsBetweenDates(String portID) {
+        String ANSI_RED = "\u001B[31m";
+        String ANSI_RESET = "\u001B[0m";
         Scanner scanner = new Scanner(System.in);
 
         // Get available dates
@@ -142,7 +144,8 @@ public class StatisticOperation {
         int endOrder = scanner.nextInt();
 
         if (endOrder < 1 || endOrder > availableDates.size() || endOrder < startOrder) {
-            System.out.println("Invalid end date order number or end date must be after the start date.");
+
+            System.out.println(ANSI_RED+"Invalid end date order number or end date must be after the start date." + ANSI_RESET);
             return;
         }
 
