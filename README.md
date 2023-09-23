@@ -182,9 +182,7 @@ The utils handles all the read and write file to database
 8. `view/`
 The view handles all Menu of system
 
-### If the system break by some unpredictable situation: 
-```bash
-# In the main menu please choose number 3 (Reset and Add default data)
+
 ## Test accounts
 1. Admin:
 ```
@@ -218,6 +216,9 @@ password: Rmit2023@
 
 ...
 ```
+### If the system break by some unpredictable situation: 
+```bash
+# In the main menu please choose number 3 (Reset and Add default data)
 
 
 
