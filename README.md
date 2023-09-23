@@ -74,13 +74,46 @@ PortDN:        pmdn    | Rmit2023@
 PortHP:        pmhp    | Rmit2023@
 
 PortKG:        pmkg    | Rmit2023@
+## Test accounts
+1. Admin:
+```
+username: adm,in
+password: Rmit2023@
+```
+2. StartPort:
+```
+username: pmstart
+password: Rmit2023@
+```
+3. Ho Chi Minh Port:
+```
+username: pmhcm
+password: Rmit2023@
+```
+4. Da Nang Port:
+```
+username: pmdn
+password: Rmit2023@
+```
+5. Hai Phong Port:
+```
+username: pmhp
+password: Rmit2023@
+```
+4. Kien Giang Port:
+```
+username: pmkg
+password: Rmit2023@
+
+...
+```
 
 ## Build
 
 
 ```
 .
-└── Team7-Programming1-ContainerPortManagement/
+└── Team7-Programming1-src/
     └── src/
         └── main/
             └── java/
@@ -88,8 +121,19 @@ PortKG:        pmkg    | Rmit2023@
                     └── team7ContainerPortManagement/
                         ├── Controller/
                         │   ├── Operation/
-                        │   │   └── vehicleOperation.java
+                        │   │   ├── calculateOperation.java
+                        │   │   ├── FileUtility.java
+                        │   │   ├── RouteOptimizaiton.java
+                        │   │   ├── StatisticOperation,java
+                        │   │   ├── SatisticOperationAdmin.java
+                        │   │   ├── tripDateSelector.java
+                        │   │   └── VehicleInPort.java
+                        │   ├── UserController/
+                        │   │   ├── AdminController
+                        │   │   ├── PortManagerController
+                        │   │   └── userController
                         │   ├── VehicleController/
+                        │   │   ├── User.java
                         │   │   ├── basictruckContainer.java
                         │   │   ├── reefertruckContainer.java
                         │   │   ├── shipController.java
@@ -119,13 +163,29 @@ PortKG:        pmkg    | Rmit2023@
                                     ├── containerData/
                                     │   └── container.txt
                                     ├── portData/
+                                    │   ├── capacity_cash.txt
                                     │   ├── port.txt
                                     │   ├── port_container.txt
+                                    │   ├── port_portmanager.txt
                                     │   └── port_vehicles.txt
+                                    ├── TripData/
+                                    │   └── trip.txt
+                                    ├── UserData/
+                                    │   ├── admin.txt
+                                    │   └── port_manager.txt
                                     ├── vehicleData/
                                     │   ├── vehicle.txt
                                     │   └── vehicle_containerLoad.txt
                                     └── utils/
+                                        ├── BasicTruckFileUtils/
+                                        │   ├── BasicTruckReadFile.java
+                                        │   └── BasicTruckWriteFile.java
+                                        ├── ReeferTruckFileUtils/
+                                        │   ├── ReeferTruckReadFile.java
+                                        │   └── ReeferTruckWriteFile.java
+                                        ├── TankerTruckFileUtils/
+                                        │   ├── TankerTruckReadFile.java
+                                        │   └── TankerTruckWriteFile.java
                                         ├── ContainerFileUtils/
                                         │   ├── containerReadFile.java
                                         │   └── containerWriteFile.java
@@ -136,12 +196,43 @@ PortKG:        pmkg    | Rmit2023@
                                         │   ├── shipReadFile.java
                                         │   └── shipWriteFile.java
                                         ├── view/
-                                        │   └── mainmenu.java
-                                        │    └── AdminMenu.java
-                                        │    └── UserMainMenu.java
+                                        │   ├── AdminMenu.java
+                                        │   ├── mainMenu.java
+                                        │   └── userMainMenu.java
                                         └── Main.java
 
 ```
+1. `Controller/`
+The Controller is handle all method of system
+
+2. `Operation/`
+The Operation is contains all calculate statistic data of system
+
+3. `UserController/`
+The UserController is handle user functionality
+
+3. `VehicleController/`
+The VehicleController is handle vehicle functionality
+
+4. `models/`
+This models contains all class object of system (Object, Enum, Interface)
+
+5. `entities/`
+This entities stores all object of system (Vehicle, Port, Container)
+
+6. `resource/`
+The resource stores all the txt file of system (Database)
+
+7. `utils/`
+The utils handles all the read and write file to database
+
+8. `view/`
+The view handles all Menu of system
+
+### If the system break by some unpredictable situation: 
+```bash
+# In the main menu please choose number 3 (Reset and Add default data)
+
 
 
 
