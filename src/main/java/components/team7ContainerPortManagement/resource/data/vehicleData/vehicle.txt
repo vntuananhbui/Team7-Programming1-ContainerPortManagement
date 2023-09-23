@@ -3,10 +3,10 @@ Vehicle{ID='btr-p7k3', name='BTruckStart', currentFuel=100000.0, carryingCapacit
 Vehicle{ID='ttr-QnFO', name='TTruckStart', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-StartPort}
 Vehicle{ID='rtr-tK1Z', name='BTruckStart', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-StartPort}
 Vehicle{ID='sh-6SGz', name='BigShipStart', currentFuel=170000.0, carryingCapacity=15000.0, fuelCapacity=170000.0, currentPort=p-StartPort}
-Vehicle{ID='sh-bcgw', name='ShipHCM', currentFuel=98084.0, carryingCapacity=10000.0, fuelCapacity=150000.0, currentPort=p-KG}
-Vehicle{ID='sh-UyAv', name='BigShipHCM', currentFuel=143036.0, carryingCapacity=15000.0, fuelCapacity=170000.0, currentPort=p-StartPort}
-Vehicle{ID='btr-oyeM', name='BTruckHCM', currentFuel=50682.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HP}
-Vehicle{ID='ttr-Ipjr', name='TTruckHCM', currentFuel=73029.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-StartPort}
+Vehicle{ID='sh-bcgw', name='ShipHCM', currentFuel=150000.0, carryingCapacity=10000.0, fuelCapacity=150000.0, currentPort=p-HCM}
+Vehicle{ID='sh-UyAv', name='BigShipHCM', currentFuel=170000.0, carryingCapacity=15000.0, fuelCapacity=170000.0, currentPort=p-HCM}
+Vehicle{ID='btr-oyeM', name='BTruckHCM', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HCM}
+Vehicle{ID='ttr-Ipjr', name='TTruckHCM', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HCM}
 Vehicle{ID='rtr-rIOb', name='RTruckHCM', currentFuel=100000.0, carryingCapacity=7000.0, fuelCapacity=100000.0, currentPort=p-HCM}
 Vehicle{ID='sh-yFNi', name='ShipDN', currentFuel=150000.0, carryingCapacity=10000.0, fuelCapacity=150000.0, currentPort=p-DN}
 Vehicle{ID='sh-9Aad', name='BigShipDN', currentFuel=170000.0, carryingCapacity=15000.0, fuelCapacity=170000.0, currentPort=p-DN}

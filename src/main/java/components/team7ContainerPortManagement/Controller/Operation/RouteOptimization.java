@@ -109,13 +109,6 @@ public class RouteOptimization {
 
             if (distanceToPort > 0) {
                 totalDistance += distanceToPort;
-
-//                if (!isFirstPort) {
-//                    System.out.print(" ===> ");
-//                } else {
-//                    isFirstPort = false;
-//                }
-
                 System.out.print("  "+currentPort.getName() + " ===> " + destinationPort.getName() + " (" + distanceToPort + " km)\n");
 
                 currentPort = destinationPort;

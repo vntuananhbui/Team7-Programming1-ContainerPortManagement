@@ -1,8 +1,6 @@
 package src.main.java.components.team7ContainerPortManagement.models.entities;
 
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.BasicTruck;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.ReeferTrucks;
-import src.main.java.components.team7ContainerPortManagement.models.entities.Truck.TankerTruck;
+
 import src.main.java.components.team7ContainerPortManagement.models.interfaces.VehicleOperations;
 
 import java.io.*;
@@ -75,21 +73,7 @@ public abstract class Vehicle implements VehicleOperations {
         return containers;
     }
 
-//    @Override
-//    public abstract boolean canLoadContainer(Container container);
 
-
-//    public boolean loadContainer(Container container) {
-//        if(canLoadContainer(container) && !container.isLoaded() && container.getPort() == this.currentPort || container.getPort() == null) {
-//            containers.add(container);
-//            container.setLoaded(true);
-//            container.setPort(this.currentPort);
-//            System.out.println(container.getID() + ", Type: " + container.getContainerType() + " has been added");
-//            return true;
-//        }
-//        System.out.println("The container Type: " + container.getContainerType() + " is currently onload, please unload first");
-//        return false;
-//    }
 
     public boolean loadContainer(Container container) {
         String ANSI_RESET = "\u001B[0m";
@@ -137,16 +121,7 @@ public abstract class Vehicle implements VehicleOperations {
 
     @Override
     public boolean unloadContainer(Container container) {
-//        if (containers.contains(container)) {
-//            // Unload the container from this vehicle
-//            currentPort.addContainer(container);
-//            containers.remove(container);
-//            container.setLoaded(false); //container setload is false so it can load to another vehicle
-//        } else {
-//            // The container is not loaded onto this vehicle
-//            System.out.println("Container is not be loaded in this vehicle.");
-//            return false;
-//        }
+
         if (!container.isLoaded()) {
             System.out.println("This container is not currently load on this vehicle");
             return false;
@@ -235,7 +210,6 @@ public abstract class Vehicle implements VehicleOperations {
 
     public static Vehicle getVehicleByLine(String line) throws IOException {
         // Parse the line to extract the fields
-        // Assuming the line format is: Vehicle{ID='sh-3ww2', name='1212', currentFuel=1212.0, carryingCapacity=1212.0, fuelCapacity=1212.0, currentPort=p-uui8}
         String[] parts = line.split(", ");
         String id = parts[0].split("'")[1];
         String name = parts[1].split("'")[1];
@@ -247,10 +221,7 @@ public abstract class Vehicle implements VehicleOperations {
         Port currentPort = getPortByOrderNumber(id, "src/main/java/components/team7ContainerPortManagement/resource/data/portData/port.txt");
         // Create a new Vehicle object
         Vehicle vehicle = new Vehicle(id, name, currentFuel, carryingCapacity, fuelCapacity, 3.5, currentPort) {
-//            @Override
-//            public boolean canLoadContainer(Container container) {
-//                return false;
-//            }
+
 
             @Override
             public double getFuelConsumptionPerKm(Container container) {

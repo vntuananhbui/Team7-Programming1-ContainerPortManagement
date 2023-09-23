@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,8 @@ import static src.main.java.components.team7ContainerPortManagement.Controller.p
 import static src.main.java.components.team7ContainerPortManagement.models.entities.Container.getTotalContainerWeightByPort;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.getContainerByID;
 import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerReadFile.readContainersFromFile;
-import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.writeContainerToPort;
+import static src.main.java.components.team7ContainerPortManagement.utils.ContainerFileUtils.containerWriteFile.*;
+import static src.main.java.components.team7ContainerPortManagement.utils.PortFileUtils.portReadFile.readPortContainerMapFromFile;
 
 public class containerController {
     public static void createContainer(Port currentPort) throws IOException {
@@ -166,11 +168,26 @@ public class containerController {
             Container selectedContainer = filteredContainers.get(selectedIndex);
 
             // Remove the container from the main list
-
             containers.remove(selectedContainer);
-
             // Save the updated list of containers back to the file
             saveContainersToFile(containers);
+            //Delete from port_container
+            Map<String, List<String>> containerPortMap = readPortContainerMapFromFile("src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
+            String containerIDToRemove = selectedContainer.getID();
+
+            System.out.println(containerPortMap);
+            if (containerPortMap.containsKey(portID)) {
+                List<String> currentPortContainersMap = new ArrayList<>(containerPortMap.get(portID));
+                System.out.println(currentPortContainersMap);
+
+                currentPortContainersMap.remove(containerIDToRemove);
+                containerPortMap.put(portID, currentPortContainersMap);
+                System.out.println(containerPortMap);
+            }
+            writePortContainerMapToFile(containerPortMap,"src/main/java/components/team7ContainerPortManagement/resource/data/portData/port_containers.txt");
+
+
+
             System.out.println(      ANSI_CYAN + "╔════════════════════════════════════════════════════════╗");
             System.out.println("╟" + ANSI_CYAN + "                 DELETE CONTAINER SUCCESSFULLY" + "          ║");
             System.out.println("╟────────────────────────────────────────────────────────╢"+ANSI_RESET);

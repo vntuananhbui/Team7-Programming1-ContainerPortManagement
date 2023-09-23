@@ -79,14 +79,7 @@ public class containerWriteFile {
         }
     }
 
-//    public static void writePortContainerMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-//            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-//                writer.write("{" + entry.getKey() + ": " + String.join(", ", entry.getValue()) + "}");
-//                writer.newLine();
-//            }
-//        }
-//    }
+
 public static void writePortContainerMapToFile(Map<String, List<String>> map, String fileName) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {

@@ -325,18 +325,18 @@ public class reefertruckController {
             System.out.println("Press any key to return...: ");
             scanner.next();
             return;        }
-//        else {
-//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-//            System.out.println(ANSI_RED+"║                    Error                     ║");
-//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-//            System.out.println("                                              ");
-//            System.out.println("                 Fail to load!");
-//            System.out.println("                                              ");
-//            System.out.println("╚══════════════════════════════════════════════╝");
-//            System.out.println("Press any key to return...: ");
-//            scanner.next();
-//            return;
-//        }
+        else {
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("                 Fail to load!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
+        }
 
 
         // Define other methods (e.g., readPortsFromFile, displayAvailablePorts) here

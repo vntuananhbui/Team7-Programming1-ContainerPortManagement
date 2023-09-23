@@ -1,5 +1,5 @@
-User{U_ID='u-4821', username='pmstart', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=202000.0}
-User{U_ID='u-2139', username='pmhcm', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=190304.0}
+User{U_ID='u-4821', username='pmstart', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=203000.0}
+User{U_ID='u-2139', username='pmhcm', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=220264.0}
 User{U_ID='u-6077', username='pmdn', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=0.0}
-User{U_ID='u-6607', username='pmhp', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=328100.0}
-User{U_ID='u-9947', username='pmkg', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=325000.0}
+User{U_ID='u-6607', username='pmhp', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=580900.0}
+User{U_ID='u-9947', username='pmkg', Password='4b1dceedea17796faffcfd1ce7283806', userType='port manager', amountCash=326000.0}

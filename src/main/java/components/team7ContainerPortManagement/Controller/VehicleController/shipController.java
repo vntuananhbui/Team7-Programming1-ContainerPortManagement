@@ -277,19 +277,19 @@ public class shipController {
             System.out.println("Press any key to return...");
             scanner.next();
         }
-//        else if (totalWeight > selectedShip.getCarryingCapacity()) {
-//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-//            System.out.println(ANSI_RED+"║                    Error                     ║");
-//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-//            System.out.println("                                              ");
-//            System.out.println("          The total container weight in Tanker Truck is larger than it capacity");
-//            System.out.println("         Total Weight: " + totalWeight +" | " + selectedShip.getCarryingCapacity());
-//            System.out.println("                                              ");
-//            System.out.println("╚══════════════════════════════════════════════╝");
-//            System.out.println("Press any key to return...: ");
-//            scanner.next();
-//            return;
-//        }
+        else if (totalWeight > selectedShip.getCarryingCapacity()) {
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          The total container weight in Tanker Truck is larger than it capacity");
+            System.out.println("         Total Weight: " + totalWeight +" | " + selectedShip.getCarryingCapacity());
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
+        }
         else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
             System.out.println(ANSI_RED+"║                    Error                     ║");
@@ -302,18 +302,18 @@ public class shipController {
             scanner.next();
             return;
         }
-//        else{
-//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-//            System.out.println(ANSI_RED+"║                    Error                     ║");
-//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-//            System.out.println("                                              ");
-//            System.out.println("                 Fail to load!");
-//            System.out.println("                                              ");
-//            System.out.println("╚══════════════════════════════════════════════╝");
-//            System.out.println("Press any key to return...: ");
-//            scanner.next();
-//            return;
-//        }
+        else{
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("                 Fail to load!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
+        }
 
     }
     public static void unloadContainerShipMenu(Port selectedPort) throws IOException {

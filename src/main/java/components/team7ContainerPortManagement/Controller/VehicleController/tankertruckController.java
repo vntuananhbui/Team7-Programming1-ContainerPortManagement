@@ -318,19 +318,19 @@ public class tankertruckController {
             scanner.next();
             return;
         }
-//        else if (totalWeight > selectedTankerTruck.getCarryingCapacity()) {
-//
-//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-//            System.out.println(ANSI_RED+"║                    Error                     ║");
-//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-//            System.out.println("                                              ");
-//            System.out.println("          The total container weight in Vehicle is larger than it capacity");
-//            System.out.println("          Total weight: "+ totalWeight + " Weight limit: " + selectedTankerTruck.getCarryingCapacity());
-//            System.out.println("╚══════════════════════════════════════════════╝");
-//            System.out.println("Press any key to return...: ");
-//            scanner.next();
-//            return;
-//        }
+        else if (totalWeight > selectedTankerTruck.getCarryingCapacity()) {
+
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("          The total container weight in Vehicle is larger than it capacity");
+            System.out.println("          Total weight: "+ totalWeight + " Weight limit: " + selectedTankerTruck.getCarryingCapacity());
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
+        }
         else if(totalConweigthinPort > selectedPort.getStoringCapacity()) {
             System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
             System.out.println(ANSI_RED+"║                    Error                     ║");
@@ -343,19 +343,19 @@ public class tankertruckController {
             scanner.next();
             return;
         }
-//        else {
-//
-//            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
-//            System.out.println(ANSI_RED+"║                    Error                     ║");
-//            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
-//            System.out.println("                                              ");
-//            System.out.println("                 Fail to load!");
-//            System.out.println("                                              ");
-//            System.out.println("╚══════════════════════════════════════════════╝");
-//            System.out.println("Press any key to return...: ");
-//            scanner.next();
-//            return;
-//        }
+        else {
+
+            System.out.println(ANSI_RED+"╔══════════════════════════════════════════════╗");
+            System.out.println(ANSI_RED+"║                    Error                     ║");
+            System.out.println(ANSI_RED+"║──────────────────────────────────────────────║" + reset);
+            System.out.println("                                              ");
+            System.out.println("                 Fail to load!");
+            System.out.println("                                              ");
+            System.out.println("╚══════════════════════════════════════════════╝");
+            System.out.println("Press any key to return...: ");
+            scanner.next();
+            return;
+        }
 
 
 
