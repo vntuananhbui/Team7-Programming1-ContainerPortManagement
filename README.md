@@ -61,53 +61,6 @@ InteliJ
 
 - Diagram: Draw.io
 
-
-### Account
-Admin:         admin   | Rmit2023@
-
-StartPort :    pmstart | Rmit2023@
-
-PortHCM:       pmhcm   | Rmit2023@
-
-PortDN:        pmdn    | Rmit2023@
-
-PortHP:        pmhp    | Rmit2023@
-
-PortKG:        pmkg    | Rmit2023@
-## Test accounts
-1. Admin:
-```
-username: adm,in
-password: Rmit2023@
-```
-2. StartPort:
-```
-username: pmstart
-password: Rmit2023@
-```
-3. Ho Chi Minh Port:
-```
-username: pmhcm
-password: Rmit2023@
-```
-4. Da Nang Port:
-```
-username: pmdn
-password: Rmit2023@
-```
-5. Hai Phong Port:
-```
-username: pmhp
-password: Rmit2023@
-```
-4. Kien Giang Port:
-```
-username: pmkg
-password: Rmit2023@
-
-...
-```
-
 ## Build
 
 
@@ -232,6 +185,41 @@ The view handles all Menu of system
 ### If the system break by some unpredictable situation: 
 ```bash
 # In the main menu please choose number 3 (Reset and Add default data)
+## Test accounts
+1. Admin:
+```
+username: adm,in
+password: Rmit2023@
+```
+2. StartPort:
+```
+username: pmstart
+password: Rmit2023@
+```
+3. Ho Chi Minh Port:
+```
+username: pmhcm
+password: Rmit2023@
+```
+4. Da Nang Port:
+```
+username: pmdn
+password: Rmit2023@
+```
+5. Hai Phong Port:
+```
+username: pmhp
+password: Rmit2023@
+```
+4. Kien Giang Port:
+```
+username: pmkg
+password: Rmit2023@
+
+...
+```
+
+
 
 
 
