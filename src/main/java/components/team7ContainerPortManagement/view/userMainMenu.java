@@ -58,8 +58,10 @@ public class userMainMenu {
                         break;
                     case 4:
                         System.out.println("Exiting the program. Goodbye!");
-                        scanner.close();
-                        return;
+                        System.exit(0);
+                        break;
+//                        scanner.close();
+//                        return;
                     default:
                         System.out.println("Invalid choice. Please select a valid option.");
                 }
