@@ -35,7 +35,7 @@ This is an assignment project for COSC2081 Programming 1 offered at RMIT Univers
 
 ### Project detail: 
 </br>
-Container Port Management
+### Container Port Management System
 </br>
 As the global economy develops steadily, the amount of traffic between container ports is adding
 pressure to the ports to increase capacity. Besides physical expansion, the alternative solution to
@@ -57,11 +57,9 @@ InteliJ
 ### Supporting tools used
 
 - Diagram: Draw.io
-- Packages: java.utils
 
-- 
 
-###Account
+### Account
 Admin:         admin   | Rmit2023@
 
 StartPort :    pmstart | Rmit2023@
@@ -136,6 +134,8 @@ PortKG:        pmkg    | Rmit2023@
                                         │   └── shipWriteFile.java
                                         ├── view/
                                         │   └── mainmenu.java
+                                        │    └── AdminMenu.java
+                                        │    └── UserMainMenu.java
                                         └── Main.java
 
 ```
